@@ -1,0 +1,18 @@
+﻿{
+  "name": "만보기 다마고치 (Pedometer Tamagotchi)",
+  "short_name": "다마고치 만보기",
+  "description": "걸음 수로 키우는 나만의 레트로 다마고치 앱",
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1e293b",
+  "theme_color": "#1e293b",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

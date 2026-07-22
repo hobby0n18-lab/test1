@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#2e3b56" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </radialGradient>
+    
+    <!-- Tamagotchi Shell Gradient -->
+    <linearGradient id="shell-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7eb3" />
+      <stop offset="100%" stop-color="#ff5c8d" />
+    </linearGradient>
+    
+    <!-- LCD Screen Gradient -->
+    <linearGradient id="lcd-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a3c714" />
+      <stop offset="100%" stop-color="#8bac0f" />
+    </linearGradient>
+    
+    <!-- Drop Shadow for Game Console -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <!-- Base Canvas Background (Maskable Area friendly) -->
+  <rect width="512" height="512" rx="100" fill="url(#bg-grad)" />
+
+  <!-- Outer ambient ring -->
+  <circle cx="256" cy="256" r="230" fill="none" stroke="rgba(255, 92, 141, 0.15)" stroke-width="8" />
+
+  <!-- Tamagotchi Device Body -->
+  <g filter="url(#shadow)">
+    <!-- Oval Egg-shaped shell -->
+    <ellipse cx="256" cy="250" rx="170" ry="200" fill="url(#shell-grad)" stroke="#27020d" stroke-width="12" />
+    
+    <!-- Glossy Highlight highlight -->
+    <path d="M 120 180 A 140 170 0 0 1 392 180 A 155 180 0 0 0 120 180 Z" fill="rgba(255, 255, 255, 0.25)" />
+    
+    <!-- Inner Dark border for LCD Area -->
+    <rect x="136" y="120" width="240" height="175" rx="16" fill="#1e293b" stroke="#27020d" stroke-width="10" />
+    
+    <!-- Tiny Status LED -->
+    <circle cx="160" cy="140" r="5" fill="#ef4444" />
+    <circle cx="160" cy="140" r="2" fill="#ff9999" />
+    
+    <!-- LCD Green screen -->
+    <rect x="156" y="150" width="200" height="125" rx="8" fill="url(#lcd-grad)" stroke="#0f380f" stroke-width="4" />
+    
+    <!-- Retro LCD Grid Overlay lines (Subtle) -->
+    <path d="M 156 181 L 356 181 M 156 212 L 356 212 M 156 243 L 356 243" stroke="#9aac10" stroke-width="1.5" stroke-opacity="0.3" />
+
+    <!-- FOOTPRINT PIXEL ART INSIDE LCD SCREEN -->
+    <!-- Pixel Footprint 1 (Left, slightly angled) -->
+    <g fill="#0f380f">
+      <!-- Main heel pad (3x3 big pixels, represented as rects) -->
+      <rect x="180" y="210" width="24" height="24" rx="3" />
+      <rect x="184" y="200" width="16" height="10" rx="2" />
+      <!-- Toes (3 dots) -->
+      <circle cx="178" cy="188" r="4.5" />
+      <circle cx="192" cy="184" r="5.5" />
+      <circle cx="206" cy="188" r="4.5" />
+    </g>
+
+    <!-- Pixel Footprint 2 (Right, slightly forward) -->
+    <g fill="#0f380f" opacity="0.95">
+      <!-- Main heel pad -->
+      <rect x="236" y="190" width="24" height="24" rx="3" />
+      <rect x="240" y="180" width="16" height="10" rx="2" />
+      <!-- Toes -->
+      <circle cx="234" cy="168" r="4.5" />
+      <circle cx="248" cy="164" r="5.5" />
+      <circle cx="262" cy="168" r="4.5" />
+    </g>
+    
+    <!-- Little Tamagotchi Character (Pixel Duck/Slime shape next to steps) -->
+    <g fill="#0f380f">
+      <!-- Body -->
+      <rect x="296" y="215" width="30" height="25" rx="4" />
+      <rect x="302" y="200" width="20" height="16" rx="4" />
+      <!-- Eye -->
+      <rect x="316" y="204" width="4" height="4" fill="#8bac0f" />
+      <!-- Beak -->
+      <polygon points="322,208 330,208 326,213" fill="#0f380f" />
+      <!-- Feet -->
+      <rect x="300" y="240" width="6" height="4" />
+      <rect x="318" y="240" width="6" height="4" />
+    </g>
+
+    <!-- UI Text simulation on LCD screen -->
+    <text x="166" y="172" font-family="monospace" font-weight="900" font-size="12" fill="#0f380f" letter-spacing="1">STEP TO GROW</text>
+    
+    <!-- 3 Buttons under screen -->
+    <!-- Button A -->
+    <circle cx="180" cy="370" r="22" fill="#facc15" stroke="#27020d" stroke-width="6" />
+    <text x="175" y="405" font-family="monospace" font-weight="900" font-size="12" fill="#ffffff" stroke="#27020d" stroke-width="2" paint-order="stroke fill">A</text>
+    
+    <!-- Button B -->
+    <circle cx="256" cy="380" r="22" fill="#facc15" stroke="#27020d" stroke-width="6" />
+    <text x="251" y="415" font-family="monospace" font-weight="900" font-size="12" fill="#ffffff" stroke="#27020d" stroke-width="2" paint-order="stroke fill">B</text>
+    
+    <!-- Button C -->
+    <circle cx="332" cy="370" r="22" fill="#facc15" stroke="#27020d" stroke-width="6" />
+    <text x="327" y="405" font-family="monospace" font-weight="900" font-size="12" fill="#ffffff" stroke="#27020d" stroke-width="2" paint-order="stroke fill">C</text>
+
+    <!-- Retro Line details on shell -->
+    <path d="M 120 320 A 150 150 0 0 0 392 320" fill="none" stroke="#e84a7a" stroke-width="8" stroke-linecap="round" />
+  </g>
+</svg>
