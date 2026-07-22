@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'pedometer-tamagotchi-v4';
+﻿const CACHE_NAME = 'pedometer-tamagotchi-v5';
 const ASSETS = [
   'index.html',
   'manifest.json',
