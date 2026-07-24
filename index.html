@@ -1056,6 +1056,10 @@
         padding: 8px 16px !important;
         bottom: 25px !important;
       }
+      .home-bubble-options-container {
+        bottom: 10px !important;
+        gap: 6px !important;
+      }
       .train-guide-header {
         font-size: 1.35rem !important;
       }
@@ -1285,9 +1289,14 @@
       box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
       display: flex;
       flex-direction: column;
-      max-height: 220px;
-      overflow-y: auto;
+      overflow: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
       font-family: 'NeoDunggeunmo', monospace;
+    }
+    
+    .home-bubble-box::-webkit-scrollbar {
+      display: none;
     }
     
     .home-bubble-text {
@@ -1347,11 +1356,54 @@
       box-shadow: 2px 2px 0 var(--lcd-mid);
       z-index: 100;
       image-rendering: pixelated;
+      animation: pulse-centered-animation 2.4s infinite ease-in-out;
     }
     
     .hatch-now-btn:active {
       transform: translate(-50%, 1px) !important;
       box-shadow: 1px 1px 0 var(--lcd-mid) !important;
+      animation: none;
+    }
+
+    /* Dialogue Options Container at bottom of stage */
+    .home-bubble-options-container {
+      position: absolute;
+      bottom: 12px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 100;
+    }
+    
+    /* Pulse Animations for Dialogue Buttons */
+    @keyframes pulse-animation {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.03);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes pulse-centered-animation {
+      0% {
+        transform: translateX(-50%) scale(1);
+      }
+      50% {
+        transform: translateX(-50%) scale(1.04);
+      }
+      100% {
+        transform: translateX(-50%) scale(1);
+      }
+    }
+    
+    .pulse-button {
+      animation: pulse-animation 2.4s infinite ease-in-out;
     }
 
     /* Training Guide Modal custom classes */
@@ -5327,139 +5379,43 @@
       const title = state.userTitle || '주인님';
       
       let bubbleText = '';
-      let optionsHTML = '';
 
       if (isEgg) {
         bubbleText = `${title}! 저는 아직 알 속에 있어요. 어서 부화시켜서 저랑 더 많은 이야기를 나눠요!`;
-        optionsHTML = '';
       } else {
         switch (interactionStep) {
           case 'ask_name':
             bubbleText = "반가워요! 제가 앞으로 뭐라고 불러드리면 좋을까요?";
-            optionsHTML = `
-              <div style="display: flex; gap: 4px; margin-top: 5px; width: 100%;">
-                <input type="text" id="user-title-input" placeholder="호칭 입력 (최대 6자)" maxlength="6" style="
-                  flex: 1;
-                  background: var(--lcd-light);
-                  color: var(--lcd-dark);
-                  border: 2px solid var(--lcd-dark);
-                  padding: 3px 5px;
-                  font-family: 'NeoDunggeunmo', monospace;
-                  font-size: 0.55rem;
-                  border-radius: 0;
-                  outline: none;
-                  box-sizing: border-box;
-                " onkeydown="if(event.key === 'Enter') confirmUserTitle()" />
-                <button class="home-bubble-btn" onclick="confirmUserTitle()" style="margin-top: 0; padding: 3px 6px; border-radius: 0; flex-shrink: 0; border: 2px solid var(--lcd-dark); background-color: var(--lcd-dark); color: var(--lcd-light);">확인</button>
-              </div>
-            `;
             break;
-            
           case 'start':
             bubbleText = `반가워요, ${title}! 오늘 저랑 어떤 대화를 하고 싶으신가요?`;
-            optionsHTML = `
-              <button class="home-bubble-btn" onclick="setInteractionStep('mood')">기분 물어보기</button>
-              <button class="home-bubble-btn" onclick="setInteractionStep('schedule')">일정 등록하기</button>
-              <button class="home-bubble-btn" onclick="setInteractionStep('game_ready')">숫자 맞추기 하기</button>
-            `;
             break;
-            
           case 'mood':
             bubbleText = `${title}과 함께할 수 있어서 저는 너무 행복해요! ${title}의 오늘 기분은 어떠신가요?`;
-            optionsHTML = `
-              <button class="home-bubble-btn" onclick="setInteractionStep('mood_good')">나도 기분 좋아!</button>
-              <button class="home-bubble-btn" onclick="setInteractionStep('mood_sad')">조금 우울해...</button>
-              <button class="home-bubble-btn exit" onclick="setInteractionStep('start')">이전으로</button>
-            `;
             break;
-            
           case 'mood_good':
             bubbleText = `정말 기쁜 소식이네요! ${title}이 행복하시면 저도 덩달아 둥실둥실 신이 나요! 늘 행복한 하루 되셔요!`;
-            optionsHTML = `
-              <button class="home-bubble-btn" onclick="setInteractionStep('start')">처음으로</button>
-            `;
             break;
-            
           case 'mood_sad':
             bubbleText = `에구... 속상한 일이 있으셨군요. 제가 곁에서 애교도 부리고 응원해 드릴 테니 힘내세요! 파이팅이에요!`;
-            optionsHTML = `
-              <button class="home-bubble-btn" onclick="setInteractionStep('start')">처음으로</button>
-            `;
             break;
-            
           case 'schedule':
             bubbleText = `오늘 하실 중요한 일을 직접 입력해 주세요! 제가 일정으로 기록해 드릴게요.`;
-            optionsHTML = `
-              <div style="display: flex; gap: 4px; margin-top: 5px; width: 100%;">
-                <input type="text" id="checklist-input" placeholder="일정 입력 (최대 15자)" maxlength="15" style="
-                  flex: 1;
-                  background: var(--lcd-light);
-                  color: var(--lcd-dark);
-                  border: 2px solid var(--lcd-dark);
-                  padding: 3px 5px;
-                  font-family: 'NeoDunggeunmo', monospace;
-                  font-size: 0.55rem;
-                  border-radius: 0;
-                  outline: none;
-                  box-sizing: border-box;
-                " onkeydown="if(event.key === 'Enter') confirmAddChecklistItem()" />
-                <button class="home-bubble-btn" onclick="confirmAddChecklistItem()" style="margin-top: 0; padding: 3px 6px; border-radius: 0; flex-shrink: 0; border: 2px solid var(--lcd-dark); background-color: var(--lcd-dark); color: var(--lcd-light);">등록</button>
-              </div>
-              <button class="home-bubble-btn exit" onclick="setInteractionStep('start')" style="margin-top: 4px;">이전으로</button>
-            `;
             break;
-            
           case 'schedule_added':
             bubbleText = "오늘의 일정을 체크리스트에 등록했어요! 화면 구석에서 확인하시고 실천해 보셔요!";
-            optionsHTML = `
-              <button class="home-bubble-btn" onclick="setInteractionStep('start')">처음으로</button>
-            `;
             break;
-            
           case 'game_ready':
             bubbleText = "1부터 10 사이의 숫자 맞추기(Up/Down) 게임을 시작할까요? 정답을 맞추면 경험치 +5 EXP!";
-            optionsHTML = `
-              <button class="home-bubble-btn" onclick="startUpDownGame()">게임 시작하기!</button>
-              <button class="home-bubble-btn exit" onclick="setInteractionStep('start')">이전으로</button>
-            `;
             break;
-            
           case 'game_playing':
             bubbleText = `${upDownStatusText}`;
-            optionsHTML = `
-              <div style="display: flex; gap: 4px; margin-top: 5px; width: 100%;">
-                <input type="number" id="updown-input" min="1" max="10" placeholder="1~10 입력" style="
-                  flex: 1;
-                  background: var(--lcd-light);
-                  color: var(--lcd-dark);
-                  border: 2px solid var(--lcd-dark);
-                  padding: 3px 5px;
-                  font-family: 'NeoDunggeunmo', monospace;
-                  font-size: 0.55rem;
-                  border-radius: 0;
-                  outline: none;
-                  box-sizing: border-box;
-                " onkeydown="if(event.key === 'Enter') submitUpDownGuess()" />
-                <button class="home-bubble-btn" onclick="submitUpDownGuess()" style="margin-top: 0; padding: 3px 6px; border-radius: 0; flex-shrink: 0; border: 2px solid var(--lcd-dark); background-color: var(--lcd-dark); color: var(--lcd-light);">확인</button>
-              </div>
-              <button class="home-bubble-btn exit" onclick="setInteractionStep('start')" style="margin-top: 4px;">그만하기</button>
-            `;
             break;
-            
           case 'game_win':
             bubbleText = `우와, 정답이에요! 제가 생각한 숫자는 [<strong>${upDownTarget}</strong>]이었답니다!<br><strong>${upDownAttempts}</strong>번 만에 맞추셨네요! (경험치 +5 EXP)`;
-            optionsHTML = `
-              <button class="home-bubble-btn" onclick="startUpDownGame()">한 판 더!</button>
-              <button class="home-bubble-btn exit" onclick="setInteractionStep('start')">돌아가기</button>
-            `;
             break;
-
           case 'game_win_lvlup':
             bubbleText = `우와, 정답이에요! [<strong>${upDownTarget}</strong>]을(를) 맞추셨네요! 게다가 레벨업까지 하셨어요! 축하드려요, ${title}!`;
-            optionsHTML = `
-              <button class="home-bubble-btn" onclick="startUpDownGame()">한 판 더!</button>
-              <button class="home-bubble-btn exit" onclick="setInteractionStep('start')">돌아가기</button>
-            `;
             break;
         }
       }
@@ -5467,11 +5423,140 @@
       return `
         <div class="home-bubble-box" onclick="event.stopPropagation()">
           <div class="home-bubble-text">${bubbleText}</div>
-          <div class="home-bubble-options">
-            ${optionsHTML}
-          </div>
         </div>
       `;
+    }
+
+    function getHomeBubbleOptions() {
+      const isEgg = (state.character.stage === 1);
+      const title = state.userTitle || '주인님';
+      let optionsHTML = '';
+
+      if (isEgg) {
+        return '';
+      }
+
+      switch (interactionStep) {
+        case 'ask_name':
+          optionsHTML = `
+            <div style="display: flex; gap: 4px; width: 100%;">
+              <input type="text" id="user-title-input" placeholder="호칭 입력 (최대 6자)" maxlength="6" style="
+                flex: 1;
+                background: var(--lcd-light);
+                color: var(--lcd-dark);
+                border: 2px solid var(--lcd-dark);
+                padding: 4px 6px;
+                font-family: 'NeoDunggeunmo', monospace;
+                font-size: 0.65rem;
+                border-radius: 0;
+                outline: none;
+                box-sizing: border-box;
+              " onkeydown="if(event.key === 'Enter') confirmUserTitle()" />
+              <button class="home-bubble-btn pulse-button" onclick="confirmUserTitle()" style="margin-top: 0; padding: 4px 8px; border-radius: 0; flex-shrink: 0; border: 2px solid var(--lcd-dark); background-color: var(--lcd-dark); color: var(--lcd-light);">확인</button>
+            </div>
+          `;
+          break;
+          
+        case 'start':
+          optionsHTML = `
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('mood')">기분 물어보기</button>
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('schedule')">일정 등록하기</button>
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('game_ready')">숫자 맞추기 하기</button>
+          `;
+          break;
+          
+        case 'mood':
+          optionsHTML = `
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('mood_good')">나도 기분 좋아!</button>
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('mood_sad')">조금 우울해...</button>
+            <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">이전으로</button>
+          `;
+          break;
+          
+        case 'mood_good':
+          optionsHTML = `
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('start')">처음으로</button>
+          `;
+          break;
+          
+        case 'mood_sad':
+          optionsHTML = `
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('start')">처음으로</button>
+          `;
+          break;
+          
+        case 'schedule':
+          optionsHTML = `
+            <div style="display: flex; gap: 4px; width: 100%;">
+              <input type="text" id="checklist-input" placeholder="일정 입력 (최대 15자)" maxlength="15" style="
+                flex: 1;
+                background: var(--lcd-light);
+                color: var(--lcd-dark);
+                border: 2px solid var(--lcd-dark);
+                padding: 4px 6px;
+                font-family: 'NeoDunggeunmo', monospace;
+                font-size: 0.65rem;
+                border-radius: 0;
+                outline: none;
+                box-sizing: border-box;
+              " onkeydown="if(event.key === 'Enter') confirmAddChecklistItem()" />
+              <button class="home-bubble-btn pulse-button" onclick="confirmAddChecklistItem()" style="margin-top: 0; padding: 4px 8px; border-radius: 0; flex-shrink: 0; border: 2px solid var(--lcd-dark); background-color: var(--lcd-dark); color: var(--lcd-light);">등록</button>
+            </div>
+            <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')" style="margin-top: 4px;">이전으로</button>
+          `;
+          break;
+          
+        case 'schedule_added':
+          optionsHTML = `
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('start')">처음으로</button>
+          `;
+          break;
+          
+        case 'game_ready':
+          optionsHTML = `
+            <button class="home-bubble-btn pulse-button" onclick="startUpDownGame()">게임 시작하기!</button>
+            <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">이전으로</button>
+          `;
+          break;
+          
+        case 'game_playing':
+          optionsHTML = `
+            <div style="display: flex; gap: 4px; width: 100%;">
+              <input type="number" id="updown-input" min="1" max="10" placeholder="1~10 입력" style="
+                flex: 1;
+                background: var(--lcd-light);
+                color: var(--lcd-dark);
+                border: 2px solid var(--lcd-dark);
+                padding: 4px 6px;
+                font-family: 'NeoDunggeunmo', monospace;
+                font-size: 0.65rem;
+                border-radius: 0;
+                outline: none;
+                box-sizing: border-box;
+              " onkeydown="if(event.key === 'Enter') submitUpDownGuess()" />
+              <button class="home-bubble-btn pulse-button" onclick="submitUpDownGuess()" style="margin-top: 0; padding: 4px 8px; border-radius: 0; flex-shrink: 0; border: 2px solid var(--lcd-dark); background-color: var(--lcd-dark); color: var(--lcd-light);">확인</button>
+            </div>
+            <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')" style="margin-top: 4px;">그만하기</button>
+          `;
+          break;
+          
+        case 'game_win':
+          optionsHTML = `
+            <button class="home-bubble-btn pulse-button" onclick="startUpDownGame()">한 판 더!</button>
+            <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">돌아가기</button>
+          `;
+          break;
+
+        case 'game_win_lvlup':
+          optionsHTML = `
+            <button class="home-bubble-btn pulse-button" onclick="startUpDownGame()">한 판 더!</button>
+            <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">돌아가기</button>
+          `;
+          break;
+      }
+
+      return optionsHTML;
+
     }
 
     function saveUserTitle(title) {
@@ -5648,6 +5733,7 @@
 
       const xpRatio = Math.min((char.exp / char.maxExp) * 100, 100);
 
+      const isEgg = (char.stage === 1);
       html = `
         ${bgSVG}
         <div class="lcd-home-view">
@@ -5670,6 +5756,13 @@
                   `).join('')}
                   ${state.checklist.length > 3 ? `<div style="font-size:0.43rem; text-align:center; color:var(--lcd-mid); margin-top:2px;">외 ${state.checklist.length - 3}개</div>` : ''}
                 </div>
+              </div>
+            ` : ''}
+
+            <!-- Dialogue Options Container -->
+            ${(isHomeBubbleOpen && !isEgg) ? `
+              <div class="home-bubble-options-container" onclick="event.stopPropagation()">
+                ${getHomeBubbleOptions()}
               </div>
             ` : ''}
           </div>
