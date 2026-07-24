@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pedometer-tamagotchi-v19';
+const CACHE_NAME = 'pedometer-tamagotchi-v20';
 const ASSETS = [
   './',
   'index.html',
