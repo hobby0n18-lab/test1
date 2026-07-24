@@ -3466,7 +3466,8 @@
         vibration: true,
         sound: true,
         largeFont: false
-      }
+      },
+      trainingLevels: { strength: 1, agility: 1, luck: 1 }
     };
 
     const PIXEL_ICONS = {
@@ -3529,6 +3530,7 @@
           if (!parsed.accessories) parsed.accessories = { a_glasses: false, a_ribbon: false, a_crown: false };
           if (!parsed.equipped) parsed.equipped = { a_glasses: false, a_ribbon: false, a_crown: false };
           if (!parsed.checklist) parsed.checklist = [];
+          if (!parsed.trainingLevels) parsed.trainingLevels = { strength: 1, agility: 1, luck: 1 };
           if (parsed.userTitle === undefined) parsed.userTitle = null;
 
           // Migrate old gold (points) to steps
@@ -3926,10 +3928,15 @@
         if (item.id === 'strength') clickHandler = `onclick="startStrengthTraining()"`;
         else if (item.id === 'luck') clickHandler = `onclick="startLuckTraining()"`;
         else if (item.id === 'agility') clickHandler = `onclick="startAgilityTraining()"`;
+
+        const lvl = state.trainingLevels ? state.trainingLevels[item.id] : 1;
+        const lvlStr = lvl > 10 ? 'lv 무한' : `lv ${lvl}`;
+        const displayName = `${item.name} ${lvlStr}`;
+
         return `
                 <div class="lcd-list-item" ${clickHandler}
                   style="${isClickable ? 'cursor:pointer;' : 'cursor:default;opacity:0.6;'}">
-                  <span>${PIXEL_ICONS[item.id] || ''} ${item.name}</span>
+                  <span>${PIXEL_ICONS[item.id] || ''} ${displayName}</span>
                   <span>${item.cost}걸음</span>
                 </div>
               `;
@@ -3981,7 +3988,10 @@
       // Deduct steps
       state.steps -= 500;
       eggLuckClears = 0;
-      addLog("행운 훈련 시작! (-500걸음)", "system");
+      
+      const tLvl = state.trainingLevels ? state.trainingLevels.luck : 1;
+      const lvlStr = tLvl > 10 ? '무한' : tLvl;
+      addLog(`행운 훈련 lv ${lvlStr} 시작! (-500걸음)`, "system");
       save();
 
       // Start game
@@ -4004,7 +4014,10 @@
       if (trainingIcon) trainingIcon.classList.remove('selected');
 
       state.steps -= 500;
-      addLog("민첩 훈련 시작! (-500걸음)", "system");
+      
+      const tLvl = state.trainingLevels ? state.trainingLevels.agility : 1;
+      const lvlStr = tLvl > 10 ? '무한' : tLvl;
+      addLog(`민첩 훈련 lv ${lvlStr} 시작! (-500걸음)`, "system");
       save();
 
       initSnakeGame();
@@ -4015,7 +4028,9 @@
 
       const char = state.character;
       const isEgg = (char.stage === 1);
-      const targetApples = isEgg ? Infinity : Math.max(1, char.level * 2);
+      const tLvl = state.trainingLevels ? state.trainingLevels.agility : 1;
+      const isInfinite = (tLvl > 10);
+      const targetApples = (isEgg || isInfinite) ? Infinity : Math.max(1, tLvl * 2);
 
       const canvasWidth = 360;
       const canvasHeight = 405;
@@ -4195,6 +4210,12 @@
                   state.steps += rewardSteps;
                   addLog(`민첩 훈련 종료! 먹은 사과 수 ${applesEaten}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
                   save();
+                } else if (isInfinite) {
+                  const expReward = applesEaten * 2;
+                  char.exp += expReward;
+                  addLog(`민첩 훈련 종료! 먹은 사과 수 ${applesEaten}개, EXP +${expReward} 획득!`, "evolve");
+                  checkEvolution();
+                  save();
                 } else {
                   addLog("민첩 훈련 실패... 벽에 부딪혔습니다.", "system");
                 }
@@ -4207,6 +4228,12 @@
                   const rewardSteps = applesEaten * 50;
                   state.steps += rewardSteps;
                   addLog(`민첩 훈련 종료! 먹은 사과 수 ${applesEaten}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
+                  save();
+                } else if (isInfinite) {
+                  const expReward = applesEaten * 2;
+                  char.exp += expReward;
+                  addLog(`민첩 훈련 종료! 먹은 사과 수 ${applesEaten}개, EXP +${expReward} 획득!`, "evolve");
+                  checkEvolution();
                   save();
                 } else {
                   addLog("민첩 훈련 실패... 몸에 부딪혔습니다.", "system");
@@ -4341,8 +4368,9 @@
 
       const char = state.character;
       const isEgg = (char.stage === 1);
-      const N = isEgg ? 8 : Math.min(8, 3 + char.level);
-      const numMines = isEgg ? Math.min(40, 2 + eggLuckClears) : Math.min(Math.floor(N * N * 0.25), Math.max(2, char.level * 2));
+      const tLvl = state.trainingLevels ? state.trainingLevels.luck : 1;
+      const N = isEgg ? 8 : Math.min(8, 3 + Math.min(10, tLvl));
+      const numMines = isEgg ? Math.min(40, 2 + eggLuckClears) : Math.min(Math.floor(N * N * 0.25), Math.max(2, Math.min(10, tLvl) * 2));
 
       const canvasWidth = 360;
       const canvasHeight = 405;
@@ -4522,9 +4550,15 @@
                   }
                 }
               } else {
-                const expReward = 20 + char.level * 2;
+                const expReward = 20 + Math.min(10, tLvl) * 2;
                 char.exp += expReward;
                 addLog(`행운 훈련 성공! EXP +${expReward} 획득!`, "evolve");
+                if (state.trainingLevels.luck <= 10) {
+                  state.trainingLevels.luck++;
+                  const nextLvl = state.trainingLevels.luck;
+                  const nextLvlStr = nextLvl > 10 ? '무한' : nextLvl;
+                  addLog(`훈련 성공! 행운 훈련 레벨이 ${nextLvlStr}(으)로 상승했습니다!`, "evolve");
+                }
                 checkEvolution();
                 save();
                 if (overlayBtn) {
@@ -4698,7 +4732,10 @@
 
       // Deduct steps
       state.steps -= 500;
-      addLog("근력 훈련 시작! (-500걸음)", "system");
+      
+      const tLvl = state.trainingLevels ? state.trainingLevels.strength : 1;
+      const lvlStr = tLvl > 10 ? '무한' : tLvl;
+      addLog(`근력 훈련 lv ${lvlStr} 시작! (-500걸음)`, "system");
       save();
 
       // Start game
@@ -4977,10 +5014,10 @@
                 }
                 // Lenses below
                 else if (frameWidth >= 6) {
-                  // Reversed Isosceles Trapezoid: Top (eyeY+1) is 3 cols, Bottom (eyeY+2) is 2 cols
+                  // Reversed Isosceles Trapezoid: Top (eyeY+1) is 4 cols, Bottom (eyeY+2) is 2 cols
                   if (y === eyeY + 1) {
-                    const isLeftLens = (x >= leftEyeX - 1 && x <= leftEyeX + 1);
-                    const isRightLens = (x >= rightEyeX - 1 && x <= rightEyeX + 1);
+                    const isLeftLens = (x >= leftEyeX - 1 && x <= leftEyeX + 2);
+                    const isRightLens = (x >= rightEyeX - 2 && x <= rightEyeX + 1);
                     if (isLeftLens || isRightLens) fill = '#111827';
                   } else if (y === eyeY + 2) {
                     const isLeftLens = (x >= leftEyeX && x <= leftEyeX + 1);
@@ -5052,8 +5089,10 @@
 
       const char = state.character;
       const isEgg = (char.stage === 1);
-      const targetScore = isEgg ? Infinity : char.level * 5;
-      const totalBricks = (char.level * 6) * 2;
+      const tLvl = state.trainingLevels ? state.trainingLevels.strength : 1;
+      const isInfinite = (tLvl > 10);
+      const targetScore = (isEgg || isInfinite) ? Infinity : Math.min(10, tLvl) * 5;
+      const totalBricks = isInfinite ? 6000 : (isEgg ? 12 : (Math.min(10, tLvl) * 6) * 2);
 
       const canvasWidth = 360;
       const canvasHeight = 405;
@@ -5067,7 +5106,7 @@
       let count = 0;
       let row = 0;
 
-      const rowOffset = (char.level - 1) * 2;
+      const rowOffset = isInfinite ? 18 : (isEgg ? 0 : (Math.min(10, tLvl) - 1) * 2);
 
       while (count < totalBricks) {
         for (let col = 0; col < cols && count < totalBricks; col++) {
@@ -5097,7 +5136,7 @@
       const paddleY = canvasHeight - 51;
 
       let brickYOffset = 0;
-      const brickSpeed = 0.05 + Math.min(char.level * 0.015, 0.15);
+      const brickSpeed = 0.05 + Math.min((isInfinite ? 10 : (isEgg ? 1 : tLvl)) * 0.015, 0.15);
 
       let gameScore = 0;
       let gameStatus = 'playing'; // 'playing', 'won', 'lost'
@@ -5202,6 +5241,12 @@
                 state.steps += rewardSteps;
                 addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
                 save();
+              } else if (isInfinite) {
+                const expReward = gameScore;
+                char.exp += expReward;
+                addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, EXP +${expReward} 획득!`, "evolve");
+                checkEvolution();
+                save();
               } else {
                 addLog("근력 훈련 실패... 공을 놓쳤습니다.", "system");
               }
@@ -5242,10 +5287,16 @@
                     eyeState = 'win';
                     playBeep('evolve');
 
-                    const expReward = 20 + char.level * 2;
+                    const expReward = 20 + Math.min(10, tLvl) * 2;
                     char.exp += expReward;
 
                     addLog(`근력 훈련 성공! EXP +${expReward} 획득!`, "evolve");
+                    if (state.trainingLevels.strength <= 10) {
+                      state.trainingLevels.strength++;
+                      const nextLvl = state.trainingLevels.strength;
+                      const nextLvlStr = nextLvl > 10 ? '무한' : nextLvl;
+                      addLog(`훈련 성공! 근력 훈련 레벨이 ${nextLvlStr}(으)로 상승했습니다!`, "evolve");
+                    }
                     checkEvolution();
                     save();
 
@@ -5263,6 +5314,12 @@
                 const rewardSteps = gameScore * 50;
                 state.steps += rewardSteps;
                 addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
+                save();
+              } else if (isInfinite) {
+                const expReward = gameScore;
+                char.exp += expReward;
+                addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, EXP +${expReward} 획득!`, "evolve");
+                checkEvolution();
                 save();
               } else {
                 addLog("근력 훈련 실패... 벽돌이 바닥에 닿았습니다.", "system");
@@ -5917,10 +5974,10 @@
               }
               // Lenses below
               else if (frameWidth >= 6) {
-                // Reversed Isosceles Trapezoid: Top (eyeY+1) is 3 cols, Bottom (eyeY+2) is 2 cols
+                // Reversed Isosceles Trapezoid: Top (eyeY+1) is 4 cols, Bottom (eyeY+2) is 2 cols
                 if (y === eyeY + 1) {
-                  const isLeftLens = (x >= leftEyeX - 1 && x <= leftEyeX + 1);
-                  const isRightLens = (x >= rightEyeX - 1 && x <= rightEyeX + 1);
+                  const isLeftLens = (x >= leftEyeX - 1 && x <= leftEyeX + 2);
+                  const isRightLens = (x >= rightEyeX - 2 && x <= rightEyeX + 1);
                   if (isLeftLens || isRightLens) fill = '#111827';
                 } else if (y === eyeY + 2) {
                   const isLeftLens = (x >= leftEyeX && x <= leftEyeX + 1);
