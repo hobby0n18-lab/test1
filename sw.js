@@ -1,11 +1,13 @@
-const CACHE_NAME = 'monster-adventure-v26';
+const CACHE_NAME = 'monster-adventure-v27';
 const ASSETS = [
   './',
   'index.html',
   'monster_adventure.html',
   'pedometer_tamagotchi.html',
   'manifest.json',
-  'icon.svg'
+  'icon.svg',
+  'icon-192.png',
+  'icon-512.png'
 ];
 
 // Install Event
