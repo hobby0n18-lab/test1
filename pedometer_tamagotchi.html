@@ -1324,6 +1324,30 @@
 
 <body class="theme-forest">
 
+  <!-- First Launch Notice Modal -->
+  <div class="pixel-modal-backdrop" id="first-launch-modal" style="display: flex;">
+    <div class="pixel-modal" style="border: 4px solid var(--accent-color); max-width: 320px;">
+      <div class="pixel-modal-header">
+        <span>NOTICE</span>
+      </div>
+      <div class="pixel-modal-body" style="align-items: center; text-align: center; padding: 1.5rem 1rem;">
+        <div style="font-size: 1rem; font-weight: bold; color: #facc15; margin-bottom: 1rem; line-height: 1.5; font-family: 'Noto Sans KR', sans-serif;">
+          알을 발견했습니다!<br>함께 모험해보세요!
+        </div>
+        <button onclick="handleFirstLaunchOk()" style="
+            background-color: var(--accent-color);
+            color: #fff;
+            border: 3px double #fff;
+            padding: 8px 24px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+        ">OK</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Ambient background glow elements -->
   <div class="bg-glow glow-1"></div>
   <div class="bg-glow glow-2"></div>
@@ -2050,844 +2074,1193 @@
     const SPRITES = {
       egg: [
         [
-          "......XXXX......",
-          "....XXCCCCXX....",
-          "...XCCCCCCCCX...",
-          "..XCCCCCCCCCCX..",
-          ".XCCCCCCCCCCCCX.",
-          ".XCCCCCCCCCCCCX.",
-          "XCCCCCCCCCCCCCCX",
-          "XCCCCCCCCCCCCCCX",
-          "XCCCCCCCCCCCCCCX",
-          "XCCCCCCCCCCCCCCX",
-          ".XCCCCCCCCCCCCX.",
-          ".XCCCCCCCCCCCCX.",
-          "..XCCCCCCCCCCX..",
-          "...XCCCCCCCCX...",
-          "....XXCCCCXX....",
-          "......XXXX......"
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "..........XXXX..........",
+          "........XXCCCCXX........",
+          ".......XCCCCCCCCX.......",
+          "......XCCCCCCCCCCX......",
+          ".....XCCCCCCCCCCCCX.....",
+          ".....XCCCCCCCCCCCCX.....",
+          "....XCCCCCCCCCCCCCCX....",
+          "....XCCCCCCCCCCCCCCX....",
+          "....XCCCCCCCCCCCCCCX....",
+          "....XCCCCCCCCCCCCCCX....",
+          ".....XCCCCCCCCCCCCX.....",
+          ".....XCCCCCCCCCCCCX.....",
+          "......XCCCCCCCCCCX......",
+          ".......XCCCCCCCCX.......",
+          "........XXCCCCXX........",
+          "..........XXXX..........",
+          "........................",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          ".......XXXX.....",
-          ".....XXCCCCXX...",
-          "....XCCCCCCCCX..",
-          "...XCCCCCCCCCCX.",
-          "..XCCCCCCCCCCCCX",
-          "..XCCCCCCCCCCCCX",
-          ".XCCCCCCCCCCCCCCX",
-          ".XCCCCCCCCCCCCCCX",
-          ".XCCCCCCCCCCCCCCX",
-          ".XCCCCCCCCCCCCCCX",
-          "..XCCCCCCCCCCCCX",
-          "..XCCCCCCCCCCCCX",
-          "...XCCCCCCCCCCX.",
-          "....XCCCCCCCCX..",
-          ".....XXCCCCXX...",
-          ".......XXXX....."
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "...........XXXX.........",
+          ".........XXCCCCXX.......",
+          "........XCCCCCCCCX......",
+          ".......XCCCCCCCCCCX.....",
+          "......XCCCCCCCCCCCCX....",
+          "......XCCCCCCCCCCCCX....",
+          ".....XCCCCCCCCCCCCCCX....",
+          ".....XCCCCCCCCCCCCCCX....",
+          ".....XCCCCCCCCCCCCCCX....",
+          ".....XCCCCCCCCCCCCCCX....",
+          "......XCCCCCCCCCCCCX....",
+          "......XCCCCCCCCCCCCX....",
+          ".......XCCCCCCCCCCX.....",
+          "........XCCCCCCCCX......",
+          ".........XXCCCCXX.......",
+          "...........XXXX.........",
+          "........................",
+          "........................",
+          "........................",
+          "........................"
         ]
       ],
-      stone: [ // 아기 돌 슬라임 (Lv. 1 ~ 4)
+                  stone: [
         [
-          "................",
-          "......XXXX......",
-          "....XXGGGGXX....",
-          "...XGGGGGGGGX...",
-          "..XGGGGGGGGGGX..",
-          ".XGGGGGGGGGGGGX.",
-          "XGGGGGGGGGGGGGGX",
-          "XGGEXGGGGGGEXGGX",
-          "XGGEXGGGGGGEXGGX",
-          "XGGGGGGGGGGGGGGX",
-          "XGGGGXXXXXXGGGGX",
-          "XGGGGGGGGGGGGGGX",
-          ".XGGGGGGGGGGGGX.",
-          "..XGGGGGGGGGGX..",
-          "...XXGGGGXX...",
-          ".....XXXXXX....."
+          "........................",
+          ".......XXXXXXXXXXX......",
+          ".....XXXGGHGGGGGGXX.....",
+          "....XXGHGGGGGGGGGGXX....",
+          "...XXGGHGGGGGGGGGGGXX...",
+          "...XGHGGGGGGGGGGGGGGXX..",
+          "..XXGHGGGGGGGGGGGGGGGX..",
+          "..XGGGGGGGGGGGGGGGGGGXX.",
+          ".XXGGGGGGGGGGGGGGGGGGDX.",
+          ".XGGGGGGGGGGGGGGGGGGGGX.",
+          "XXGGGGGGGGGGGGGGGGGGGGXX",
+          "XGGGGGGGGGGGGGGGGGGGGGGX",
+          "XGGGGXEXGGGGGGGGXEXGGGGX",
+          "XDGGGXEXGGGGGGGGXEXGGGGX",
+          "XGGGGXXXGGGGGGGGXXXGGGGX",
+          "XDGGGGXXGGGGGGGGXXGGGGGX",
+          "XGGGGGGGGGGGGGGGGGGGGDDX",
+          "XXGGGGGGGGGGGGGGGGGGGDXX",
+          ".XGGGGGGGGGGGGGGGGDGDGX.",
+          ".XXXGGGGGGGGGGGGGDDDDXX.",
+          "...XDDGGGGDDDDGGDGDDXX..",
+          "...XXXGGGGDDGGDGGDDXX...",
+          ".....XXXGDGDDDDDDXXX....",
+          ".......XXXXXXXXXXX......"
         ],
         [
-          "................",
-          "................",
-          "......XXXX......",
-          "....XXGGGGXX....",
-          "...XGGGGGGGGX...",
-          "..XGGGGGGGGGGX..",
-          ".XGGGGGGGGGGGGX.",
-          "XGGGGGGGGGGGGGGX",
-          "XGEXGGGGGGGGEXGX",
-          "XGEXGGGGGGGGEXGX",
-          "XGGGGGGGGGGGGGGX",
-          "XGGGGGXXXXGGGGGX",
-          ".XGGGGGGGGGGGGX.",
-          "..XXGGGGGGGGXX..",
-          "....XXGGGGXX....",
-          "......XXXX......"
+          "........................",
+          ".......XXXXXXXXXXX......",
+          ".....XXXGGGGGGGGGX......",
+          "....XXGHGGGGGGGGGXXX....",
+          "...XXDGHGGGGGGGGGGGXX...",
+          "...XGHGGHGGGGGGGGGGGXX..",
+          "..XXGGGGGGGGGGGGGGGDGX..",
+          "..XGGGGGGGGGGGGGGGGGGX..",
+          ".XXGGGGGGGGGGGGGGGGGDXX.",
+          ".XGGGGGGGGGGGGGGGGGGGGX.",
+          "XXGHGGGGGGGGGGGGGGGGGGXX",
+          "XGGGGGGGGGGGGGGGGGGGGGDX",
+          "XGGGGXEXGGGGGGGGXEXGGGGX",
+          "XDGGGXEXGGGGGGGGXEXGGGDX",
+          "XDGGGXXXGGGGGGGGXXXGGDGX",
+          "XDGGGGXXGGGGGGGGXXGGGGDX",
+          "XGGGGGGGGGGGGGGGGGGGGGDX",
+          "XXDDGGGGGGGGGGGGGGGGDDXX",
+          ".XGGGGGGGGGGGGGGGGDDDDX.",
+          ".XXXGGGGGGGGGGGGGDDDDXX.",
+          "...XGDGGDGDDDDDGDGDDXX..",
+          "...XXDDDGDDDDDDGDGDXX...",
+          "....XXXXDDDDDGGGGXXX....",
+          ".......XXXXXXXXXXX......"
         ]
       ],
-      iron: [ // 성장기 철 슬라임 (Lv. 5 ~ 9)
+                  iron: [
         [
-          "...X........X...",
-          "..XXX......XXX..",
-          ".XXXXXXXXXXXXXX.",
-          "XGGGGGGGGGGGGGGX",
-          "XGGGGGGGGGGGGGGX",
-          "XGGEXGGGGGGEXGGX",
-          "XGGEXGGGGGGEXGGX",
-          "XGGGGGGGGGGGGGGX",
-          "XGGGGXXXXXXGGGGX",
-          "XGGGGGGGGGGGGGGX",
-          "XGGGGGGGGGGGGGGX",
-          ".XGGGGGGGGGGGGX.",
-          ".XGGGGGGGGGGGGX.",
-          "..XGGGGGGGGGGX..",
-          "...XXGGGGXX...",
-          ".....XXXXXX....."
+          "........................",
+          "........................",
+          "........................",
+          ".........XXXXXXX........",
+          "......XXXXDHHHGXXX......",
+          "......XDHDDDHHDDDXX.....",
+          ".....XXGDDDDDDDDDGXX....",
+          "....XXDDDDDDDDDDDDDX....",
+          "....XDDDDDDDDDDDDDDX....",
+          "...XXDDDDDDDDDDDDDDXX...",
+          "...XDDDDDDDDDDDDDDDGX...",
+          "...XDGDDDDDDDDDDDDDGX...",
+          "...XDDEXXDDDDDEXXDDDX...",
+          "XXXXDDEXXDDDDDEXXDDDXXXX",
+          "XDDXDDDXXDDDDDDXXDDDDDHX",
+          "XDDXDDDDDDDDDDDDDDDDXDDX",
+          "XDDDDDDDDDDDDDDDDDDDXDDX",
+          "XDDXXXDDDDDDDDDDDDDDXDGX",
+          "XXXX.XDDDDDDDDDDDDXXXXXX",
+          ".....XXDDDDDDDDDDXX.....",
+          "......XXXXXXXXXXXX......",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          "................",
-          "...X........X...",
-          "..XXX......XXX..",
-          ".XXXXXXXXXXXXXX.",
-          "XGGGGGGGGGGGGGGX",
-          "XGGGGGGGGGGGGGGX",
-          "XGEXGGGGGGGGEXGX",
-          "XGEXGGGGGGGGEXGX",
-          "XGGGGGGGGGGGGGGX",
-          "XGGGGGXXXXGGGGGX",
-          "XGGGGGGGGGGGGGGX",
-          ".XGGGGGGGGGGGGX.",
-          "..XXGGGGGGGGXX..",
-          "....XXGGGGXX....",
-          "......XXXX......",
-          "................"
+          "........................",
+          "........................",
+          "........................",
+          ".........XXXXXXX........",
+          ".......XXXDHHHGXXX......",
+          ".....XXXHDDGHHDDDXX.....",
+          ".....XHDHDDDDDDDDHXX....",
+          "....XXDDDDDDDDDDDDDX....",
+          "....XDDDDDDDDDDDDDDXX...",
+          "...XXDDDDDDDDDDDDDDDX...",
+          "...XDHDDDDDDDDDDDDDGX...",
+          "...XDDDDDDDDDDDDDDDDX...",
+          "...XDDEXXDDDDDEXXDDDX...",
+          "XXXXDDEXXDDDDDEXXDDDXXXX",
+          "XGDXDDDXXDDDDDDXXDDDDDDX",
+          "XGGXDDDDDDDDDDDDDDDDDDDX",
+          "XDDXDDDDDDDDDDDDDDDDXDDX",
+          "XDDXXDDDDDDDDDDDDDDXXDGX",
+          "XXXXXXDDDDDDDDDDDDDXXXXX",
+          ".....XXDDDDDDDDDDXXX....",
+          "......XXXXXXXXXXXX......",
+          "........................",
+          "........................",
+          "........................"
         ]
       ],
-      golem: [ // 최종기 강철 골렘 (Lv. 10+)
+                  golem: [
         [
-          "......XXXX......",
-          "....XXGGGGXX....",
-          "...XGGGGGGGGX...",
-          "..XGGGGGGGGGGX..",
-          "XXGGEXGGGGEXGGXX",
-          "XXGGEXGGGGEXGGXX",
-          "XGGGGGGGGGGGGGGX",
-          "XGXXGGGGGGGGXXGX",
-          "XGXXGGGGGGGGXXGX",
-          "XXGGGGGGGGGGGGXX",
-          "XXGGGGXXXXGGGGXX",
-          ".XGGGGGGGGGGGGX.",
-          ".XGGGGGGGGGGGGX.",
-          "XXGGGGGGGGGGGGXX",
-          "XXGGGGGGGGGGGGXX",
-          "XXXX........XXXX"
+          ".........VVV.V..........",
+          "...........VV...........",
+          ".......VVVVVVVVVVV......",
+          ".....XVXHHHHHHHGVXV.....",
+          "....XXGGGHHHHHHVVGXX....",
+          "....XHGVGHHHHHVGVGGX....",
+          "....XGGGGGGGGGGVGGVX....",
+          "....XGGVGGGGGGGGGGVX....",
+          "....XVGHHGGGGGGGHGVX....",
+          "...XXVEXXGGGGGEXXVVXXX..",
+          ".XXXXHEXXHGGGGEXXVGXVXX.",
+          ".XVGHHVGGGGGGGVVVVHHXVX.",
+          ".XHGGHGVGGVVGGGVVGVXGGX.",
+          ".XGVXVGGGGGGGGVVGGDXVVXX",
+          ".XGVXDVGGGVGGVVGGVDXVGGX",
+          ".XVVDXDGGGVVVVGGDDXXVVGX",
+          ".XDVDXDDDDGVVVDDDDXXDDXX",
+          ".XXXXXVXXDVVVVDXXVDXXXX.",
+          "....XVDGDXDGGDDDDDXX....",
+          "....XXGGDXDGDDXDGDDX....",
+          ".....XVGVDXXXXDVGVDX....",
+          ".....XXVGDX..XDGVVXX....",
+          "......XDDXX..XXDDVX.....",
+          "......XXXXX..XXXXXX....."
         ],
         [
-          "......XXXX......",
-          "....XXGGGGXX....",
-          "...XGGGGGGGGX...",
-          "..XGGGGGGGGGGX..",
-          "XXGGEXGGGGEXGGXX",
-          "XXGGEXGGGGEXGGXX",
-          "XGGGGGGGGGGGGGGX",
-          "XGXXGGGGGGGGXXGX",
-          "XGXXGGGGGGGGXXGX",
-          "XXGGGGGGGGGGGGXX",
-          "XXGGGGXXXXGGGGXX",
-          ".XGGGGGGGGGGGGX.",
-          "XXGGGGGGGGGGGGXX",
-          "XXGGGGGGGGGGGGXX",
-          "XXXX........XXXX",
-          "................"
+          "..........V.VVV.........",
+          "...........VV...........",
+          "......XVVVVVVVVVVV......",
+          ".....VXVHHHHHHHGVXV.....",
+          "....XXGGHHHHHHHGVGXX....",
+          "....XHGVGHHHHHGVGGGX....",
+          "....XGGGGGGGGGGVVGGX....",
+          "....XGGVGGGGGGGVVGVX....",
+          "....XVVHHGGGGGGGGGVXX...",
+          "...XXVEXXGGGGGEXXVVVX...",
+          ".XXXGHEXXGGGGGEXXVHXXXX.",
+          ".XXXHHVGGGGGGVGGVGVXXX.",
+          ".XHVXHVVGGGGGGGVVGGXGHX.",
+          ".XVVXGGGGGGGGGVGGGDXVVXX",
+          ".XVVXDGGGGVGGVGGGDDXVGGX",
+          ".XVDXDDVGGVGVGGVDDXXVVGX",
+          ".XDDDXDDDDGVVGDDDXXXDVXX",
+          ".XXXXXXXXDVVDXDXXVXXXXX.",
+          "....XXVVVXDDDXDDDVDX....",
+          "....XXGGVXDVVDDDGDVX....",
+          ".....XGGVXXXXXDGGGDX....",
+          ".....XDDDVX..XXVVVXX....",
+          ".....XVDDXX...XDDVX.....",
+          ".....XXXXXX...XXXXX....."
         ]
       ],
-      aqua: [ // 아기 물 슬라임 (Lv. 1 ~ 4)
+                  aqua: [
         [
-          "......XX........",
-          ".....XCCX.......",
-          "....XCCCCX......",
-          "....XCCCCX......",
-          "...XCCCCCCX.....",
-          "..XCCCCCCCCX....",
-          "..XCCCCCCCCX....",
-          ".XCCCCCCCCCCX...",
-          "XCCEXCCCCEXCCX..",
-          "XCCEXCCCCEXCCX..",
-          "XCCCCCCCCCCCCX..",
-          "XCCCCXXXXCCCCX..",
-          ".XCCCCCCCCCCX...",
-          "..XCCCCCCCCX....",
-          "...XXCCCCXX.....",
-          ".....XXXX......."
+          "........................",
+          "...........X............",
+          "...........XX...........",
+          "..........XXX...........",
+          "..........XWBX..........",
+          "..........XWBXX.........",
+          ".........XXWBBX.........",
+          "........XXWBBBXX........",
+          "........XWBBBBCXX.......",
+          "........XWBBBBBCX.......",
+          ".......XXWBBBBBCX.......",
+          ".......XWBBBBBCCXX......",
+          ".......XWBBBBBBCCX......",
+          "......XXWBBBBBBCCX......",
+          ".....XXWBBBBBBCCCXX.....",
+          ".....XWBBBBBBBBCCCX.....",
+          ".....XWBBXEBBBBXXCCX.....",
+          ".....XXBBXEBBBBXXCX.....",
+          "......XBBBBBBBBBBXX.....",
+          "......XXBBBBBBBBBX......",
+          ".......XXBBBBBBBXX......",
+          "........XXBBBBBXX.......",
+          ".........XXXXXXX........",
+          "........................"
         ],
         [
-          "................",
-          "......XX........",
-          ".....XCCX.......",
-          "....XCCCCX......",
-          "....XCCCCX......",
-          "...XCCCCCCX.....",
-          "..XCCCCCCCCX....",
-          ".XCCCCCCCCCCX...",
-          "XCCEXCCCCEXCCX..",
-          "XCCEXCCCCEXCCX..",
-          "XCCCCCCCCCCCCX..",
-          "XCCCCXXXXCCCCX..",
-          ".XCCCCCCCCCCX...",
-          "XCCCCCCCCCCCCX..",
-          "XXCCCCCCCCCCXX..",
-          ".XXXXXXXXXXXX..."
+          "........................",
+          "...........XX...........",
+          "..........XXX..........",
+          "..........XWBX..........",
+          "..........XWBXX.........",
+          ".........XXWBBX.........",
+          "........XXWBBBXX........",
+          "........XWBBBBCX........",
+          "........XWBBBBBCX.......",
+          "........XWBBBBBCX.......",
+          ".......XXWBBBBBCX.......",
+          ".......XWBBBBBBCCX......",
+          ".......XWBBBBBBCCX......",
+          "......XXWBBBBBBCCX......",
+          "....XXWBBBBBBBBBCCXX....",
+          "....XWBBBBBBBBBBBCCX....",
+          "....XWBBXEBBBBXXBCCX....",
+          "....XWBBXEBBBBXXBCCX....",
+          "....XWBBXEBBBBXXBCCX....",
+          "....XXBBBBBBBBBBCCXX....",
+          ".....XXBBBBBBBBCCXX.....",
+          "......XXBBBBBBCCXX......",
+          ".......XXBBBBCCXX.......",
+          "........XXXXXXXX........",
+          "........................"
         ]
       ],
-      ocean: [ // 성장기 대양 슬라임 (Lv. 5 ~ 9)
+                                    ocean: [
         [
-          "......XX........",
-          ".....XCCX.......",
-          "....XCCCCX......",
-          "XX..XCCCCX..XX..",
-          "XXX.XCCCCCCX.XXX",
-          "XXXCCCCCCCCCCXXX",
-          "XCCCCCCCCCCCCCCX",
-          "XCCEXCCCCEXCCCCX",
-          "XCCEXCCCCEXCCCCX",
-          "XCCCCCCCCCCCCCCX",
-          "XCCCCXXXXCCCCXX.",
-          ".XCCCCCCCCCCX...",
-          "..XCCCCCCCCX....",
-          "...XXCCCCXX.....",
-          "....XXXXXX......",
-          "................"
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          ".........XXX............",
+          "........XHX.............",
+          ".......XHHX.XX..........",
+          ".......XHHCXHX..........",
+          ".....XXHHHHCXX..........",
+          "....XHHHHHHHCX..........",
+          "...XCHHHHHHHHBX...X.....",
+          "...XHHHHHHHHHCBX.XCXXX..",
+          "..XHHHHHHHHHHHBBXBCCCX..",
+          "..XHHEXHHHXEHHBBXBCCBX..",
+          "..XHHEXHHHXEHHBBCHCXX...",
+          "..XCHHHHHHHHHCBBBCX.....",
+          "...XCHHHHHHHCBBBBX......",
+          "...XBCCCCCCBBBXXX.......",
+          ".....XXXXXXXXX..........",
+          "........................"
         ],
         [
-          "................",
-          "......XX........",
-          ".....XCCX.......",
-          "....XCCCCX......",
-          "XX..XCCCCX..XX..",
-          "XXX.XCCCCCCX.XXX",
-          "XXXCCCCCCCCCCXXX",
-          "XCCCCCCCCCCCCCCX",
-          "XCCEXCCCCEXCCCCX",
-          "XCCEXCCCCEXCCCCX",
-          "XCCCCCCCCCCCCCCX",
-          "XCCCCXXXXCCCCXX.",
-          ".XCCCCCCCCCCX...",
-          "XCCCCCCCCCCCCX..",
-          "XXCCCCCCCCCCXX..",
-          ".XXXXXXXXXXXX..."
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "..........XX............",
+          ".........XC.............",
+          ".......X.XC.....XXX..XXX",
+          "......XC.XHH....XCCXXCCX",
+          "......XHXHHXXB..XBCCCCCX",
+          "......XHCHXCHB...XBCCCBX",
+          "....XXHHHHHCX....XXBCBX.",
+          "...XHHHHHHHHBX....XCBX..",
+          "..XCHHHHHHHHCBX..XBHBX..",
+          ".XCHHHHHHHHHHCXXXXHHBX..",
+          ".XHHHHHHHHHHHHBBCHHCX...",
+          ".XHHEXHHHXEHHHBBHHCBX...",
+          ".XHHEXHHHXEHHCBBCCBBX...",
+          ".XCHHHHHHHHHCBBBBBBX....",
+          ".XBCHHHHHHHCBBXBBXX.....",
+          "..XBCCCCCCBBBXXXX.......",
+          "...XXXXXXXXXX...........",
+          "........................"
         ]
       ],
-      poseidon: [ // 최종기 포세이돈 - 격렬한 파도 치는 발바닥 구조
+                                    poseidon: [
         [
-          "....X..X..X....",
-          "....X..X..X....",
-          "....XXXXXX....",
-          "...XCCCCCCX...",
-          "XX.XCCCCCCX.XX",
-          "XX.XCCCCCCX.XX",
-          "XXXCCCCCCCCXXX",
-          "XCCEXCCCCEXCCX",
-          "XCCEXCCCCEXCCX",
-          "XCCCCCCCCCCCCX",
-          "XCCCCXXXXCCCCX",
-          "XCCWWCCWWCCWCX",
-          "XWWCCWWCCWWCCX",
-          "XXCCCCWWCCCCXX",
-          "XXXCCWWCCXXX..",
-          ".XXXXXXXXXX..."
+          ".......XXXXX......X.....",
+          "......XHHCCX.....XX.XX..",
+          "..XXX.XHCXXX.....XXXXX..",
+          ".XX.XXXCCX.XXXX.XXXXXX..",
+          ".XXXXXCCCCXXCX..XXHXXHXX",
+          ".XXCXCHHHCXCXX.XCXXXXXXX",
+          "..XCCHHHHHHCXXXXCXHXHXXX",
+          "..XXHHHHHHHCCXX.XCHCXXX.",
+          "..XHHHHHHHHHCXX.XXXCCXX.",
+          "XXXHEHHHHEHHCCCXXHXXXX..",
+          "XCCHEHHHHEHHCCCXXXX.....",
+          "XXXHHHXXHHHHCXXXCX......",
+          "..XCHHHHHHHHCXCCXX......",
+          "..XXHHHHHHHHCXBXX.......",
+          "..XCBCHHCCCCCXX.........",
+          "..XXXXXCCCXXXCX.........",
+          "..XX.XXXHXXBXXX.........",
+          ".......XXXXBX...........",
+          "........X..X............",
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          "................",
-          "....X..X..X....",
-          "....X..X..X....",
-          "....XXXXXX....",
-          "...XCCCCCCX...",
-          "XX.XCCCCCCX.XX",
-          "XX.XCCCCCCX.XX",
-          "XXXCCCCCCCCXXX",
-          "XCCEXCCCCEXCCX",
-          "XCCEXCCCCEXCCX",
-          "XCCCCCCCCCCCCX",
-          "XCCCCXXXXCCCCX",
-          "XCCWWCCWWCCWCX",
-          "XWWCCWWCCWWCCX",
-          "XXCCCCWWCCCCXX",
-          "XXXCCWWCCXXX.."
+          "......XXXXXX............",
+          "......XHCCXX............",
+          "..XXXXXCBXXXXX..........",
+          ".XXX.XHCBX.XXXX.........",
+          ".XXXXXCCCBXXCXX.........",
+          ".XCCXCHHHCHCXX..........",
+          ".XXCHHHHHHCCXX..........",
+          "..XCHHHHHHHCCXX.........",
+          ".XXHHHHHHHHHCXX.........",
+          "XXCHEHHHEHHHCHXX........",
+          "XCCHEHHHEHHHCCXX........",
+          "XXCHHXXXHHHHCXX.........",
+          "..XHHHHHHHHHCXX.........",
+          "..XXHHHHHHHCHXXX........",
+          "..XCBCHHHCCCHXX..XXX....",
+          "..XXXXXCCCXXXCX.XXXXX...",
+          "..XX.XXXHXXBXXXXXCCCCXX.",
+          "......XXXXXXXXCCCHHXXXXX",
+          "........X....XXXCCCCX...",
+          "...............XCXXCCXX.",
+          "...............XCCHXXXX.",
+          "...............XCCXX....",
+          "................XCXX....",
+          "..................XX...."
         ]
       ],
-      dragon: [ // 아기 용용이 슬라임 (Lv. 1 ~ 4)
+            dragon: [
         [
-          "....X......X....",
-          "...XX......XX...",
-          "..XRRX....XRRX..",
-          ".XRRRRXXXXRRRRX.",
-          "XRRRRRRRRRRRRRRX",
-          "XRERXRRRRRRXRERX",
-          "XRERXRRRRRRXRERX",
-          "XRRRRRRRRRRRRRRX",
-          "XRRRRRRRRRRRRRRX",
-          "XRRRRXXRRXXRRRRX",
-          ".XRRRRRRRRRRRRX.",
-          "..XXRRRRRRRRXX..",
-          "W.XRRRRRRRRRRX.W",
-          "WW.XRRRRRRRRX.WW",
-          "WWW.XXRRRRXX.WWW",
-          "W.W...XXXX...W.W"
+          "........................",
+          "...........X............",
+          "....XX....XX............",
+          "....OX....XX............",
+          "....XWXXXXYX............",
+          "....XYXOOXYXX.XOXXX.....",
+          "....XXWWWWWXX..XWWXX....",
+          "....XWWWWWWOX...OYXXX...",
+          "...XXWWWWWWWO...OWYWX...",
+          "...OWWWWWWWWWX.XXWYXOX..",
+          "..XXWRWWWWWWWOXOYWXXXX..",
+          "..XWWXWWWOXWWROWXOX.....",
+          "..XWWXWWWWXWWROOXXX.....",
+          "..XWWOWWWRWWWRXX........",
+          "..XWWWWWWWWWWROX........",
+          "..XRWWWWWWWWWOO.........",
+          "...XWWWWWWWWRXX.........",
+          "...XXRWWWWROXX..........",
+          ".....XXXXXXX............",
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          "....X......X....",
-          "...XX......XX...",
-          "..XRRX....XRRX..",
-          ".XRRRRXXXXRRRRX.",
-          "XRRRRRRRRRRRRRRX",
-          "XRERXRRRRRRXRERX",
-          "XRERXRRRRRRXRERX",
-          "XRRRRRRRRRRRRRRX",
-          "XRRRRRRRRRRRRRRX",
-          "XRRRRXXRRXXRRRRX",
-          ".XRRRRRRRRRRRRX.",
-          "W.XXRRRRRRRRXX.W",
-          "WW.XRRRRRRRRX.WW",
-          "W.W.XRRRRRRX.W.W",
-          "....XXRRRRXX....",
-          "......XXXX......"
+          "........................",
+          "..........XX............",
+          "...XX.....XX............",
+          "...XXX...XXX............",
+          "....XXXX.XX.............",
+          "...XXXXWXWOX..XXX.......",
+          "...XOWWWWWOX..XRXXX.....",
+          "...XRWWWWWRX..XOWWXX....",
+          "..XOWWWWWWROX..OWYWX....",
+          "..XWWWWWWWWWO..OWYYXX...",
+          "..OWWWWWWWWWRXXWWWXOX...",
+          ".XXWXOWWRXWWRXXXWO.XX...",
+          ".XWWXOWWRXWWROOXXX......",
+          ".XWWOWWWWOWWRXXX.X......",
+          ".XRWWWWWWWWWRRO.........",
+          "..OWWWWWWWWWROX.........",
+          "..XWWWWWWWWWXX..........",
+          "...XOWWWWWRXX...........",
+          "....XXXXXXX.............",
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "........................"
         ]
       ],
-      inferno: [ // 성장기 지옥 화염룡 (Lv. 5 ~ 9)
+            inferno: [
         [
-          "....X..XX..X....",
-          "...XX..XX..XX...",
-          "..XRRXXXXXXRRX..",
-          ".XRRRRRRRRRRRRX.",
-          "XRRRRRRRRRRRRRRX",
-          "XRERXRRRRRRXRERX",
-          "XRERXRRRRRRXRERX",
-          "XRRRRRRRRRRRRRRX",
-          "XWWWRRRRRRRRWWWX",
-          "XWWWRXRRRRXGWWWX",
-          ".XWWRRRRRRRRWWX.",
-          "..XXRRRRRRRRXX..",
-          "..XRRRRRRRRRRX..",
-          "...XRRRRRRRRX...",
-          "....XXRRRRXX....",
-          "......XXXX......"
+          "........................",
+          "........XX...XXX........",
+          ".......XXX...XYX........",
+          ".......XYX..XYXX........",
+          ".......OYXX.XYX.........",
+          "......XXWWXXOWXX........",
+          "......XXXROXRWYX........",
+          "......XOORRRRRXX........",
+          "......XWRRRRRRROX.......",
+          "......XRRRRRRRRWX.....XX",
+          "......XRRRRRRRRRX....XOX",
+          ".....XORRRRRRRRRX...XORX",
+          ".....XRRRRRRRRRRO...XRRX",
+          ".....XROXRRROXRROX..OWRO",
+          ".....OROXRRROXRRROX.OWWX",
+          ".....OROXRRROXRRRRO.XOOX",
+          ".....ORRRRRRRRRRRRRXXXX.",
+          ".....ORRRRRRRRRRORRXXO..",
+          ".....XRRRRRRRRRRORRROX..",
+          ".....XXRRRRRRRROOROOX...",
+          "......XXORRRRROXOOXX....",
+          "........XXXXXXXX.X......",
+          "........................",
+          "........................"
         ],
         [
-          "................",
-          "....X..XX..X....",
-          "...XX..XX..XX...",
-          "..XRRXXXXXXRRX..",
-          ".XRRRRRRRRRRRRX.",
-          "XRRRRRRRRRRRRRRX",
-          "XRERXRRRRRRXRERX",
-          "XRERXRRRRRRXRERX",
-          "XRRRRRRRRRRRRRRX",
-          "XWWWRRRRRRRRWWWX",
-          "XWWWRXRRRRXGWWWX",
-          ".XWWRRRRRRRRWWX.",
-          "..XXRRRRRRRRXX..",
-          "..XRRRRRRRRRRX..",
-          "...XXRRRRXX....",
-          ".....XXXX......."
+          "........................",
+          "....XX....XX............",
+          "....XX...XYO............",
+          "...XYX...XYX............",
+          "...XWYX.XYXX............",
+          "...XXWOXOWWX............",
+          "..XXXRRXRRYX............",
+          "..XXORRRRRXOX...........",
+          "..XWRRRRRRROX...........",
+          "..XORRRRRRRWX...........",
+          "..XRRRRRRRRRX......XX...",
+          "..XRRRRRRRRRO....XXOX...",
+          ".XORRRRRRRRROX...XROX...",
+          ".XROXRRROXRRRXX..ORRX...",
+          ".XROXRRROXRRROXX.OYWX...",
+          ".OROXRRROXRRRRXX.XWOX...",
+          ".ORRRRRRRRRRRORO.XXX....",
+          ".XRRRRRRRRRRROROXOO.....",
+          ".XORRRRRRRRRRRROROX.....",
+          "..XRRRRRRRRRORROOX......",
+          "..XXORRRRROXXOXXX.......",
+          "....XXXXXXXXXXX.........",
+          "........................",
+          "........................"
         ]
       ],
-      kaiser: [ // 최종기 카이저 드래곤 (Lv. 10+)
+                  kaiser: [
         [
-          "....XX.XX.XX....",
-          "...XXXXXXXXXX...",
-          "..XXXXXXXXXXXX..",
-          ".XRRRRRRRRRRRRX.",
-          "XRRRRRRRRRRRRRRX",
-          "XRERXRRRRRRXRERX",
-          "XRERXRRRRRRXRERX",
-          "XRRRRRRRRRRRRRRX",
-          "WWWRRRRRRRRRRWWW",
-          "WWWRRXXRRXXRRWWW",
-          "WWRRRRRRRRRRRRWW",
-          "W.XXRRRRRRRRXX.W",
-          "..XRRRRRRRRRRX..",
-          "...XRRRRRRRRX...",
-          "....XXRRRRXX....",
-          "......XXXX......"
+          ".......XX...X...........",
+          "......XOO..XO...........",
+          "......XRX..OR...........",
+          "......OWO.XRO...........",
+          "......XWRXOWO...........",
+          "......XRWXORO...........",
+          ".....XXRWRRRXXXXX.......",
+          ".....XXWWROXXXOROX......",
+          ".....XRWRROX.XORROX.X...",
+          ".....ORRRRROOXOOOX..XX..",
+          "....XRRRRRRROOROO...XX..",
+          "....ORRRRRRRROOOX..XXX..",
+          "....ORORRRORROXX...XXXX.",
+          "...XOOXRRRXORRXXX.XXYXX.",
+          "...XRRERROEORRORX.XXYXX.",
+          "...XROXRRRXORROWOX.XXX..",
+          "...XRRRRRRRRRRORRX.XX...",
+          "...XORRRRRRRROORRXXOX...",
+          "....XOORRRRROOOROOROX...",
+          ".....XXXOOOOOXOOXOXX....",
+          ".......XXXXXXXXXXXX.....",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          "................",
-          "....XX.XX.XX....",
-          "...XXXXXXXXXX...",
-          "..XXXXXXXXXXXX..",
-          ".XRRRRRRRRRRRRX.",
-          "XRRRRRRRRRRRRRRX",
-          "XRERXRRRRRRXRERX",
-          "XRERXRRRRRRXRERX",
-          "XRRRRRRRRRRRRRRX",
-          "WWWRRRRRRRRRRWWW",
-          "WWWRRXXRRXXRRWWW",
-          "WWRRRRRRRRRRRRWW",
-          "W.XXRRRRRRRRXX.W",
-          "..XRRRRRRRRRRX..",
-          "....XXRRRRXX....",
-          "......XXXX......"
+          "....XX...XX.............",
+          "....XO...XX.............",
+          "....OOX.XRX.............",
+          "....RRX.ORX.............",
+          "....OWOXROX.............",
+          "....OWOXWO..............",
+          "...XXWRRROXXXXX.........",
+          "..XOOWRROXXOROXX........",
+          "..XORRRROOXORROX.X......",
+          "..XORRRROOOOORX..XX.....",
+          ".XORRRRRROOOOX...XX.....",
+          ".XORRRRRRROOOX..XXX.....",
+          ".XRRRRRRORRXX...XXXX....",
+          ".XRXORROXRROXX.XXXXX....",
+          "XOREORROERROOX..XYXX....",
+          "XORXRRROXRRORRX.XXX.....",
+          "XORRRRRRRRROORX.XX......",
+          ".XORRRRRRRRXORXXOX......",
+          ".XXORRRROOXRROROX......",
+          "...XXOOOOOXXOXXXX.......",
+          "...XXXXXXX.XXXXX........",
+          "........................",
+          "........................",
+          "........................"
         ]
       ],
-      // RECONFIGURED: Windmill blades type pinwheel (Eyes now clearly visible & non-obstructed)
-      wind: [
-        [ // Frame 0: Diagonal blades windmill with clearly visible isolated eyes (E)
-          ".WW........WW.",
-          "..WW......WW..",
-          "...WW....WW...",
-          "....W....W....",
-          ".....CC.C.....",
-          "....E....E....",
-          "....E....E....",
-          ".....CCCC.....",
-          "....W....W....",
-          "...WW....WW...",
-          "..WW......WW..",
-          ".WW........WW.",
-          "..............",
-          "..............",
-          "..............",
-          ".............."
+            wind: [
+        [
+          "........................",
+          "..........WWWW..........",
+          "..........HGGW..........",
+          "..........WGGW..........",
+          "..........WGGW..........",
+          "..........WGGW..........",
+          "..........WGGW..........",
+          "..........WGGW..........",
+          ".........XXXXXX.........",
+          "........XCCCCCCX........",
+          ".WWWWWWWXCECCECXWWWWWWW.",
+          ".WGGGGGGXCECCECXGGGGGGW.",
+          ".WGGGGGGXCCRRCCXGGGGGGW.",
+          ".WWWWWWWXDCCCCDXWWWWWWW.",
+          "........XDCCCCDX........",
+          ".........XXXXXX.........",
+          "..........WWWW..........",
+          "..........WGGW..........",
+          "..........WGGW..........",
+          "..........HGGW..........",
+          "..........WGGW..........",
+          "..........WGGW..........",
+          "..........WWWW..........",
+          "........................"
         ],
-        [ // Frame 1: Perpendicular blades windmill with clearly visible isolated eyes (E)
-          "......WW......",
-          "......WW......",
-          "......WW......",
-          "......WW......",
-          "..WW..CC..WW..",
-          "..W..E..E..W..",
-          "..W..E..E..W..",
-          "..WW..CC..WW..",
-          "......WW......",
-          "......WW......",
-          "......WW......",
-          "......WW......",
-          "..............",
-          "..............",
-          "..............",
-          ".............."
+        [
+          "........................",
+          "...WWW.............WWW..",
+          "..WWGGW..........WGGWW..",
+          "...WWGGW........WGGWW...",
+          "....WWGGWW.....WWGGWW....",
+          ".....WWGGWW..WWGGWW.....",
+          "......WWGGWWWWGGWW......",
+          ".......WWXXXXXXWW.......",
+          "........XDCCCCDX........",
+          "........XCECCECX........",
+          "........XCECCECX........",
+          "........XCCRRCCX........",
+          "........XCCCCCCX........",
+          "........XDCCCCDX........",
+          ".......WWXXXXXXWW.......",
+          "......WWGGWWWWGGWW......",
+          ".....WWGGWW..WWGGWW.....",
+          "....WWGGWW.....WWGGWW...",
+          "...WWGGW........WGGWW...",
+          "..WWGGW..........WGGWW..",
+          "..WWWW.............WWWW..",
+          "........................",
+          "........................",
+          "........................"
         ]
       ],
-      // RECONFIGURED: Vortex Slime (Differentiated from Water with wind vortex shield base design)
-      vortex: [
+            vortex: [
         [
-          "......XX........",
-          "....XXXXXX......",
-          "...XXXXXXXX.....",
-          "XX.XWWWWWWX.XX..",
-          "XXXWWWWWWWWXXX..",
-          "XWWWWWWWWWWWWX..",
-          "XWWEXWSSWWEXWWX.",
-          "XWWEXWSSWWEXWWX.",
-          "XWWWWSSWWWWWWWWX",
-          "XWWWWWWWWWWWWWWX",
-          "XXWWWWWWWWWWWWX.",
-          ".XWWWWWWWWWWX...",
-          "..XWWSSWSWWX....",
-          "...XXWWSWWXX....",
-          "....XXXXXX......",
-          "................"
+          ".....BBB.BBBWBBB........",
+          "...GWWWWBBWBBBWBBGG.....",
+          "..BWWGGWGGWWWBWGBBBWB...",
+          "..WWBBBBWGGGWWBGGBBWWB..",
+          "BWWBBBBBBBGGGGWBWGBBBB..",
+          "GWBBBBBGGGBBGGGWWWWBWBG.",
+          ".BBBBGGGGGGGBGGWGWWBWBBB",
+          "BWBWGGGGBBGGGGGGWGGBWWWB",
+          "BBGWWWBBBXXXXXXGGWGGBWWB",
+          "BBWWBBGGXCCCCCCXGGGGBGGB",
+          "BWWBBGGGXCECCECXGGGWBGGB",
+          "BWBBGGGGXCECCECXGGGWBGGB",
+          "BBBBGGGGXCCRRCCXGGGBGGBB",
+          "BBBGGGBGXDDDCCDXGGBGGWBB",
+          "WBBGGBBGGXXXXXXGWWWGGBBW",
+          "BBWWGBBGGGGGGGGGWGGBBWWW",
+          "BBBWGBBGGGGGGGGGGWBBWWWW",
+          "BBBWGBBWBGGGGGGBBBBBGWBB",
+          "BBBWWBBBBGGGGBBBBGGGWWBB",
+          ".BWBWBBBWBWGGGGGGGWWBBB.",
+          "..BBWWBBBBBWWGGGGBBBBB..",
+          "...BGWBBBBBBBBBBBBBBBB..",
+          ".....WWBBBBWBWBBBBBBB...",
+          ".....GBWWWBBBBBWBBBB...."
         ],
         [
-          "................",
-          "......XX........",
-          "....XXXXXX......",
-          "...XXXXXXXX.....",
-          "XX.XWWWWWWX.XX..",
-          "XXXWWWWWWWWXXX..",
-          "XWWWWWWWWWWWWX..",
-          "XWWEXWSSWWEXWWX.",
-          "XWWEXWSSWWEXWWX.",
-          "XWWWWSSWWWWWWWWX",
-          "XWWWWWWWWWWWWWWX",
-          "XXWWWWWWWWWWWWX.",
-          ".XWWWWWWWWWWX...",
-          "..XWWSSWSWWX....",
-          "...XXWWSWWXX....",
-          "....XXXXXX......"
+          "..........BWBBBW........",
+          "........GBBBBBBBBB......",
+          "....BWBBBBBBBBBBBBBBWG..",
+          "...BWWBBBBWBBBGGGGBBBBB.",
+          "..BWBWBWBWBBGGWWGWWWBBB.",
+          "..BBWBBBBBBGGWWWWWWWWWBB",
+          "..BBWBBGBBGWBBBBBBBBBWWB",
+          ".BBWWBWGBGGBGGGWBBBB.GWW",
+          ".BBWBBGBBXXXXXXGGGGBBBWW",
+          ".BBWBBGBXCCCCCCXGGGBBBWW",
+          "BWWWBBGBXCECCECXGGBBWBBB",
+          "BWWWWBGBXCECCECXGGBBWBBB",
+          "GWWBWBGGXCCRRCCXGGGBBBBB",
+          "BWWBWBGGXDCCCCDXGGGBBBWB",
+          ".BWBBWBGGXXXXXXGGGGBBBBB",
+          ".BBWWBBGGGGGGWGGBGBBWBBB",
+          "..BBWWWBBGBGGGGBGGBBGBBB",
+          "...BBWWWGGBWGGBGWGBBGBBW",
+          ".GBBBBBBWWWWBBGGWBBBWBBB",
+          ".BWWWGBBBBBBBGGBWBBWBBB.",
+          ".BWBWWBBWBGGGGBBBBBWBB..",
+          "...BBWWWGGGGGBBBBBWBBB..",
+          "...BBBBWWWWWWBBBBWWBB...",
+          "....BBBBBBBBBBBGWWBB...."
         ]
       ],
-      // RECONFIGURED: Wind wizard riding dynamic cloud base platform (O: white cloud base)
-      wizard: [
+            wizard: [
         [
-          "......XX......",
-          ".....XXXX.....",
-          "....XXXXXX....",
-          "...XSSWWSSX...",
-          "..XWWWWWWWWX..",
-          ".XWWWWWWWWWWX.",
-          "XWWWWWWWWWWWWX",
-          "XWWEXWWWWEXWWX",
-          "XWWEXWWWWEXWWX",
-          ".XWWWWWWWWWWX.",
-          "..XWWWWWWWWX..",
-          ".XOOOOOOOOOOX.",
-          "XOOOOOOOOOOOXX",
-          "XOOOOOOOOOOOOX",
-          ".XOOOOOOOOOOX.",
-          "..XXXXXXXXXX.."
+          "........................",
+          "........................",
+          "............X..........",
+          "...........XWX..........",
+          "..........XWDX..........",
+          ".........XWWDDX.........",
+          "........XWDDDDDX........",
+          ".......XWWDDDDDDX.......",
+          "......XWWWWDDDDDDX......",
+          ".....XSWWWWWWWWWSX......",
+          "....XWWSSSSSSSSSWWX.....",
+          "..XWWWWWWWWWWWWWWWWX....",
+          "...XXXXXXXXXXXXXXXXXX...",
+          ".....XGGGGGGGGGGX.......",
+          "....XGGEGGGGEGGGGX......",
+          "....XGGXGGGGXGGGGX......",
+          "....XGGGGGGGGGGGGX......",
+          "...XGGGGGGGGGGGGGX......",
+          "..XXXXXXXXXXXXXXXXXXXX..",
+          "..XXOOOOOOOOOOOOOOOOXX..",
+          ".XOOOOOOOOOOOOOOOOOOOOX.",
+          "XOOOOOOOOOOOOOOOOOOOOOOX",
+          "XBBBBBBBBBBBBBBBBBBBBBBX",
+          ".XXXXXXXXXXXXXXXXXXXXXX."
         ],
         [
-          "................",
-          "......XX......",
-          ".....XXXX.....",
-          "....XXXXXX....",
-          "...XSSWWSSX...",
-          "..XWWWWWWWWX..",
-          ".XWWWWWWWWWWX.",
-          "XWWEXWWWWEXWWX",
-          "XWWEXWWWWEXWWX",
-          ".XWWWWWWWWWWX.",
-          "..XWWWWWWWWX..",
-          ".XOOOOOOOOOOX.",
-          "XOOOOOOOOOOOXX",
-          "XOOOOOOOOOOOOX",
-          ".XXXXXXXXXXXX.",
-          "................"
+          "........................",
+          "............X...........",
+          "...........XWX..........",
+          "..........XWDX..........",
+          ".........XWWDX..........",
+          "........XWWWDDX.........",
+          ".......XWDDDDDDX........",
+          "......XWWWDDDDDDX.......",
+          ".....XWWWWWDDDDDDX......",
+          "....XSWWWWWWWWWWSX......",
+          "...XWWSSSSSSSSSSWWX.....",
+          "..XWWWWWWWWWWWWWWWWX....",
+          "...XXXXXXXXXXXXXXXXXX...",
+          ".....XGGGGGGGGGGX.......",
+          "....XGGEGGGGEGGGGX......",
+          "....XGGXGGGGXGGGGX......",
+          "....XGGGGGGGGGGGGX......",
+          "...XGGGGGGGGGGGGGX.....X",
+          "..XXXXXXXXXXXXXXXXXXXXOX",
+          "..XXOOOOOOOOOOOOOOOOOOOX",
+          ".XOOOOOOOOOOOOOOOOOOOOX.",
+          "XOOOOOOOOOOOOOOOOOOOXX..",
+          "XBBBBBBBBBBBBBBBBBBX....",
+          ".XXXXXXXXXXXXXXXXXX....."
         ]
       ],
-      lunya: [
+                  lunya: [
         [
-          "................",
-          "....X......X....",
-          "...XBX....XBX...",
-          "..XBBBX..XBBBX..",
-          "..XBBBBXXBBBBX..",
-          ".XBBBBBBBBBBBBX.",
-          ".XBBBBMMMMBBBBX.",
-          ".XBBBMX..XMBBBX.",
-          "XBBBBX.XX.XBBBBX",
-          "XBBBBEXXXEXBBBBX",
-          ".XBBBBBBBBBBBBX.",
-          "..XBBBBBBBBBBX..",
-          "..XBBBBBBBBBBX.X",
-          "..XBBBBBBBBBBXXX",
-          "..XBBBBBBBBBBX..",
-          "...XXXX..XXXX..."
+          "........................",
+          "..XX.........XXX........",
+          ".XWWX.......XXWWX.......",
+          ".XWWXX.....XXWWHX.......",
+          ".XHXWXX...XXWWHHX.......",
+          ".XHXWXXXXXXWXHHHX.......",
+          ".XHWOXHHWXWWXHHHX.......",
+          ".XHHWWMMMWWWXHHHX.......",
+          "XHWWWMMMWWWWOOHHX.......",
+          "XWWWWMMMWWWWWOOOX.......",
+          "XWWWWMMMMWWWWWOWX.......",
+          "XHWWWWMMWWWWWWWWXXXX....",
+          "XWWWWWWWWWWWWWWWWXXXX...",
+          "XWWXXWWWWWWXXWWWWXXXXX..",
+          "XWWXXWWWWWWXXWWWWHXXXXX.",
+          "XHWXXWWWWWWXXWWWWWXXXXXX",
+          "XHWWWWWWWWWWWWWWWWXXWWWX",
+          "XWHWWWWWWWWWWWWWOOX.XWWX",
+          "XOHWWWWWWWWWWWOOOXXXWWWX",
+          "XOWWWWWWWWWWOOOOXOOOWWWX",
+          ".XOOOOWWWOOOOOOXXOOWWWWX",
+          ".XXXXXXXXXXXXXXXXXWWWWX.",
+          ".................XXXXX..",
+          "........................"
         ],
         [
-          "................",
-          "....X......X....",
-          "...XBX....XBX...",
-          "..XBBBX..XBBBX..",
-          "..XBBBBXXBBBBX..",
-          ".XBBBBBBBBBBBBX.",
-          ".XBBBBMMMMBBBBX.",
-          ".XBBBMX..XMBBBX.",
-          "XBBBBX.XX.XBBBBX",
-          "XBBBBEXXXEXBBBBX",
-          ".XBBBBBBBBBBBBX.",
-          "..XBBBBBBBBBBX..",
-          "..XBBBBBBBBBBX.X",
-          "..XBBBBBBBBBBXX.",
-          "..XBBBBBBBBBBX.X",
-          "...XXXX..XXXX.XX"
+          "....................XXXX",
+          "...................XXXXX",
+          "....XX........XX..XXXXXX",
+          "...XWXX......XXWX.XXXXXX",
+          "..XHWXX......XRHX.XXXXXX",
+          "..XHWWX.....XWWHX.XXXXXX",
+          ".XHHXWXXXXXXWXHHX.XWRXXX",
+          ".XHHXWOWWWXXWXHHX.XWWWXX",
+          ".XHHXWWXMMXWWXHHX.XXWWX.",
+          ".XHRHWXMMMXWWOHHX.XXWXXX",
+          ".XWWWWXMMWWWWWWXX.XXXWXX",
+          ".XWWWWXMMMXWWWOXX.XXXHXX",
+          "XHHWWWWXMMXWWWWWX.XXXWXX",
+          "XOHWWWWWWWWWWWWOXX.XXWWX",
+          "XHWWWWWWWWWWWWWWWX.XXWWX",
+          "XHWWXXWWWWWWXXWWWX.XXWWX",
+          "XHWWXXWWWWWWXXWHHHX.XWOX",
+          "XHHWXXWWWWWWXXWWWOX.XXWX",
+          "XHHWWWWWWWWWWWWWWOX.XWOX",
+          "XOWWWWWWWWWWWWWWOX.XWOOX",
+          "XOOWWWWWWWWWWWOOXXXOOOOX",
+          "XOOOOWWWWWWWOOOXXOOOOOX.",
+          "XXOOOOOOOOOOOXXXXXXXXX..",
+          "..XXXXXXXXXXXX.........."
         ]
       ],
-      creta: [
+                  creta: [
         [
-          "................",
-          "....X......X....",
-          "...XYX....XYX...",
-          "..XYYYXXXXYYYX..",
-          ".XYYYYYYYYYYYYX.",
-          "XYYYYYYYYYYYYYYX",
-          "XYYMMYYYYYYMMYYX",
-          "XYMX.XYYYYX.XMYX",
-          "XYYEXYYYYYEXYYYX",
-          "XYYYYYXXXXYYYYYX",
-          ".XYYYYYYYYYYYYX.",
-          "..XYYYYYYYYYYX..",
-          "..XYYYYYYYYYYXX.",
-          "..XYYYMMYYYYX.XX",
-          "..XYYYYYYYYYX..X",
-          "...XXXX..XXXX..."
+          "........................",
+          "........................",
+          "........................",
+          "..XXXXX....XXXXX........",
+          "..XXXXX....XXXXX........",
+          "..XXHXXXXXXXXXXX........",
+          "..XHYXXXXXXXXYHX........",
+          "..XHXXOOXXXOXXHX........",
+          "..XXXOOXXXXOOXXX........",
+          "..XXOOOXXOOOOXXXX.......",
+          "..XXOOOXXXXOOOOXX.......",
+          "..XOOOOXXXXOOOOXX.......",
+          "..XOXXOOOOOXXXOOX.......",
+          ".XXOXXXOOOOXXXOOXX......",
+          ".XXYXXXOOOOXXXOYXXXXXXX.",
+          ".XYYXXXOOOOXXXXYXXWXXXXX",
+          ".XYYYYOOOOOOYYYYXXOXXXXX",
+          ".XXYYYOOOOOOYYYOXXXXXXXX",
+          ".XXXOOOOOOOOXXOXXXXXXXXX",
+          "..XXXOOXOOOOXXXXX..XXXXX",
+          "....XXXXXXXXXXX......XX.",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          "................",
-          "....X......X....",
-          "...XYX....XYX...",
-          "..XYYYXXXXYYYX..",
-          ".XYYYYYYYYYYYYX.",
-          "XYYYYYYYYYYYYYYX",
-          "XYYMMYYYYYYMMYYX",
-          "XYMX.XYYYYX.XMYX",
-          "XYYEXYYYYYEXYYYX",
-          "XYYYYYXXXXYYYYYX",
-          ".XYYYYYYYYYYYYX.",
-          "..XYYYYYYYYYYX..",
-          "..XYYYYYYYYYYXX.",
-          "..XYYYMMYYYYX.XX",
-          "..XYYYYYYYYYX.X.",
-          "...XXXX..XXXX.X."
+          "........................",
+          "........................",
+          "........................",
+          "..XXXXX.....XXXXX.......",
+          "..XXXXXX....XXXXX.......",
+          "..XXXXXXXXXXXXXXX.......",
+          "..XXHYXXXXXXXXYHX.......",
+          "..XXYXXXXXXXXXXHX.......",
+          "..XXXXOXXXXXOOXXX.......",
+          "...XXOOXXXOOOOOOX.......",
+          "..XXXOOXXXXXOOOOX.......",
+          "..XXOOOOXXXOOOXOXX......",
+          "..XXXXXOOOOOXXXOOX......",
+          "..XXXXXXOOOXXXXOXX......",
+          ".XXYXXXXOOOXXXXYOXXXXX..",
+          ".XXYXXXXOOOXXXYYOXXXXXX.",
+          ".XXXYYYYOOOOYYYYXXXXXXX.",
+          ".XXOYYYYOOOOYYYOXXXXXXX.",
+          "..XXXXOOOOOOOXWWXXWXXXX.",
+          "..XXXXXXXOOXWXXXXWOXXXX.",
+          ".....XXXXXXXXXXXXXXXXX..",
+          "........................",
+          "........................",
+          "........................"
         ]
       ],
-      blacktiger: [
+                  blacktiger: [
         [
-          "................",
-          "...XX......XX...",
-          "..XBBXXXXXXBBX..",
-          ".XBBBBBBBBBBBBX.",
-          ".XBBTBBTBTBBTBX.",
-          "XBBBBBBBBBBBBBBX",
-          "XBBEXBBBBBBEXBBX",
-          "XBBEXBBBBBBEXBBX",
-          "XBBBBBBXXBBBBBBX",
-          "XBBBBBXXXXBBBBBX",
-          ".XBBBBBBBBBBBBX.",
-          "..XBBBBBBBBBBX..",
-          "..XBBBBBBBBBBX.X",
-          "..XBBTBBTBBBBX.X",
-          "..XBBBBBBBBBBXX.",
-          "...XXXX..XXXX..."
+          "........................",
+          "....XXXX...XXXX..XXXX...",
+          "...XXXXXXXXXXXXXXXXXXX..",
+          "..XXXXBXXXXXXXXXXXXXXX..",
+          "..XXXTXXXXXXXXXXDXTTXX..",
+          "..XXTTXXXXXXXXXXXHTTXX..",
+          "..XXTTBBXXXXXXXXXBHXXX..",
+          "...XXTBBXXXXXXXTBBBXXX..",
+          "...XXXBBXXXXXXXXXBBBXX..",
+          "...XXXBHXXBBBBXXXBHTXX..",
+          "..XXXXXBTBBBBBBTBXXTXX..",
+          "..XXXXYYXBBBBBBXYYXXXXX.",
+          ".XXXXXYYYBBBBBBYYYXXXXXX",
+          ".XXXXXYYYBBBBBBYYYXXXXXX",
+          ".XXXXXXYYBBRRBBYYYBXXXXX",
+          ".XXXXXXXBBXXXBXBXXXXXXXX",
+          "..XXTTXXBBXXXXXBXXXXXXX.",
+          "..XXXXXTBBBBBBBBXXXXXX..",
+          "....XXXXXXBBBBBXXXXXXX..",
+          "....XXTXXXXXXXXXXXXXXX..",
+          "....XXXXXXXTTXXXXXXXXX..",
+          "....XXXXXXXTTXXXTTXX....",
+          "....XXXXXXXXXXXXXXXX....",
+          "........................"
         ],
         [
-          "................",
-          "...XX......XX...",
-          "..XBBXXXXXXBBX..",
-          ".XBBBBBBBBBBBBX.",
-          ".XBBTBBTBTBBTBX.",
-          "XBBBBBBBBBBBBBBX",
-          "XBBEXBBBBBBEXBBX",
-          "XBBEXBBBBBBEXBBX",
-          "XBBBBBBXXBBBBBBX",
-          "XBBBBBXXXXBBBBBX",
-          ".XBBBBBBBBBBBBX.",
-          "..XBBBBBBBBBBX..",
-          "..XBBBBBBBBBBXX.",
-          "..XBBTBBTBBBBX.X",
-          "..XBBBBBBBBBBX.X",
-          "...XXXX..XXXX.X."
+          "........................",
+          "...XXXX..XXXXX..XXXX....",
+          "..XXXXXXXXXXXXXXXXXXX...",
+          "..XXXXXXXXXXXXXXBXXXX...",
+          "..XXTTXDXXXXXXXDXTTXX...",
+          "..XTTTDXXXXXXXXXXTTTX...",
+          "..XXTBDXXXXXXXXXBTXXX...",
+          "..XXXHBBTXXXXXXBBBTXX...",
+          "..XXHBBXXXDXTXXXBHBXX...",
+          "..XXTBBXXBBBBBXXBBTXX...",
+          "..XXXXXBBBBBBBHBBXTXX...",
+          ".XXXXYYXXBBBBBXYYXXXXX..",
+          "XXXXXYYYXBBBBBXYYXXXXXX.",
+          "XXXXXYYYXBBBBBXYYXXHXXX.",
+          "XXXXXXYYXBBRBBXYYXBXXXX.",
+          "XXXXXXXBBXBXBXBBXXXXXXXX",
+          ".XXXXXXBBXXXXXBBXXXXXXXX",
+          "..XXXXXTBBBBBBBXXXXXXXXX",
+          "...XXXXXXBBBBBXXXXXXXXXX",
+          "...XXXTXXXXXXXXXXXXXXXXX",
+          "...XXDHXXXTTXXXBDXXXXXX.",
+          "...XXXXXXXXTXXXXXXXXXXX.",
+          "...XXXXXXXXXXXXXXXXXXX..",
+          "........................"
         ]
       ],
-      solmong: [
+            solmong: [
         [
-          "................",
-          "...XXXX..XXXX...",
-          "..XWWXX..XXWWX..",
-          ".XWWWWXXXXWWWWX.",
-          ".XWWWWWWWWWWWWX.",
-          "XWWWWWWWWWWWWWWX",
-          "XWWEXWWWWWWEXWWX",
-          "XSWWWWWXXWWWWWSX",
-          "XWWWWWXXXXWWWWWX",
-          "XWWWWWWWWWWWWWWX",
-          ".XWWWWXTTTXWWWWX",
-          "..XWWWWXTXWWWWX.",
-          "...XWWWWWWWWX...",
-          "....XWWWWWWX..X.",
-          "....XWWWWWWX.X..",
-          ".....XXXXXX..X.."
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "....XXXXXXXXXXXX........",
+          "..XXXHXXXXXXXWXXX.......",
+          ".XXXWHWWWWWWWWWWXX......",
+          "XXWWHXHWWWWWWHHWWXX.....",
+          "XXWWXHWWWWWWWHHWWHX.....",
+          "XHWWXHWWWWWWWHHHWWX.....",
+          "XHWHXHWWWWWWWHXHWHX..XXX",
+          "XXHXXWXXWWWXXXHXHXX.XXXX",
+          ".XXXHWXXWWWXXXHXXXXXXXHX",
+          ".XXHWWXXWWWXXXWWXXXXHHHX",
+          ".XXSSSHHWXXWHTSSSXXWWHHX",
+          ".XXSSSWWWXXWWSSSSXWWHHXX",
+          ".XXSSSWXXXXXWTSSSXHHHXXX",
+          "..XSSSWWXSTXWHSSXXXXXXX.",
+          "...XXXHHXSTHHHXXX.......",
+          "....XXXXXXXXXXX.........",
+          "......XXXXXXX...........",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          "................",
-          "...XXXX..XXXX...",
-          "..XWWXX..XXWWX..",
-          ".XWWWWXXXXWWWWX.",
-          ".XWWWWWWWWWWWWX.",
-          "XWWWWWWWWWWWWWWX",
-          "XWWEXWWWWWWEXWWX",
-          "XSWWWWWXXWWWWWSX",
-          "XWWWWWXXXXWWWWWX",
-          "XWWWWWWWWWWWWWWX",
-          ".XWWWWXTTTXWWWWX",
-          "..XWWWWXTXWWWWX.",
-          "...XWWWWWWWWX...",
-          "....XWWWWWWX.X..",
-          "....XWWWWWWX..X.",
-          ".....XXXXXX...X."
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "....XXXX...XXXXX........",
+          "...XXHXXXXXXXWXXX.......",
+          ".XXXWWWHWWWHWWWHXXX.....",
+          "XXHWWHWWWWWWWHHWWXXX....",
+          "XXWWHHWWWWWWWHHWWWXX....",
+          "XWWWXHWWWWWWWWHHWWXX....",
+          "XHWHXHWWWWWWWWXHWHXX....",
+          "XXHHXHXXWWWXXXHXHHXX....",
+          "XXXXHWXXWWWXXXWXXXXXXX..",
+          ".XXHWWXXWWWXXXWHXXXXXXXX",
+          ".XXSSSXWXXXWXSSSSXHWWHXX",
+          ".XXSSSWWXXXWWSSSSXHHWHHX",
+          ".XXSSSWXXXXXWSSSSXXXHHHX",
+          "..XSSSWWXSTXWWSSXX.XXHHX",
+          "..XXXXHHXSTXHHXXX...XXXX",
+          "...XXXXXXXXXXXXX....XXXX",
+          "......XXXXXXX........XX.",
+          "........................",
+          "........................",
+          "........................"
         ]
       ],
-      ilf: [
+            ilf: [
         [
-          "................",
-          "...XX......XX...",
-          "..XWX......XWX..",
-          ".XWWX......XWWX.",
-          ".XWWWWXXXXWWWWX.",
-          "XWWWWWWWWWWWWWWX",
-          "XWWEXWWWWWWEXWWX",
-          "XSWWWWWXXWWWWWSX",
-          "XWWWWWWXXXXWWWWX",
-          "XWWWWWWWWWWWWWWX",
-          ".XWWWWWWWWWWWWX.",
-          "..XWWWWWWWWWWX..",
-          "..XWWWWWWWWWWX.X",
-          "..XWWWWSWWWWWX.X",
-          "..XWWWWWWWWWWXX.",
-          "...XXXX..XXXX..."
+          "........................",
+          "........................",
+          "........................",
+          "...XX......XXX..........",
+          "...XXX....XXXX..........",
+          "...XHXXXXXXXXX..........",
+          "...XHHXXXXXHHX..........",
+          "..XXHHHHWHHXHXX.........",
+          "..XXHHWHHHHHHXX.........",
+          "..XXHSWWWWHSHXX.........",
+          "..XXWSHWWWEHWXX.....XX..",
+          ".XXHXSSWWHEXXHXX....SS..",
+          ".XXWXXXWWHXXHWXX.XXTSS..",
+          ".XXHHXXWWXXXWHXXXSSSSS..",
+          ".XXHWWXWWWWWWHXXTSSSSS..",
+          "..XXXHWWWWWHXXXXXSHSSX..",
+          "..XXXHWXXWHXXWHXWWTHSX..",
+          "...XXXHXXXXHXHXXHHHXXX..",
+          "...XXWXXXXHXXHXXXXXX....",
+          "....XXXXXXXXXXXXXX......",
+          "........................",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          "................",
-          "...XX......XX...",
-          "..XWX......XWX..",
-          ".XWWX......XWWX.",
-          ".XWWWWXXXXWWWWX.",
-          "XWWWWWWWWWWWWWWX",
-          "XWWEXWWWWWWEXWWX",
-          "XSWWWWWXXWWWWWSX",
-          "XWWWWWWXXXXWWWWX",
-          "XWWWWWWWWWWWWWWX",
-          ".XWWWWWWWWWWWWX.",
-          "..XWWWWWWWWWWX..",
-          "..XWWWWWWWWWWXX.",
-          "..XWWWWSWWWWWX.X",
-          "..XWWWWWWWWWWX.X",
-          "...XXXX..XXXX.X."
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "..XXXX....XXXX..........",
+          "..XXXXXXXXXXXX..........",
+          "..XHXXXXXXHHXX..........",
+          ".XXHHWHWHHHXXXX.........",
+          ".XXXHHHHHWHXXXX.........",
+          ".XXHHWWWHWSHHX..........",
+          ".XXWHHWWWWHWHXX......XXS",
+          ".XXXHTHWWEHXWXX...XXTSSS",
+          "XXWXTTWWWEEXWXXX.XTSSSSS",
+          "XXHXXXWWHXXXWHXXXXSSSSSX",
+          "XXHWXXWWHXXWWHXXXXWSSSSX",
+          "XXXHWWWWWWWHHXX.XWSHHSSX",
+          ".XXXXHWXHWHHXHXXXHWHHSX.",
+          "..XXXXXXXHXHHWXXWHHHXXX.",
+          "..XXXXXXXXHXHHXXHXXXXX..",
+          "...XXXXXXXXXXXXXXXXX....",
+          "...XXXXXXXXXXXX.........",
+          "........................",
+          "........................",
+          "........................"
         ]
       ],
-      baekho: [
+            baekho: [
         [
-          "................",
-          "...XX......XX...",
-          "..XWX......XWX..",
-          ".XWWWXXXXXXWWWX.",
-          "XWWWWWWWWWWWWWWX",
-          "XWWWWWWWWWWWWWWX",
-          "XWWEXWWWWWWEXWWX",
-          "XRWEXWWWWWWEXWRX",
-          "XWWWWWWWWWWWWWWX",
-          "XWWWWWWWWWWWWWWX",
-          ".XWWWWXXXXWWWWX.",
-          "W.XWWWWWWWWWWX.W",
-          "WW.XWWWWWWWWX.WW",
-          "WWW.XWWWWWWX.WWW",
-          "WW..XXXXXXXX..WW",
-          "W....XXXXXX....W"
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "..XXX......XEE..........",
+          "..EEOXX...XXEE..........",
+          "..EEEXXXXXXEEE..........",
+          "..XEEOHHHHHEEX..........",
+          "..XEEHWHHHHXEX..........",
+          "..XXHHWHHWWHHX.....XX...",
+          "..XHHWWWWWWHHXX....RR...",
+          "..XWHHWWWWHHWXXXXXERR...",
+          ".XXWXXWWWWXXWXXXXRRRR...",
+          ".XXWXXWWWWXXWHXXWWORXXX.",
+          ".XXRRXWWWWXXRRXXWHXORRR.",
+          ".XXRRWWRRWWRRXXWHHHHRRO.",
+          "..XXXHWWOWWHXXHHHHHWERX.",
+          "...XXXXXXXXXHXHHHHOOEX..",
+          "...XXWXXHXWHHXHWWWRER...",
+          "....XXXXXXXXXXXXXRRRX...",
+          ".....XXXXXXXX.XXXXX.....",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          "................",
-          "...XX......XX...",
-          "..XWX......XWX..",
-          ".XWWWXXXXXXWWWX.",
-          "XWWWWWWWWWWWWWWX",
-          "XWWWWWWWWWWWWWWX",
-          "XWWEXWWWWWWEXWWX",
-          "XRWEXWWWWWWEXWRX",
-          "XWWWWWWWWWWWWWWX",
-          "XWWWWWWWWWWWWWWX",
-          ".XWWWWXXXXWWWWX.",
-          ".W.XWWWWWWWWXXW.",
-          "WW.XWWWWWWWWX.WW",
-          "W.W.XWWWWWWX.W.W",
-          ".W..XXXXXXXX..W.",
-          ".....XXXXXX....."
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "...XEX......XXX.........",
+          "...REXXX...XXEE.........",
+          "...REEXXXXXXXEE.........",
+          "...XEEXHHWHHEEX.........",
+          "...XEEHWHHHHHEX....RR...",
+          "...XXHHWHHWWHHX.XXXRR...",
+          "...XXHHWWWWWHHXXXRRRR...",
+          "...XHHHHWWWHHHHXHRRRX...",
+          "..XXHXXXWWWXXWHXHWRXXXRR",
+          "..XXWXXXWWWXXWHXXHHXRRRR",
+          "..XXRRXXWWWXXRHXXHHWRRRX",
+          "..XXRRWWRRWWRREXHHHWHRR.",
+          "...XXXHWWOWHHXXHHXHHXRXX",
+          "....XXXXXXXXXHXHHHHREEEX",
+          "....XXHWXHXWHHXHHWWRRRX.",
+          ".....XXXXXXXXXXXXXXRRX..",
+          "......XXXXXXXX.XXXXXX...",
+          "........................",
+          "........................",
+          "........................"
         ]
       ],
-      eleki: [
+            eleki: [
         [
-          "...XX......XX...",
-          "..XLYX....XLYX..",
-          "..XLYX....XLYX..",
-          "..XYYX....XYYX..",
-          ".XYYYYXXXXYYYYX.",
-          "XYYYYYYYYYYYYYYX",
-          "XYYEXYYYYYYEXYYX",
-          "XYYEXYYYYYYEXYYX",
-          "XYYYYYYYYYYYYYYX",
-          "XYYYYYYYYYYYYYYX",
-          ".XYYYYXXXXYYYYX.",
-          "..XYYYYYYYYYYX..",
-          "...XYYYYYYYYX...",
-          "....XYYYYYYX....",
-          "....XYYYYYYX....",
-          ".....XXXXXX....."
+          "........................",
+          "......X..........XX.....",
+          ".....XXX........XXX.....",
+          ".....XYXX......XXYX.....",
+          ".....XYYXX....XXYYXX....",
+          ".....XYYYXX...XYYLYX....",
+          ".....XXLYYX...XYLLYX....",
+          ".....XXLLYX..XXYLLYX....",
+          ".....XOLLYX..XYYLLYX....",
+          ".....XYLLYX.XXYXLLXX....",
+          ".....XYLLYXXXXYLLYX.....",
+          ".....XXOLYYYYYYXLYX.....",
+          "......EYYYYYYYYYYEX.....",
+          ".....XEYYYYYYYYYYEXX....",
+          "..XXXXYYYYYYYYYYYYYXXXX.",
+          "..XXYYYYYYYYYYYYYYYYYXX.",
+          "...XYYYYYYYYYYYYYYYYOX..",
+          "..XXYYYXXYYYYYYXXYYYYXX.",
+          ".XXYYYYXXYYYYYYXXYYYYYXX",
+          ".XXXYYYXXYYYYYYXXYYYYXX.",
+          "..XYYYYYYYYYYYYYYYYYYX..",
+          "..XXXYYYYYYYYYYYYYYXXXX.",
+          "....XXYYYYYYYYYYYYXX....",
+          ".....XXXXXXXXXXXXXX....."
         ],
         [
-          "................",
-          "...XX......XX...",
-          "..XLYX....XLYX..",
-          "..XYYX....XYYX..",
-          ".XYYYYXXXXYYYYX.",
-          "XYYYYYYYYYYYYYYX",
-          "XYYEXYYYYYYEXYYX",
-          "XYYEXYYYYYYEXYYX",
-          "XYYYYYYYYYYYYYYX",
-          "XYYYYYYYYYYYYYYX",
-          ".XYYYYXXXXYYYYX.",
-          "..XYYYYYYYYYYX..",
-          "...XYYYYYYYYX...",
-          "....XYYYYYYX....",
-          "....XYYYYYYX....",
-          ".....XXXXXX....."
+          "........................",
+          ".....XXX........XXX.....",
+          ".....XYX.......XXYX.....",
+          "....XXYXX.....XXYYXX....",
+          "....XYYYXX....XYYYYX....",
+          "....XYLOYX....XYOLYX....",
+          "....XYLLYX...XXYLLYX....",
+          "....XYLLYXX..XYYLLYX....",
+          "....XXLLYYX..XYYLOXX....",
+          ".....XYLLYXXXXYLLYX.....",
+          ".....XYLLYXYYXYLLYX.....",
+          ".....XYOYYYYYYYYYYX.....",
+          ".....XEYYYYYYYYYYEX.....",
+          ".....XEYYYYYYYYYYEXX....",
+          ".XXXXXYYYYYYYYYYYYYXXXX.",
+          ".XXYYYYYYYYYYYYYYYYYYXX.",
+          "..XOYYYYYYYYYYYYYYYYOX..",
+          ".XXYYYYXXYYYYYYXXYYYYXX.",
+          "XXYYYYYXXYYYYYYXXYYYYYXX",
+          ".XXXYYYXXYYYYYYXXYYYXXX.",
+          "..XYYYYYYYYYYYYYYYYYYX..",
+          ".XXXYYYYYYYYYYYYYYYXXXX.",
+          "...XXXYYYYYYYYYYYYXX....",
+          "....XXXXXXXXXXXXXXXX...."
         ]
       ],
-      rayoki: [
+                              rayoki: [
         [
-          "...XX......XX...",
-          "..XLYX....XLYX..",
-          "..XLYX....XLYX..",
-          "..XYYX....XYYX..",
-          ".XYYYYXXXXYYYYX.",
-          "XYYYYYYYYYYYYYYX",
-          "XYYEXYYYYYYEXYYX",
-          "XYYEXYYYYYYEXYYX",
-          "XYYYYYYYYYYYYYYX",
-          "XYYXXYYYYYYXXYYX",
-          "XYYYYYYYYYYYYYYX",
-          ".XYYYYXXXXYYYYX.",
-          "..XYYYYYYYYYYX..",
-          "...XYYYYYYYYX...",
-          "....XYYYYYYX....",
-          ".....XXXXXX....."
+          "........................",
+          "........................",
+          "........................",
+          "..XXXX.....XXX..........",
+          "..XXXXX...XXYX..........",
+          "..XORRX...XYLX..........",
+          "..XXRRXX.XXLLX..........",
+          "..XXRRXX.XOLLX..........",
+          "..XXRRRX.XLLLX..........",
+          "...XRROXXXLLXX..........",
+          "...XXROOOOLLXX..........",
+          ".XXXXWWYYYOOXXXX........",
+          ".XXXOYWYYYYYOXXX........",
+          ".XXOOYYYYYYYYXXX...XXXX.",
+          "XXXOOXXYYYXXYOXXX.XXXXX.",
+          ".XXOOXXYYYXXYOXX.XXYXXXX",
+          "XXXOOXXYYYXXYOXXXXXYXXXX",
+          "XXXXOYYYYYYYOOXXXXXXXXXX",
+          ".XXOXOYYYYOOXXXXXXXXXX..",
+          ".XXXXXOOOOOXXXXXXXX.....",
+          "....XXXXXXXXX...........",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          "................",
-          "...XX......XX...",
-          "..XLYX....XLYX..",
-          "..XYYX....XYYX..",
-          ".XYYYYXXXXYYYYX.",
-          "XYYYYYYYYYYYYYYX",
-          "XYYEXYYYYYYEXYYX",
-          "XYYEXYYYYYYEXYYX",
-          "XYYYYYYYYYYYYYYX",
-          "XYYXXYYYYYYXXYYX",
-          "XYYYYYYYYYYYYYYX",
-          ".XYYYYXXXXYYYYX.",
-          "..XYYYYYYYYYYX..",
-          "...XYYYYYYYYX...",
-          "....XYYYYYYX....",
-          ".....XXXXXX....."
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "..XXX......XXX..........",
+          "..XXXX....XXXX..........",
+          "..XYRXX..XXYOX..........",
+          "..XOROX..XXLLX..........",
+          "..XORRX.XXLLLX..........",
+          "..XXRRXXXXLLXX..........",
+          "...XRRXXXOLLXX..........",
+          "...XRROXOOLLXX..........",
+          ".XXXOWYYYYYOXXX.........",
+          ".XXXOWYYYYYYOXX.........",
+          ".XXOYYYYYYYYYXX.....XXXX",
+          "XXXOXXYYYYXXOXXX...XXXXX",
+          "XXXOXXXYYXXXYXXX..XXXXXX",
+          "XXXOXXXYYXXXOOXX..XXXXXX",
+          "XXXOOYYYYYYYOXXX..XXXXXX",
+          ".XXXOOYYYYOOXXXX.XXXXXXX",
+          ".XXXXOOOOOOOXXXXXXXXXX..",
+          "....XXXXXXXXX.XXXX......",
+          "........................",
+          "........................"
         ]
       ],
-      thunderbunny: [
+                  thunderbunny: [
         [
-          "...XX......XX...",
-          "..XBX......XBX..",
-          "..XLYX....XLYX..",
-          "..XLYX....XLYX..",
-          ".XYYYYXXXXYYYYX.",
-          "XYYYYYYYYYYYYYYX",
-          "XYYEXYYYYYYEXYYX",
-          "XBYEXYYYYYYEXYBX",
-          "XYYYYYYYYYYYYYYX",
-          "XYYYYYYYYYYYYYYX",
-          ".XYYYYXXXXYYYYX.",
-          "..XYYYYYYYYYYX..",
-          "...XYYYYYYYYX...",
-          "....XYYYYYYX....",
-          "....XYYYYYYX....",
-          ".....XXXXXX....."
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          "...XX.....XX............",
+          "..XXXX...XXXX...........",
+          "..XXOX..XXBXX...........",
+          "..XRRXX.XXLBX...........",
+          "..XRRRX.XLLBX...........",
+          "...XRRXXXLLX............",
+          "...XRRXOXLLX............",
+          ".XXXOYYYYOXXXX.........X",
+          ".XXXYYYYYYYXXX.........X",
+          ".XXOYYYYYXYOXX.........X",
+          "XXXOXXYYXXXOXXX.......XX",
+          ".XXOXXYYXXXOXX...XXX..XX",
+          "XXXOLXYYYBLBXXXXXXXXXXXX",
+          "XXXOLBYYYYLOXXXXXXXXW.XX",
+          ".XXXXOOOOOOXXXXX.XXXXX.X",
+          "...XXXXXXXXX......XXXX..",
+          "........................",
+          "........................",
+          "........................",
+          "........................"
         ],
         [
-          "................",
-          "...XX......XX...",
-          "..XBX......XBX..",
-          "..XLYX....XLYX..",
-          ".XYYYYXXXXYYYYX.",
-          "XYYYYYYYYYYYYYYX",
-          "XYYEXYYYYYYEXYYX",
-          "XBYEXYYYYYYEXYBX",
-          "XYYYYYYYYYYYYYYX",
-          "XYYYYYYYYYYYYYYX",
-          ".XYYYYXXXXYYYYX.",
-          "..XYYYYYYYYYYX..",
-          "...XYYYYYYYYX...",
-          "....XYYYYYYX....",
-          "....XYYYYYYX....",
-          ".....XXXXXX....."
+          "........................",
+          "........................",
+          "........................",
+          "........................",
+          ".XX....XXX..............",
+          "XXXX...XXX..............",
+          "XRRX..XXBX..............",
+          "XRRXX.XBLX..............",
+          "XRRXXXXLLX..............",
+          "XXRRXXOLLX..............",
+          "XXROXXOLBX..............",
+          "XXWWYYYOXXXX.........XX.",
+          "XXWWYYYYOXXX.......XXXX.",
+          "XOOYYYYXOOXX......XXXXXX",
+          "OOXXYYXXOOXX......XXXXXX",
+          "XOXXYYXXOOXX..XXXXXXXXX.",
+          "XLLYYYYLLXXX.XXXXXXXXX..",
+          "XBLYYYYBBXXXXXX.........",
+          "XXOOOOOOXXXXXX..........",
+          ".XXXXXXXXX..............",
+          "........................",
+          "........................",
+          "........................",
+          "........................"
         ]
-      ]
-    };
+      ]};;
 
     /* Furniture Sprites & Colors removed */
 
@@ -2946,34 +3319,33 @@
 
     const SPRITE_COLORS = {
       egg: { '.': 'transparent', 'X': '#0f380f', 'C': '#5d6d7e' },
-      stone: { '.': 'transparent', 'X': '#0f380f', 'G': '#7f8c8d', 'E': '#0f380f' },
-      iron: { '.': 'transparent', 'X': '#0f380f', 'G': '#34495e', 'E': '#e74c3c' },
-      golem: { '.': 'transparent', 'X': '#0f380f', 'G': '#d4ac0d', 'E': '#0f380f' },
-      aqua: { '.': 'transparent', 'X': '#0f380f', 'C': '#2980b9', 'E': '#0f380f' },
-      ocean: { '.': 'transparent', 'X': '#0f380f', 'C': '#1abc9c', 'E': '#2980b9' },
-      poseidon: { '.': 'transparent', 'X': '#0f380f', 'C': '#16a085', 'E': '#f1c40f', 'W': '#ffffff' },
-      dragon: { '.': 'transparent', 'X': '#0f380f', 'R': '#e67e22', 'W': '#f39c12', 'E': '#0f380f' },
-      inferno: { '.': 'transparent', 'X': '#0f380f', 'R': '#c0392b', 'W': '#d35400', 'E': '#000' },
-      kaiser: { '.': 'transparent', 'X': '#0f380f', 'R': '#8e44ad', 'W': '#8e44ad', 'E': '#f1c40f' },
-      wind: { '.': 'transparent', 'W': '#2ecc71', 'C': '#95a5a6', 'E': '#0f380f' },
-      vortex: { '.': 'transparent', 'X': '#0f380f', 'W': '#27ae60', 'S': '#1abc9c', 'E': '#0f380f' },
-      wizard: { '.': 'transparent', 'X': '#0f380f', 'W': '#1abc9c', 'S': '#f1c40f', 'E': '#0f380f', 'O': '#ffffff', 'B': '#cbd5e1' },
-      lunya: { '.': 'transparent', 'X': '#111827', 'B': '#1e293b', 'M': '#facc15', 'E': '#2ecc71' },
-      creta: { '.': 'transparent', 'X': '#111827', 'Y': '#f39c12', 'M': '#111827', 'E': '#e74c3c' },
-      blacktiger: { '.': 'transparent', 'X': '#111827', 'B': '#1e293b', 'T': '#ffffff', 'E': '#e74c3c' },
-      solmong: { '.': 'transparent', 'X': '#111827', 'W': '#ffffff', 'S': '#e74c3c', 'T': '#ff80a0', 'E': '#111827' },
-      ilf: { '.': 'transparent', 'X': '#111827', 'W': '#ffffff', 'S': '#ff5c8d', 'E': '#e74c3c' },
-      baekho: { '.': 'transparent', 'X': '#111827', 'W': '#ffffff', 'R': '#e74c3c', 'E': '#111827' },
-      eleki: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'L': '#3498db', 'E': '#111827' },
-      rayoki: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'L': '#3498db', 'E': '#111827' },
-      thunderbunny: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'L': '#3498db', 'B': '#2980b9', 'E': '#111827' }
-    };
+      stone: { '.': 'transparent', 'X': '#0f380f', 'G': '#7f8c8d', 'H': '#bdc3c7', 'D': '#34495e', 'E': '#0f380f' },
+      iron: { '.': 'transparent', 'X': '#0f380f', 'G': '#7f8c8d', 'H': '#bdc3c7', 'D': '#34495e', 'I': '#bdc3c7', 'J': '#34495e', 'E': '#e74c3c' },
+      golem: { '.': 'transparent', 'X': '#0f380f', 'G': '#7f8c8d', 'H': '#bdc3c7', 'D': '#34495e', 'V': '#27ae60', 'K': '#2ecc71', 'L': '#27ae60', 'E': '#0f380f' },
+                  aqua: { '.': 'transparent', 'X': '#0f380f', 'C': '#2980b9', 'B': '#3498db', 'D': '#1f3a52', 'E': '#0f380f', 'W': '#ffffff' },
+      ocean: { '.': 'transparent', 'X': '#0f380f', 'C': '#1abc9c', 'B': '#16a085', 'D': '#117864', 'H': '#48c9b0', 'E': '#0f380f' },
+      poseidon: { '.': 'transparent', 'X': '#0f380f', 'C': '#3fb0d0', 'B': '#1d8aa7', 'H': '#79d8ea', 'E': '#0f380f' },
+            dragon: { '.': 'transparent', 'X': '#0f380f', 'R': '#e67e22', 'O': '#d35400', 'W': '#f39c12', 'Y': '#f1c40f', 'E': '#0f380f' },
+            inferno: { '.': 'transparent', 'X': '#0f380f', 'R': '#c0392b', 'O': '#962d22', 'W': '#d35400', 'Y': '#f1c40f', 'E': '#0f380f' },
+                  kaiser: { '.': 'transparent', 'X': '#0f380f', 'R': '#8e44ad', 'O': '#6c3483', 'W': '#a569bd', 'Y': '#f1c40f', 'E': '#f1c40f' },
+            wind: { '.': 'transparent', 'X': '#0f380f', 'C': '#95a5a6', 'D': '#7f8c8d', 'H': '#ffffff', 'W': '#2ecc71', 'G': '#7defa1', 'R': '#e74c3c', 'B': '#3498db', 'E': '#0f380f' },
+            vortex: { '.': 'transparent', 'X': '#0f380f', 'C': '#95a5a6', 'D': '#7f8c8d', 'H': '#ffffff', 'W': '#27ae60', 'G': '#2ecc71', 'B': '#3498db', 'Y': '#f1c40f', 'R': '#e74c3c', 'E': '#0f380f' },
+            wizard: { '.': 'transparent', 'X': '#0f380f', 'W': '#1abc9c', 'D': '#16a085', 'S': '#f1c40f', 'Y': '#d4ac0d', 'O': '#ffffff', 'B': '#cbd5e1', 'G': '#84ed8c', 'H': '#27ae60', 'E': '#0f380f' },
+                  lunya: { '.': 'transparent', 'X': '#111827', 'B': '#1e293b', 'D': '#0f172a', 'H': '#e8c4fc', 'M': '#facc15', 'R': '#8e44ad', 'O': '#6c3483', 'W': '#a569bd', 'E': '#2ecc71' },
+      creta: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#3e2a63', 'W': '#5a4587', 'H': '#ffffff', 'M': '#111827', 'E': '#111827' },
+      blacktiger: { '.': 'transparent', 'X': '#111827', 'B': '#1e293b', 'D': '#0f172a', 'H': '#475569', 'T': '#ffffff', 'R': '#ff5c8d', 'O': '#6c3483', 'W': '#a569bd', 'Y': '#f1c40f', 'E': '#111827' },
+            solmong: { '.': 'transparent', 'X': '#111827', 'W': '#ffffff', 'H': '#cbd5e1', 'S': '#e74c3c', 'T': '#ff80a0', 'E': '#111827' },
+      ilf: { '.': 'transparent', 'X': '#111827', 'W': '#ffffff', 'H': '#cbd5e1', 'S': '#e74c3c', 'T': '#c0392b', 'E': '#d35400' },
+      baekho: { '.': 'transparent', 'X': '#111827', 'W': '#ffffff', 'H': '#cbd5e1', 'R': '#e74c3c', 'O': '#c0392b', 'E': '#f39c12' },
+            eleki: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#d4ac0d', 'W': '#fcf3cf', 'L': '#3498db', 'E': '#111827' },
+                  rayoki: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#d4ac0d', 'W': '#ffffff', 'L': '#3498db', 'R': '#e74c3c' },
+      thunderbunny: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#d4ac0d', 'W': '#ffffff', 'L': '#3498db', 'B': '#2980b9', 'R': '#e74c3c' }};
 
     /* Game State Data */
     let state = {
       dDay: 1,
       hatchStartedAt: null,
-      steps: 3000,
+      steps: 0,
       totalSteps: 0,
       inventory: { candy: 2, vitamin: 0, book: 0 },
       accessories: { a_glasses: false, a_ribbon: false, a_crown: false },
@@ -4344,7 +4716,7 @@
       spriteGrid.forEach((row, y) => {
         for (let x = 0; x < row.length; x++) {
           if (row[x] === 'E') {
-            if (x < 8) {
+            if (x < 12) {
               leftEyeSum.x += x;
               leftEyeSum.y += y;
               leftEyeSum.count++;
@@ -4366,7 +4738,7 @@
           cy: Math.round(leftEyeSum.y / leftEyeSum.count)
         };
       } else {
-        leftEyeCenter = { cx: 6, cy: 7 };
+        leftEyeCenter = { cx: 10, cy: 11 };
       }
 
       if (rightEyeSum.count > 0) {
@@ -4375,7 +4747,7 @@
           cy: Math.round(rightEyeSum.y / rightEyeSum.count)
         };
       } else {
-        rightEyeCenter = { cx: 9, cy: 7 };
+        rightEyeCenter = { cx: 14, cy: 11 };
       }
 
       spriteGrid.forEach((row, y) => {
@@ -4423,15 +4795,15 @@
             // Accessory overlays
             if (state.character.stage > 1) {
               if (state.equipped.a_crown) {
-                if (y === 1 && (x === 5 || x === 7 || x === 9)) fill = '#e74c3c';
-                else if (y === 2 && x >= 5 && x <= 9) fill = '#f1c40f';
-                else if (y === 3 && x >= 4 && x <= 10) fill = '#f1c40f';
+                if (y === 5 && (x === 9 || x === 11 || x === 13)) fill = '#e74c3c';
+                else if (y === 6 && x >= 9 && x <= 13) fill = '#f1c40f';
+                else if (y === 7 && x >= 8 && x <= 14) fill = '#f1c40f';
               }
               if (!fill && state.equipped.a_ribbon) {
-                if ((y === 2 && (x === 5 || x === 6 || x === 8 || x === 9)) || (y === 3 && x >= 5 && x <= 9)) fill = '#e82252';
+                if ((y === 6 && (x === 9 || x === 10 || x === 12 || x === 13)) || (y === 7 && x >= 9 && x <= 13)) fill = '#e82252';
               }
               if (!fill && state.equipped.a_glasses) {
-                if (y === 7 && x >= 3 && x <= 11) fill = '#111827';
+                if (y === 11 && x >= 7 && x <= 15) fill = '#111827';
                 else if (y === 8 && ((x >= 3 && x <= 5) || (x >= 9 && x <= 11))) fill = '#111827';
               }
             }
@@ -5279,7 +5651,7 @@
       }
 
       const colors = SPRITE_COLORS[type] || SPRITE_COLORS.egg;
-      const pixelSize = 5.2;
+      const pixelSize = 3.5;
       let svgContent = '';
 
       spriteGrid.forEach((row, y) => {
@@ -5289,15 +5661,15 @@
           // Layer accessories only on hatched characters (stage > 1)
           if (state.character.stage > 1) {
             if (state.equipped.a_crown) {
-              if (y === 1 && (x === 5 || x === 7 || x === 9)) fill = '#e74c3c';
-              else if (y === 2 && x >= 5 && x <= 9) fill = '#f1c40f';
-              else if (y === 3 && x >= 4 && x <= 10) fill = '#f1c40f';
+              if (y === 5 && (x === 9 || x === 11 || x === 13)) fill = '#e74c3c';
+              else if (y === 6 && x >= 9 && x <= 13) fill = '#f1c40f';
+              else if (y === 7 && x >= 8 && x <= 14) fill = '#f1c40f';
             }
             if (!fill && state.equipped.a_ribbon) {
-              if ((y === 2 && (x === 5 || x === 6 || x === 8 || x === 9)) || (y === 3 && x >= 5 && x <= 9)) fill = '#e82252';
+              if ((y === 6 && (x === 9 || x === 10 || x === 12 || x === 13)) || (y === 7 && x >= 9 && x <= 13)) fill = '#e82252';
             }
             if (!fill && state.equipped.a_glasses) {
-              if (y === 7 && x >= 3 && x <= 11) fill = '#111827';
+              if (y === 11 && x >= 7 && x <= 15) fill = '#111827';
               else if (y === 8 && ((x >= 3 && x <= 5) || (x >= 9 && x <= 11))) fill = '#111827';
             }
           }
@@ -5399,33 +5771,33 @@
       if (!type) return '알';
 
       if (type === 'stone') {
-        if (stage === 2) return '돌 슬라임 (아기기)';
-        if (stage === 3) return '철 슬라임 (성장기)';
-        return '강철 골렘 (최종기)';
+        if (stage === 2) return '돌 슬라임';
+        if (stage === 3) return '철 슬라임';
+        return '강철 골렘';
       } else if (type === 'aqua') {
-        if (stage === 2) return '물 슬라임 (아기기)';
-        if (stage === 3) return '대양 슬라임 (성장기)';
-        return '포세이돈 (최종기)';
+        if (stage === 2) return '물 슬라임';
+        if (stage === 3) return '대양 슬라임';
+        return '포세이돈';
       } else if (type === 'dragon') {
-        if (stage === 2) return '용용이 슬라임 (아기기)';
-        if (stage === 3) return '지옥 화염룡 (성장기)';
-        return '카이저 드래곤 (최종기)';
+        if (stage === 2) return '용용이 슬라임';
+        if (stage === 3) return '지옥 화염룡';
+        return '카이저 드래곤';
       } else if (type === 'wind') {
-        if (stage === 2) return '풍차 슬라임 (아기기)';
-        if (stage === 3) return '소용돌이 슬라임 (성장기)';
-        return '바람 마법사 (최종기)';
+        if (stage === 2) return '풍차 슬라임';
+        if (stage === 3) return '소용돌이 슬라임';
+        return '바람 마법사';
       } else if (type === 'lunya') {
-        if (stage === 2) return '루냥 (아기기)';
-        if (stage === 3) return '크레타 (성장기)';
-        return '흑랑이 (최종기)';
+        if (stage === 2) return '루냥';
+        if (stage === 3) return '크레타';
+        return '흑랑이';
       } else if (type === 'solmong') {
-        if (stage === 2) return '솔멍 (아기기)';
-        if (stage === 3) return '일프 (성장기)';
-        return '백호 (최종기)';
+        if (stage === 2) return '솔멍';
+        if (stage === 3) return '일프';
+        return '백호';
       } else if (type === 'eleki') {
-        if (stage === 2) return '엘레끼 (아기기)';
-        if (stage === 3) return '라요끼 (성장기)';
-        return '천둥번끼 (최종기)';
+        if (stage === 2) return '엘레끼';
+        if (stage === 3) return '라요끼';
+        return '천둥번끼';
       }
     }
 
@@ -5594,7 +5966,7 @@
       state = {
         dDay: 1,
         hatchStartedAt: Date.now(),
-        steps: 3000,
+        steps: 0,
         totalSteps: 0,
         inventory: { candy: 2, vitamin: 0, book: 0 },
         accessories: { a_glasses: false, a_ribbon: false, a_crown: false },
@@ -5633,25 +6005,25 @@
 
       if (firstDigit === 1 || firstDigit === 2 || firstDigit === 0) {
         hatchedType = 'stone';
-        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M3 0 H5 L7 2 V6 L5 8 H3 L1 6 V2 Z"/></svg>알이 흔들리며 깨어납니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 단단한 [돌 슬라임 (아기기)]이 태어났습니다!`;
+        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M3 0 H5 L7 2 V6 L5 8 H3 L1 6 V2 Z"/></svg>알이 흔들리며 깨어납니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 단단한 [돌 슬라임]이 태어났습니다!`;
       } else if (firstDigit === 3) {
         hatchedType = 'aqua';
-        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M4 0 L6 3 H7 V6 L5 8 H3 L1 6 V3 L2 3 Z"/></svg>알이 촉촉한 물방울과 부화합니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 맑은 [물 슬라임 (아기기)]이 태어났습니다!`;
+        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M4 0 L6 3 H7 V6 L5 8 H3 L1 6 V3 L2 3 Z"/></svg>알이 촉촉한 물방울과 부화합니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 맑은 [물 슬라임]이 태어났습니다!`;
       } else if (firstDigit === 4) {
         hatchedType = 'dragon';
-        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M3 8 L1 6 L2 4 L4 0 L5 3 L6 1 L7 4 L5 8 Z"/></svg>알이 화염을 내뿜으며 부화합니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 불타는 [용용이 슬라임 (아기기)]이 태어났습니다!`;
+        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M3 8 L1 6 L2 4 L4 0 L5 3 L6 1 L7 4 L5 8 Z"/></svg>알이 화염을 내뿜으며 부화합니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 불타는 [용용이 슬라임]이 태어났습니다!`;
       } else if (firstDigit === 5 || firstDigit === 6) {
         hatchedType = 'wind';
-        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M2 5 H5 V2 H7 V4 H6 V6 H4 V7 H3 V6 H2 V5 Z M0 7 L2 5 H3 V6 L1 7 Z"/></svg>알 주변으로 선선한 바람 소리가 감돕니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 바람의 [풍차 슬라임 (아기기)]이 태어났습니다!`;
+        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M2 5 H5 V2 H7 V4 H6 V6 H4 V7 H3 V6 H2 V5 Z M0 7 L2 5 H3 V6 L1 7 Z"/></svg>알 주변으로 선선한 바람 소리가 감돕니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 바람의 [풍차 슬라임]이 태어났습니다!`;
       } else if (firstDigit === 7) {
         hatchedType = 'lunya';
-        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M1 0 H2 V1 H1 Z M6 0 H7 V1 H6 Z M1 1 H7 V6 H1 Z M2 6 H3 V8 H2 Z M5 6 H6 V8 H5 Z M7 3 H8 V6 H7 Z M2 2 H3 V3 H2 Z M5 2 H6 V3 H5 Z"/></svg>달빛 기운이 감돌며 알이 깨어납니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 깜찍한 검은 고양이 [루냥 (아기기)]이 태어났습니다!`;
+        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M1 0 H2 V1 H1 Z M6 0 H7 V1 H6 Z M1 1 H7 V6 H1 Z M2 6 H3 V8 H2 Z M5 6 H6 V8 H5 Z M7 3 H8 V6 H7 Z M2 2 H3 V3 H2 Z M5 2 H6 V3 H5 Z"/></svg>달빛 기운이 감돌며 알이 깨어납니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 깜찍한 검은 고양이 [루냥]이 태어났습니다!`;
       } else if (firstDigit === 8) {
         hatchedType = 'solmong';
-        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M1 1 H2 V3 H1 Z M1 2 H6 V3 H7 V4 H5 V5 H1 Z M2 4 H6 V7 H2 Z M2 7 H3 V8 H2 Z M5 7 H6 V8 H5 Z M6 4 H7 V3 H6 Z M3 3 H4 V4 H3 Z"/></svg>따스한 햇살과 함께 알이 깨어납니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 귀여운 강아지 [솔멍 (아기기)]이 태어났습니다!`;
+        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M1 1 H2 V3 H1 Z M1 2 H6 V3 H7 V4 H5 V5 H1 Z M2 4 H6 V7 H2 Z M2 7 H3 V8 H2 Z M5 7 H6 V8 H5 Z M6 4 H7 V3 H6 Z M3 3 H4 V4 H3 Z"/></svg>따스한 햇살과 함께 알이 깨어납니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 귀여운 강아지 [솔멍]이 태어났습니다!`;
       } else if (firstDigit === 9) {
         hatchedType = 'eleki';
-        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M4 0 H7 L5 3 H7 L2 8 L3 4 H1 Z"/></svg>번쩍이는 전기가 튀며 알이 깨어납니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 발랄한 노란 토끼 [엘레끼 (아기기)]이 태어났습니다!`;
+        msg = `<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M4 0 H7 L5 3 H7 L2 8 L3 4 H1 Z"/></svg>번쩍이는 전기가 튀며 알이 깨어납니다! 걸음수의 첫째 자리가 [${firstDigit}]이므로 발랄한 노란 토끼 [엘레끼]이 태어났습니다!`;
       }
 
       state.character.stage = 2; // Hatched!
@@ -5747,6 +6119,14 @@
       } else {
         alert("이 기기에서는 브라우저 자체 설치가 지원되지 않거나 이미 설치되었습니다. 브라우저 메뉴의 '홈 화면에 추가'를 클릭해 주세요.");
       }
+    }
+
+    function handleFirstLaunchOk() {
+      const modal = document.getElementById('first-launch-modal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+      toggleSensor();
     }
 
     function toggleSensor() {
@@ -5949,13 +6329,6 @@
         }
       }
 
-      // Alert & Sensor Activation on launch
-      setTimeout(() => {
-        const confirmed = window.confirm('알을 발견했습니다! 함께 모험할 수 있게 해주세요!');
-        if (confirmed) {
-          toggleSensor();
-        }
-      }, 600);
     });
   </script>
 </body>
