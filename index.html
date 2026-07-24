@@ -1730,13 +1730,6 @@
             style="fill:#4b5563;">
             <path d="M4 0 H5 V1 H4 Z M3 2 H6 L5 4 L7 6 H5 L4 5 L3 6 H1 V5 H3 Z" />
           </svg> +2,200걸음</button>
-        <button class="dev-btn" onclick="passOneDay()"><svg class="pixel-icon" viewBox="0 0 8 8" style="fill:#4b5563;">
-            <path d="M1 0 H2 V1 H1 Z M6 0 H7 V1 H6 Z M1 2 H7 V8 H1 Z" />
-          </svg> 부화하기</button>
-        <button class="dev-btn" id="btn-device-sensor" onclick="toggleSensor()"><svg class="pixel-icon"
-            viewBox="0 0 8 8" style="fill:#4b5563;">
-            <path d="M2 0 H6 V8 H2 Z M3 1 H5 V6 H3 Z" fill-rule="evenodd" />
-          </svg> 스마트폰 센서</button>
         <button class="dev-btn" id="btn-pwa-guide" style="display: none;" onclick="showPwaGuide()"><svg
             class="pixel-icon" viewBox="0 0 8 8" style="fill:#4b5563;">
             <path d="M2 0 H6 V5 H2 Z M4 4 L6 2 H2 Z Z M2 7 H6 V8 H2 Z" fill-rule="evenodd" />
@@ -3502,6 +3495,13 @@
         return;
       }
       frameIndex = (frameIndex + 1) % 2;
+
+      // 타이머가 0이 되면 자동 부화 (메인 홈 화면일 때만 실행하여 미니게임 중단 방지)
+      if (state && state.character && state.character.stage === 1 && screenState === 'home' && state.hatchStartedAt && getHatchRemainingMs() <= 0) {
+        passOneDay();
+        return;
+      }
+
       renderScreen();
     }, 450);
 
