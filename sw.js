@@ -1,4 +1,4 @@
-const CACHE_NAME = 'monster-adventure-v25';
+const CACHE_NAME = 'monster-adventure-v26';
 const ASSETS = [
   './',
   'index.html',
@@ -40,37 +40,60 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch Event (Offline-First cache strategy with extension filtering)
+// Fetch Event (Network-First for HTML/Navigations, Cache-First for static assets)
 self.addEventListener('fetch', (event) => {
-  // Only handle HTTP/HTTPS GET requests
   if (event.request.method !== 'GET') return;
 
   try {
     const url = new URL(event.request.url);
     if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
 
-    event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(event.request).then((networkResponse) => {
-          if (!networkResponse || networkResponse.status !== 200) {
-            return networkResponse;
+    const isHTML = event.request.mode === 'navigate' || 
+                   url.pathname.endsWith('.html') || 
+                   url.pathname === '/' || 
+                   url.pathname.endsWith('/');
+
+    if (isHTML) {
+      // 1. Network-First Strategy for HTML / Navigation
+      event.respondWith(
+        fetch(event.request)
+          .then((response) => {
+            if (response && response.status === 200) {
+              const responseCopy = response.clone();
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(event.request, responseCopy);
+              });
+            }
+            return response;
+          })
+          .catch(() => {
+            // Fallback to cache when offline
+            return caches.match(event.request);
+          })
+      );
+    } else {
+      // 2. Cache-First Strategy for static assets (images, CSS, JS)
+      event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
           }
-          // Dynamically cache new assets
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
+          return fetch(event.request).then((response) => {
+            if (response && response.status === 200) {
+              const responseCopy = response.clone();
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(event.request, responseCopy);
+              });
+            }
+            return response;
+          }).catch((err) => {
+            // Let the request fail naturally
+            throw err;
           });
-          return networkResponse;
-        }).catch((err) => {
-          // Throw error so browser handles network failure naturally
-          throw err;
-        });
-      })
-    );
+        })
+      );
+    }
   } catch (e) {
-    // URL parsing failed or other exception
+    // Fail-safe
   }
 });
