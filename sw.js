@@ -1,8 +1,9 @@
-const CACHE_NAME = 'monster-adventure-v24';
+const CACHE_NAME = 'monster-adventure-v25';
 const ASSETS = [
   './',
   'index.html',
   'monster_adventure.html',
+  'pedometer_tamagotchi.html',
   'manifest.json',
   'icon.svg'
 ];
@@ -11,7 +12,13 @@ const ASSETS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
+      return Promise.allSettled(
+        ASSETS.map((asset) => {
+          return cache.add(asset).catch((err) => {
+            console.warn(`Failed to cache asset during install: ${asset}`, err);
+          });
+        })
+      );
     })
   );
   self.skipWaiting();
@@ -33,29 +40,37 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch Event (Offline-First cache strategy)
+// Fetch Event (Offline-First cache strategy with extension filtering)
 self.addEventListener('fetch', (event) => {
-  // Only cache GET requests
+  // Only handle HTTP/HTTPS GET requests
   if (event.request.method !== 'GET') return;
 
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).then((networkResponse) => {
-        if (!networkResponse || networkResponse.status !== 200) {
-          return networkResponse;
+  try {
+    const url = new URL(event.request.url);
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        if (cachedResponse) {
+          return cachedResponse;
         }
-        // Dynamically cache new assets
-        const responseToCache = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
+        return fetch(event.request).then((networkResponse) => {
+          if (!networkResponse || networkResponse.status !== 200) {
+            return networkResponse;
+          }
+          // Dynamically cache new assets
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+          return networkResponse;
+        }).catch((err) => {
+          // Throw error so browser handles network failure naturally
+          throw err;
         });
-        return networkResponse;
-      }).catch(() => {
-        // Fallback or network failure handling
-      });
-    })
-  );
+      })
+    );
+  } catch (e) {
+    // URL parsing failed or other exception
+  }
 });
