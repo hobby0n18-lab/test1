@@ -1040,6 +1040,32 @@
       .feed-slot .icon {
         font-size: 1.2rem;
       }
+      
+      /* Mobile Dialog Bubble & Training guide text size overrides */
+      .home-bubble-box {
+        font-size: 0.9rem !important; /* Larger text on mobile */
+        padding: 10px 12px !important;
+        left: 0; right: 0; margin: 0 auto; width: 88%;
+      }
+      .home-bubble-btn {
+        font-size: 0.78rem !important;
+        padding: 5px 8px !important;
+      }
+      .hatch-now-btn {
+        font-size: 0.95rem !important; /* Larger button text */
+        padding: 8px 16px !important;
+        bottom: 25px !important;
+      }
+      .train-guide-header {
+        font-size: 1.35rem !important;
+      }
+      .train-guide-title {
+        font-size: 1.25rem !important;
+      }
+      .train-guide-table {
+        font-size: 1.05rem !important;
+        line-height: 2.2 !important;
+      }
     }
 
     /* PWA Install Banner Style */
@@ -1243,18 +1269,20 @@
     /* Home dialogue bubble styles */
     .home-bubble-box {
       position: absolute;
-      left: 8px;
-      right: 8px;
-      top: 25px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 85%;
+      top: 20px;
       background-color: var(--lcd-light);
       border: 2px solid var(--lcd-dark);
       border-radius: 0px;
-      padding: 6px 8px;
-      font-size: 0.58rem;
-      line-height: 1.35;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      line-height: 1.4;
       color: var(--lcd-dark);
       z-index: 45;
-      box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
       display: flex;
       flex-direction: column;
       max-height: 220px;
@@ -1282,7 +1310,7 @@
       border-radius: 0px;
       padding: 3.5px 5px;
       font-family: 'NeoDunggeunmo', monospace;
-      font-size: 0.55rem;
+      font-size: 0.7rem;
       text-align: center;
       cursor: pointer;
       box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
@@ -1303,9 +1331,58 @@
       border-radius: 0px;
     }
     
+    .hatch-now-btn {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--lcd-dark);
+      color: var(--lcd-light);
+      border: 2px solid var(--lcd-dark);
+      border-radius: 0px;
+      font-family: 'NeoDunggeunmo', monospace;
+      font-size: 0.78rem;
+      padding: 6px 12px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--lcd-mid);
+      z-index: 100;
+      image-rendering: pixelated;
+    }
+    
     .hatch-now-btn:active {
-      transform: translate(1px, 1px) !important;
+      transform: translate(-50%, 1px) !important;
       box-shadow: 1px 1px 0 var(--lcd-mid) !important;
+    }
+
+    /* Training Guide Modal custom classes */
+    .train-guide-header {
+      padding: 8px 10px 6px;
+      border-bottom: 2px solid var(--lcd-dark);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.2rem;
+      color: var(--lcd-dark);
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    .train-guide-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.1rem;
+      color: var(--lcd-bg);
+      background: var(--lcd-dark);
+      padding: 4px 7px;
+      border-radius: 3px;
+      margin-bottom: 7px;
+      display: inline-block;
+    }
+
+    .train-guide-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.98rem;
+      line-height: 2;
+      color: var(--lcd-dark);
     }
 
     .home-bubble-box::after {
@@ -1452,31 +1529,17 @@
           box-shadow: 0 4px 10px rgba(0,0,0,0.25);
         ">
           <!-- 헤더 -->
-          <div style="
-            padding: 8px 10px 6px;
-            border-bottom: 2px solid var(--lcd-dark);
-            font-family: 'Press Start 2P', monospace;
-            font-size: 0.7rem;
-            color: var(--lcd-dark);
-            text-align: center;
-            letter-spacing: 0.05em;
-          ">TRAINING GUIDE</div>
+          <div class="train-guide-header">TRAINING GUIDE</div>
 
           <!-- 스크롤 영역 -->
           <div style="flex:1; overflow-y:auto; padding: 10px 10px 6px; box-sizing:border-box;">
 
             <!-- 근력 · 벽돌깨기 -->
             <div style="margin-bottom:12px;">
-              <div style="
-                font-family:'Press Start 2P',monospace; font-size:0.65rem;
-                color:var(--lcd-bg); background:var(--lcd-dark);
-                padding:4px 7px; border-radius:3px; margin-bottom:7px;
-                display:inline-block;
-              "><svg class="pixel-icon" style="fill:var(--lcd-bg);" viewBox="0 0 8 8">
+              <div class="train-guide-title"><svg class="pixel-icon" style="fill:var(--lcd-bg);" viewBox="0 0 8 8">
                   <path d="M4 1 H6 V3 H4 Z M2 3 H6 V5 H2 Z M1 4 H3 V8 H1 Z M3 6 H7 V8 H3 Z" />
                 </svg> 근력 · 벽돌깨기</div>
-              <table
-                style="width:100%; border-collapse:collapse; font-family:'Press Start 2P',monospace; font-size:0.58rem; line-height:2; color:var(--lcd-dark);">
+              <table class="train-guide-table">
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">조작</td>
                   <td>좌우 스와이프로 패들 이동</td>
@@ -1504,16 +1567,10 @@
 
             <!-- 민첩 · 스네이크 -->
             <div style="margin-bottom:12px;">
-              <div style="
-                font-family:'Press Start 2P',monospace; font-size:0.65rem;
-                color:var(--lcd-bg); background:var(--lcd-dark);
-                padding:4px 7px; border-radius:3px; margin-bottom:7px;
-                display:inline-block;
-              "><svg class="pixel-icon" style="fill:var(--lcd-bg);" viewBox="0 0 8 8">
+              <div class="train-guide-title"><svg class="pixel-icon" style="fill:var(--lcd-bg);" viewBox="0 0 8 8">
                   <path d="M4 0 H5 V1 H4 Z M3 2 H6 L5 4 L7 6 H5 L4 5 L3 6 H1 V5 H3 Z" />
                 </svg> 민첩 · 스네이크</div>
-              <table
-                style="width:100%; border-collapse:collapse; font-family:'Press Start 2P',monospace; font-size:0.58rem; line-height:2; color:var(--lcd-dark);">
+              <table class="train-guide-table">
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">조작</td>
                   <td>스와이프로 실시간 방향 전환</td>
@@ -1541,16 +1598,10 @@
 
             <!-- 행운 · 지뢰찾기 -->
             <div style="margin-bottom:6px;">
-              <div style="
-                font-family:'Press Start 2P',monospace; font-size:0.65rem;
-                color:var(--lcd-bg); background:var(--lcd-dark);
-                padding:4px 7px; border-radius:3px; margin-bottom:7px;
-                display:inline-block;
-              "><svg class="pixel-icon" style="fill:var(--lcd-bg);" viewBox="0 0 8 8">
+              <div class="train-guide-title"><svg class="pixel-icon" style="fill:var(--lcd-bg);" viewBox="0 0 8 8">
                   <path d="M3 1 H5 V3 H7 V5 H5 V7 H3 V5 H1 V3 H3 Z" fill-rule="evenodd" />
                 </svg> 행운 · 지뢰찾기</div>
-              <table
-                style="width:100%; border-collapse:collapse; font-family:'Press Start 2P',monospace; font-size:0.58rem; line-height:2; color:var(--lcd-dark);">
+              <table class="train-guide-table">
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">조작</td>
                   <td>탭 → 칸 열기</td>
@@ -5555,21 +5606,7 @@
         petStageHTML = `<div class="shake-egg ${eatingClass}">${drawSprite('egg', frameIndex)}</div>`;
         if (isHomeBubbleOpen) {
           petStageHTML += `
-            <button onclick="event.stopPropagation(); passOneDay();" class="hatch-now-btn" style="
-              position: absolute;
-              bottom: 25px;
-              background-color: var(--lcd-dark);
-              color: var(--lcd-light);
-              border: 2px solid var(--lcd-dark);
-              border-radius: 0px;
-              font-family: 'NeoDunggeunmo', monospace;
-              font-size: 0.55rem;
-              padding: 4px 8px;
-              cursor: pointer;
-              box-shadow: 2px 2px 0 var(--lcd-mid);
-              z-index: 100;
-              image-rendering: pixelated;
-            ">바로 부화하기</button>
+            <button onclick="event.stopPropagation(); passOneDay();" class="hatch-now-btn">바로 부화하기</button>
           `;
         }
         const remainingMs = Math.max(0, getHatchRemainingMs());
