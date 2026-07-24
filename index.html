@@ -4970,16 +4970,29 @@
               }
               if (!fill && state.equipped.a_glasses) {
                 const frameWidth = (rightEyeX + 1) - (leftEyeX - 1) + 1;
-                const lensHeight = frameWidth > 6 ? 3 : 2;
 
                 // Top frame
-                if (y === eyeY && x >= leftEyeX - 1 && x <= rightEyeX + 1) fill = '#111827';
+                if (y === eyeY && x >= leftEyeX - 1 && x <= rightEyeX + 1) {
+                  fill = '#111827';
+                }
                 // Lenses below
-                else if (y > eyeY && y <= eyeY + lensHeight) {
-                  const isLeftLens = (x >= leftEyeX - 1 && x <= leftEyeX + 1);
-                  const isRightLens = (x >= rightEyeX - 1 && x <= rightEyeX + 1);
-                  if (isLeftLens || isRightLens) {
-                    fill = '#111827';
+                else if (frameWidth >= 6) {
+                  // Reversed Isosceles Trapezoid: Top (eyeY+1) is 3 cols, Bottom (eyeY+2) is 2 cols
+                  if (y === eyeY + 1) {
+                    const isLeftLens = (x >= leftEyeX - 1 && x <= leftEyeX + 1);
+                    const isRightLens = (x >= rightEyeX - 1 && x <= rightEyeX + 1);
+                    if (isLeftLens || isRightLens) fill = '#111827';
+                  } else if (y === eyeY + 2) {
+                    const isLeftLens = (x >= leftEyeX && x <= leftEyeX + 1);
+                    const isRightLens = (x >= rightEyeX - 1 && x <= rightEyeX);
+                    if (isLeftLens || isRightLens) fill = '#111827';
+                  }
+                } else {
+                  // Narrow frame: 2 cols and 1 row tall (eyeY+1)
+                  if (y === eyeY + 1) {
+                    const isLeftLens = (x >= leftEyeX && x <= leftEyeX + 1);
+                    const isRightLens = (x >= rightEyeX - 1 && x <= rightEyeX);
+                    if (isLeftLens || isRightLens) fill = '#111827';
                   }
                 }
               }
@@ -5897,16 +5910,29 @@
             }
             if (!fill && state.equipped.a_glasses) {
               const frameWidth = (rightEyeX + 1) - (leftEyeX - 1) + 1;
-              const lensHeight = frameWidth > 6 ? 3 : 2;
 
               // Top frame
-              if (y === eyeY && x >= leftEyeX - 1 && x <= rightEyeX + 1) fill = '#111827';
+              if (y === eyeY && x >= leftEyeX - 1 && x <= rightEyeX + 1) {
+                fill = '#111827';
+              }
               // Lenses below
-              else if (y > eyeY && y <= eyeY + lensHeight) {
-                const isLeftLens = (x >= leftEyeX - 1 && x <= leftEyeX + 1);
-                const isRightLens = (x >= rightEyeX - 1 && x <= rightEyeX + 1);
-                if (isLeftLens || isRightLens) {
-                  fill = '#111827';
+              else if (frameWidth >= 6) {
+                // Reversed Isosceles Trapezoid: Top (eyeY+1) is 3 cols, Bottom (eyeY+2) is 2 cols
+                if (y === eyeY + 1) {
+                  const isLeftLens = (x >= leftEyeX - 1 && x <= leftEyeX + 1);
+                  const isRightLens = (x >= rightEyeX - 1 && x <= rightEyeX + 1);
+                  if (isLeftLens || isRightLens) fill = '#111827';
+                } else if (y === eyeY + 2) {
+                  const isLeftLens = (x >= leftEyeX && x <= leftEyeX + 1);
+                  const isRightLens = (x >= rightEyeX - 1 && x <= rightEyeX);
+                  if (isLeftLens || isRightLens) fill = '#111827';
+                }
+              } else {
+                // Narrow frame: 2 cols and 1 row tall (eyeY+1)
+                if (y === eyeY + 1) {
+                  const isLeftLens = (x >= leftEyeX && x <= leftEyeX + 1);
+                  const isRightLens = (x >= rightEyeX - 1 && x <= rightEyeX);
+                  if (isLeftLens || isRightLens) fill = '#111827';
                 }
               }
             }
