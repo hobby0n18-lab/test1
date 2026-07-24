@@ -4900,19 +4900,44 @@
           }
 
           if (!isEyeOverride) {
+            // Find head position dynamically
+            let headY = -1;
+            let headX = 11;
+            for (let tmpY = 0; tmpY < spriteGrid.length; tmpY++) {
+              const row = spriteGrid[tmpY];
+              let bodyPixels = [];
+              for (let tmpX = 6; tmpX <= 17; tmpX++) {
+                if (row[tmpX] && row[tmpX] !== '.') {
+                  bodyPixels.push(tmpX);
+                }
+              }
+              if (bodyPixels.length > 0) {
+                headY = tmpY;
+                headX = Math.round(bodyPixels.reduce((a, b) => a + b, 0) / bodyPixels.length);
+                break;
+              }
+            }
+            if (headY === -1) {
+              headY = 8;
+              headX = 11;
+            }
+
+            const eyeY = leftEyeCenter.cy;
+            const leftEyeX = leftEyeCenter.cx;
+            const rightEyeX = rightEyeCenter.cx;
+
             // Accessory overlays
             if (state.character.stage > 1) {
               if (state.equipped.a_crown) {
-                if (y === 5 && (x === 9 || x === 11 || x === 13)) fill = '#e74c3c';
-                else if (y === 6 && x >= 9 && x <= 13) fill = '#f1c40f';
-                else if (y === 7 && x >= 8 && x <= 14) fill = '#f1c40f';
+                if (y === headY - 3 && (x === headX - 2 || x === headX || x === headX + 2)) fill = '#e74c3c';
+                else if (y === headY - 2 && x >= headX - 2 && x <= headX + 2) fill = '#f1c40f';
+                else if (y === headY - 1 && x >= headX - 3 && x <= headX + 3) fill = '#f1c40f';
               }
               if (!fill && state.equipped.a_ribbon) {
-                if ((y === 6 && (x === 9 || x === 10 || x === 12 || x === 13)) || (y === 7 && x >= 9 && x <= 13)) fill = '#e82252';
+                if ((y === headY - 2 && (x === headX - 2 || x === headX - 1 || x === headX + 1 || x === headX + 2)) || (y === headY - 1 && x >= headX - 2 && x <= headX + 2)) fill = '#e82252';
               }
               if (!fill && state.equipped.a_glasses) {
-                if (y === 11 && x >= 7 && x <= 15) fill = '#111827';
-                else if (y === 8 && ((x >= 3 && x <= 5) || (x >= 9 && x <= 11))) fill = '#111827';
+                if (y === eyeY && x >= leftEyeX - 1 && x <= rightEyeX + 1) fill = '#111827';
               }
             }
 
@@ -5808,17 +5833,61 @@
 
           // Layer accessories only on hatched characters (stage > 1)
           if (state.character.stage > 1) {
+            // Find head and eye position dynamically
+            let headY = -1;
+            let headX = 11;
+            for (let tmpY = 0; tmpY < spriteGrid.length; tmpY++) {
+              const row = spriteGrid[tmpY];
+              let bodyPixels = [];
+              for (let tmpX = 6; tmpX <= 17; tmpX++) {
+                if (row[tmpX] && row[tmpX] !== '.') {
+                  bodyPixels.push(tmpX);
+                }
+              }
+              if (bodyPixels.length > 0) {
+                headY = tmpY;
+                headX = Math.round(bodyPixels.reduce((a, b) => a + b, 0) / bodyPixels.length);
+                break;
+              }
+            }
+            if (headY === -1) {
+              headY = 8;
+              headX = 11;
+            }
+
+            let eyeY = -1;
+            let leftEyeX = -1;
+            let rightEyeX = -1;
+            let eyePixels = [];
+            for (let tmpY = 0; tmpY < spriteGrid.length; tmpY++) {
+              const row = spriteGrid[tmpY];
+              for (let tmpX = 0; tmpX < row.length; tmpX++) {
+                if (row[tmpX] === 'E') {
+                  eyePixels.push({ x: tmpX, y: tmpY });
+                }
+              }
+            }
+            if (eyePixels.length > 0) {
+              eyeY = Math.round(eyePixels.reduce((sum, p) => sum + p.y, 0) / eyePixels.length);
+              const xs = eyePixels.map(p => p.x);
+              leftEyeX = Math.min(...xs);
+              rightEyeX = Math.max(...xs);
+            } else {
+              eyeY = headY + 3;
+              leftEyeX = headX - 3;
+              rightEyeX = headX + 3;
+            }
+
             if (state.equipped.a_crown) {
-              if (y === 5 && (x === 9 || x === 11 || x === 13)) fill = '#e74c3c';
-              else if (y === 6 && x >= 9 && x <= 13) fill = '#f1c40f';
-              else if (y === 7 && x >= 8 && x <= 14) fill = '#f1c40f';
+              if (y === headY - 3 && (x === headX - 2 || x === headX || x === headX + 2)) fill = '#e74c3c';
+              else if (y === headY - 2 && x >= headX - 2 && x <= headX + 2) fill = '#f1c40f';
+              else if (y === headY - 1 && x >= headX - 3 && x <= headX + 3) fill = '#f1c40f';
             }
             if (!fill && state.equipped.a_ribbon) {
-              if ((y === 6 && (x === 9 || x === 10 || x === 12 || x === 13)) || (y === 7 && x >= 9 && x <= 13)) fill = '#e82252';
+              if ((y === headY - 2 && (x === headX - 2 || x === headX - 1 || x === headX + 1 || x === headX + 2)) || (y === headY - 1 && x >= headX - 2 && x <= headX + 2)) fill = '#e82252';
             }
             if (!fill && state.equipped.a_glasses) {
-              if (y === 11 && x >= 7 && x <= 15) fill = '#111827';
-              else if (y === 8 && ((x >= 3 && x <= 5) || (x >= 9 && x <= 11))) fill = '#111827';
+              if (y === eyeY && x >= leftEyeX - 1 && x <= rightEyeX + 1) fill = '#111827';
             }
           }
 
