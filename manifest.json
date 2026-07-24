@@ -1,7 +1,7 @@
 {
-  "name": "만보기 다마고치 (Pedometer Tamagotchi)",
-  "short_name": "다마고치 만보기",
-  "description": "걸음 수로 키우는 나만의 레트로 다마고치 앱",
+  "name": "몬스터와 모험 - 걸어서 몬스터 키우기",
+  "short_name": "몬스터와 모험",
+  "description": "걸음 수로 키우는 나만의 레트로 몬스터 육성 모험 앱",
   "start_url": "index.html",
   "display": "standalone",
   "orientation": "portrait",
