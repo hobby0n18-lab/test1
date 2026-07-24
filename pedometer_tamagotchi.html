@@ -1771,6 +1771,33 @@
                 <path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" />
               </svg></span>
           </div>
+          <div class="feed-slot" id="slot-a_mirror" onclick="toggleEquip('a_mirror')" title="거울 장착/해제" style="display: none;">
+            <span class="icon"><svg class="pixel-icon" viewBox="0 0 8 8">
+                <path d="M2 1 H6 V2 H7 V6 H6 V7 H2 V6 H1 V2 Z M3 2 H5 V5 H3 Z" fill="#60a5fa" />
+              </svg></span>
+            <span class="qty" id="status-a_mirror"><svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8"
+                fill-rule="evenodd">
+                <path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" />
+              </svg></span>
+          </div>
+          <div class="feed-slot" id="slot-a_plane" onclick="toggleEquip('a_plane')" title="종이비행기 장착/해제" style="display: none;">
+            <span class="icon"><svg class="pixel-icon" viewBox="0 0 8 8">
+                <path d="M1 1 L7 3 L2 5 Z M2 5 L4 7 L7 3 Z" fill="#cbd5e1" />
+              </svg></span>
+            <span class="qty" id="status-a_plane"><svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8"
+                fill-rule="evenodd">
+                <path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" />
+              </svg></span>
+          </div>
+          <div class="feed-slot" id="slot-a_clover" onclick="toggleEquip('a_clover')" title="네잎클로버 장착/해제" style="display: none;">
+            <span class="icon"><svg class="pixel-icon" viewBox="0 0 8 8" fill-rule="evenodd">
+                <path d="M1 2 H3 V0 H5 V2 H7 V4 H5 V6 H3 V4 H1 Z M4 4 H5 V7 H4 Z" fill="#22c55e" />
+              </svg></span>
+            <span class="qty" id="status-a_clover"><svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8"
+                fill-rule="evenodd">
+                <path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" />
+              </svg></span>
+          </div>
         </div>
 
         <!-- 7. SETTINGS DRAWER PANEL -->
@@ -3449,8 +3476,8 @@
       steps: 0,
       totalSteps: 0,
       inventory: { candy: 2, vitamin: 0, book: 0 },
-      accessories: { a_glasses: false, a_ribbon: false, a_crown: false },
-      equipped: { a_glasses: false, a_ribbon: false, a_crown: false },
+      accessories: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false },
+      equipped: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false },
       checklist: [],
       userTitle: null,
       character: {
@@ -3481,7 +3508,10 @@
       book: `<svg class="pixel-icon" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M1 1 H7 V7 H1 Z M2 2 H6 V3 H2 Z M2 4 H6 V5 H2 Z M2 6 H6 V7 H2 Z" fill="#3b82f6" /></svg>`,
       a_glasses: `<svg class="pixel-icon" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M0 2 H8 V4 H7 V5 H5 V3 H3 V5 H1 V4 H0 Z" fill="#000000" /></svg>`,
       a_ribbon: `<svg class="pixel-icon" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M0 2 H3 L4 3 L5 2 H8 V4 L6 6 L8 7 H7 L5 5 L4 4 L3 5 L1 7 H0 L2 6 Z" fill="#ec4899" /></svg>`,
-      a_crown: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M0 2 L2 4 L4 1 L6 4 L8 2 V7 H0 Z" fill="#facc15" /></svg>`,
+      a_crown: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M0 2 L2 4 L4 1 L6 4 L8 2 V7 H0 Z" fill="#facc15"/></svg>`,
+      a_mirror: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M2 1 H6 V2 H7 V6 H6 V7 H2 V6 H1 V2 Z M3 2 H5 V5 H3 Z" fill="#60a5fa"/></svg>`,
+      a_plane: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M1 1 L7 3 L2 5 Z M2 5 L4 7 L7 3 Z" fill="#cbd5e1"/></svg>`,
+      a_clover: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M1 2 H3 V0 H5 V2 H7 V4 H5 V6 H3 V4 H1 Z M4 4 H5 V7 H4 Z" fill="#22c55e"/></svg>`,
       strength: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M4 1 H6 V3 H4 Z M2 3 H6 V5 H2 Z M1 4 H3 V8 H1 Z M3 6 H7 V8 H3 Z"/></svg>`,
       agility: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M4 0 H5 V1 H4 Z M3 2 H6 L5 4 L7 6 H5 L4 5 L3 6 H1 V5 H3 Z"/></svg>`,
       luck: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M3 1 H5 V3 H7 V5 H5 V7 H3 V5 H1 V3 H3 Z" fill-rule="evenodd"/></svg>`,
@@ -3501,6 +3531,7 @@
     let isTrainingOpen = false;
     let shopToastTimeout = null;
     let eggLuckClears = 0;
+    let infiniteMinesCount = 15;
 
     const SHOP_ITEMS = [
       { id: 'candy', name: '사탕', price: 1000, type: 'consumable', desc: 'EXP +15' },
@@ -3508,7 +3539,10 @@
       { id: 'book', name: '마법서', price: 4000, type: 'consumable', desc: 'EXP +60' },
       { id: 'a_glasses', name: '선글라스', price: 2500, type: 'accessory', desc: '눈에 장착하는 검은 픽셀 안경' },
       { id: 'a_ribbon', name: '머리띠', price: 3500, type: 'accessory', desc: '머리 위에 다는 깜찍 빨간 리본' },
-      { id: 'a_crown', name: '황금왕관', price: 5000, type: 'accessory', desc: '정수리에 올리는 눈부신 보석 왕관' }
+      { id: 'a_crown', name: '황금왕관', price: 5000, type: 'accessory', desc: '정수리에 올리는 눈부신 보석 왕관' },
+      { id: 'a_mirror', name: '거울', price: 3000, type: 'accessory', desc: '캐릭터 왼쪽에 배치되는 신비로운 거울' },
+      { id: 'a_plane', name: '종이비행기', price: 3000, type: 'accessory', desc: '캐릭터 우상단을 떠다니는 종이비행기' },
+      { id: 'a_clover', name: '네잎클로버', price: 3000, type: 'accessory', desc: '캐릭터의 눈가 옆에 붙는 행운의 네잎클로버' }
     ];
 
     const TRAINING_ITEMS = [
@@ -3707,17 +3741,34 @@
       renderScreen();
     }
 
+    function getAvailableShopItems() {
+      return SHOP_ITEMS.filter(item => {
+        if (item.id === 'a_mirror') {
+          return state.trainingLevels && state.trainingLevels.strength > 10;
+        }
+        if (item.id === 'a_plane') {
+          return state.trainingLevels && state.trainingLevels.agility > 10;
+        }
+        if (item.id === 'a_clover') {
+          return state.trainingLevels && state.trainingLevels.luck > 10;
+        }
+        return true;
+      });
+    }
+
     function renderShop() {
       const shopBlind = document.getElementById('lcd-shop-blind');
       if (!shopBlind) return;
 
+      const availableItems = getAvailableShopItems();
+
       shopBlind.innerHTML = `
         <div class="lcd-list">
           <div class="lcd-list-title">PIXEL SHOP</div>
-          ${SHOP_ITEMS.map((item, idx) => {
+          ${availableItems.map((item) => {
         let isOwnedAccessory = item.type === 'accessory' && state.accessories[item.id];
         let displaySuffix = isOwnedAccessory ? '<span style="color:var(--lcd-mid);">[보유중]</span>' : `<span>${item.price}걸음</span>`;
-        let clickHandler = isOwnedAccessory ? '' : `onclick="buyItemDirect(${idx})"`;
+        let clickHandler = isOwnedAccessory ? '' : `onclick="buyItemDirect('${item.id}')"`;
         return `
               <div class="lcd-list-item" ${clickHandler} style="${isOwnedAccessory ? 'cursor:default; opacity:0.6;' : 'cursor:pointer;'}">
                 <span>${PIXEL_ICONS[item.id] || ''} ${item.name}</span>
@@ -3998,6 +4049,16 @@
       initLuckGame();
     }
 
+    function adjustInfiniteMines() {
+      infiniteMinesCount += 2;
+      if (infiniteMinesCount > 25) {
+        infiniteMinesCount = 15;
+      }
+      playBeep('b');
+      initLuckGame();
+    }
+    window.adjustInfiniteMines = adjustInfiniteMines;
+
     function startAgilityTraining() {
       initAudio();
       if (state.steps < 500) {
@@ -4211,10 +4272,9 @@
                   addLog(`민첩 훈련 종료! 먹은 사과 수 ${applesEaten}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
                   save();
                 } else if (isInfinite) {
-                  const expReward = applesEaten * 2;
-                  char.exp += expReward;
-                  addLog(`민첩 훈련 종료! 먹은 사과 수 ${applesEaten}개, EXP +${expReward} 획득!`, "evolve");
-                  checkEvolution();
+                  const rewardSteps = applesEaten * 100;
+                  state.steps += rewardSteps;
+                  addLog(`민첩 훈련 종료! 먹은 사과 수 ${applesEaten}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
                   save();
                 } else {
                   addLog("민첩 훈련 실패... 벽에 부딪혔습니다.", "system");
@@ -4230,10 +4290,9 @@
                   addLog(`민첩 훈련 종료! 먹은 사과 수 ${applesEaten}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
                   save();
                 } else if (isInfinite) {
-                  const expReward = applesEaten * 2;
-                  char.exp += expReward;
-                  addLog(`민첩 훈련 종료! 먹은 사과 수 ${applesEaten}개, EXP +${expReward} 획득!`, "evolve");
-                  checkEvolution();
+                  const rewardSteps = applesEaten * 100;
+                  state.steps += rewardSteps;
+                  addLog(`민첩 훈련 종료! 먹은 사과 수 ${applesEaten}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
                   save();
                 } else {
                   addLog("민첩 훈련 실패... 몸에 부딪혔습니다.", "system");
@@ -4369,8 +4428,30 @@
       const char = state.character;
       const isEgg = (char.stage === 1);
       const tLvl = state.trainingLevels ? state.trainingLevels.luck : 1;
-      const N = isEgg ? 8 : Math.min(8, 3 + Math.min(10, tLvl));
-      const numMines = isEgg ? Math.min(40, 2 + eggLuckClears) : Math.min(Math.floor(N * N * 0.25), Math.max(2, Math.min(10, tLvl) * 2));
+      
+      let N = 8;
+      let numMines = 10;
+
+      if (isEgg) {
+        N = 8;
+        numMines = Math.min(40, 2 + eggLuckClears);
+      } else {
+        if (tLvl === 1) { N = 4; numMines = 2; }
+        else if (tLvl === 2) { N = 5; numMines = 4; }
+        else if (tLvl === 3) { N = 6; numMines = 6; }
+        else if (tLvl === 4) { N = 7; numMines = 8; }
+        else if (tLvl === 5) { N = 8; numMines = 9; }
+        else if (tLvl === 6) { N = 9; numMines = 10; }
+        else if (tLvl === 7) { N = 10; numMines = 12; }
+        else if (tLvl === 8) { N = 10; numMines = 13; }
+        else if (tLvl === 9) { N = 10; numMines = 14; }
+        else if (tLvl === 10) { N = 10; numMines = 15; }
+        else {
+          // Infinite mode (level > 10)
+          N = 10;
+          numMines = infiniteMinesCount;
+        }
+      }
 
       const canvasWidth = 360;
       const canvasHeight = 405;
@@ -4411,8 +4492,9 @@
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; position: relative; z-index: 10; gap: 4px;">
           <canvas id="luck-canvas" width="${canvasWidth}" height="${canvasHeight}" style="background-color: var(--lcd-bg); border: 2px solid var(--lcd-dark); display: block; image-rendering: pixelated; touch-action: none;"></canvas>
           
-          <div style="display: flex; gap: 10px; align-items: center;">
-            <button id="minesweeper-mode-btn" onclick="toggleMinesweeperMode()" style="background-color: var(--lcd-dark); color: var(--lcd-bg); border: 2px double var(--lcd-light); padding: 3px 8px; font-family: 'Noto Sans KR', sans-serif; font-size: 0.7rem; font-weight: bold; border-radius: 4px; cursor: pointer;"><svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M2 6 L6 2 L7 3 L3 7 Z M4 2 L6 0 H8 V2 L6 4 Z"/></svg>파기 모드</button>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <button id="minesweeper-mode-btn" onclick="toggleMinesweeperMode()" style="background-color: var(--lcd-dark); color: var(--lcd-bg); border: 2px double var(--lcd-light); padding: 3px 6px; font-family: 'Noto Sans KR', sans-serif; font-size: 0.65rem; font-weight: bold; border-radius: 4px; cursor: pointer;"><svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M2 6 L6 2 L7 3 L3 7 Z M4 2 L6 0 H8 V2 L6 4 Z"/></svg>파기</button>
+            ${(!isEgg && tLvl > 10) ? `<button onclick="adjustInfiniteMines()" style="background-color: var(--lcd-dark); color: var(--lcd-bg); border: 2px double var(--lcd-light); padding: 3px 6px; font-family: 'Noto Sans KR', sans-serif; font-size: 0.65rem; font-weight: bold; border-radius: 4px; cursor: pointer;">지뢰: ${infiniteMinesCount}개</button>` : ''}
             <div id="game-overlay-btn" style="display: none;">
               <button onclick="goHome()" style="background-color: var(--lcd-dark); color: var(--lcd-bg); border: 2px double var(--lcd-light); padding: 3px 8px; font-family: 'Press Start 2P', monospace; font-size: 0.6rem; border-radius: 4px; cursor: pointer;">확인</button>
             </div>
@@ -4550,14 +4632,21 @@
                   }
                 }
               } else {
-                const expReward = 20 + Math.min(10, tLvl) * 2;
-                char.exp += expReward;
-                addLog(`행운 훈련 성공! EXP +${expReward} 획득!`, "evolve");
-                if (state.trainingLevels.luck <= 10) {
-                  state.trainingLevels.luck++;
-                  const nextLvl = state.trainingLevels.luck;
-                  const nextLvlStr = nextLvl > 10 ? '무한' : nextLvl;
-                  addLog(`훈련 성공! 행운 훈련 레벨이 ${nextLvlStr}(으)로 상승했습니다!`, "evolve");
+                if (tLvl > 10) {
+                  // Infinite mode rewards steps
+                  const rewardSteps = infiniteMinesCount * 100;
+                  state.steps += rewardSteps;
+                  addLog(`행운 훈련 성공! 걸음 수 +${rewardSteps} 획득!`, "evolve");
+                } else {
+                  const expReward = 20 + Math.min(10, tLvl) * 2;
+                  char.exp += expReward;
+                  addLog(`행운 훈련 성공! EXP +${expReward} 획득!`, "evolve");
+                  if (state.trainingLevels.luck <= 10) {
+                    state.trainingLevels.luck++;
+                    const nextLvl = state.trainingLevels.luck;
+                    const nextLvlStr = nextLvl > 10 ? '무한' : nextLvl;
+                    addLog(`훈련 성공! 행운 훈련 레벨이 ${nextLvlStr}(으)로 상승했습니다!`, "evolve");
+                  }
                 }
                 checkEvolution();
                 save();
@@ -5033,6 +5122,37 @@
                   }
                 }
               }
+              if (!fill && state.equipped.a_mirror) {
+                const mx = headX - 5;
+                if (x >= mx - 1 && x <= mx + 1 && y >= headY && y <= headY + 6) {
+                  const isBorder = (x === mx - 1 || x === mx + 1 || y === headY || y === headY + 6);
+                  if (isBorder) fill = '#475569';
+                  else fill = '#93c5fd';
+                }
+              }
+              if (!fill && state.equipped.a_plane) {
+                const offset = (frame === 0) ? 0 : 1;
+                const px = 18 + offset;
+                const py = 1 + offset;
+                if (x >= px && x <= px + 2 && y >= py && y <= py + 2) {
+                  const dx = x - px;
+                  const dy = y - py;
+                  if ((dx === 2 && dy === 0) || (dx >= 1 && dy === 1) || (dx <= 1 && dy === 2)) {
+                    fill = '#e2e8f0';
+                  }
+                }
+              }
+              if (!fill && state.equipped.a_clover) {
+                const cx = leftEyeX - 2;
+                const cy = eyeY - 2;
+                if (x >= cx - 1 && x <= cx + 1 && y >= cy - 1 && y <= cy + 1) {
+                  const dx = x - cx;
+                  const dy = y - cy;
+                  if (Math.abs(dx) + Math.abs(dy) <= 1) {
+                    fill = '#22c55e';
+                  }
+                }
+              }
             }
 
             if (!fill) {
@@ -5242,10 +5362,9 @@
                 addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
                 save();
               } else if (isInfinite) {
-                const expReward = gameScore;
-                char.exp += expReward;
-                addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, EXP +${expReward} 획득!`, "evolve");
-                checkEvolution();
+                const rewardSteps = gameScore * 50;
+                state.steps += rewardSteps;
+                addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
                 save();
               } else {
                 addLog("근력 훈련 실패... 공을 놓쳤습니다.", "system");
@@ -5316,10 +5435,9 @@
                 addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
                 save();
               } else if (isInfinite) {
-                const expReward = gameScore;
-                char.exp += expReward;
-                addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, EXP +${expReward} 획득!`, "evolve");
-                checkEvolution();
+                const rewardSteps = gameScore * 50;
+                state.steps += rewardSteps;
+                addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
                 save();
               } else {
                 addLog("근력 훈련 실패... 벽돌이 바닥에 닿았습니다.", "system");
@@ -5403,16 +5521,21 @@
       if (book) book.textContent = `x${state.inventory.book || 0}`;
 
       // Sync wearable accessory equip states in drawer slot text
-      const accKeys = ['a_glasses', 'a_ribbon', 'a_crown'];
+      const accKeys = ['a_glasses', 'a_ribbon', 'a_crown', 'a_mirror', 'a_plane', 'a_clover'];
       accKeys.forEach(key => {
         const slotEl = document.getElementById(`slot-${key}`);
         const statusEl = document.getElementById(`status-${key}`);
         if (!statusEl || !slotEl) return;
 
         if (!state.accessories[key]) {
-          statusEl.innerHTML = '<svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z"/></svg>';
-          slotEl.style.opacity = '0.35';
+          if (key === 'a_mirror' || key === 'a_plane' || key === 'a_clover') {
+            slotEl.style.display = 'none';
+          } else {
+            statusEl.innerHTML = '<svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z"/></svg>';
+            slotEl.style.opacity = '0.35';
+          }
         } else {
+          slotEl.style.display = 'flex';
           slotEl.style.opacity = '1.0';
           if (state.equipped[key]) {
             statusEl.textContent = 'ON';
@@ -5993,6 +6116,37 @@
                 }
               }
             }
+            if (!fill && state.equipped.a_mirror) {
+              const mx = headX - 5;
+              if (x >= mx - 1 && x <= mx + 1 && y >= headY && y <= headY + 6) {
+                const isBorder = (x === mx - 1 || x === mx + 1 || y === headY || y === headY + 6);
+                if (isBorder) fill = '#475569';
+                else fill = '#93c5fd';
+              }
+            }
+            if (!fill && state.equipped.a_plane) {
+              const offset = (frame === 0) ? 0 : 1;
+              const px = 18 + offset;
+              const py = 1 + offset;
+              if (x >= px && x <= px + 2 && y >= py && y <= py + 2) {
+                const dx = x - px;
+                const dy = y - py;
+                if ((dx === 2 && dy === 0) || (dx >= 1 && dy === 1) || (dx <= 1 && dy === 2)) {
+                  fill = '#e2e8f0';
+                }
+              }
+            }
+            if (!fill && state.equipped.a_clover) {
+              const cx = leftEyeX - 2;
+              const cy = eyeY - 2;
+              if (x >= cx - 1 && x <= cx + 1 && y >= cy - 1 && y <= cy + 1) {
+                const dx = x - cx;
+                const dy = y - cy;
+                if (Math.abs(dx) + Math.abs(dy) <= 1) {
+                  fill = '#22c55e';
+                }
+              }
+            }
           }
 
           if (!fill) {
@@ -6148,9 +6302,9 @@
     }
 
     // Purchase shop item directly via click
-    function buyItemDirect(idx) {
+    function buyItemDirect(itemId) {
       initAudio();
-      const selected = SHOP_ITEMS[idx];
+      const selected = SHOP_ITEMS.find(item => item.id === itemId);
       if (!selected) return;
 
       if (state.steps < selected.price) {
@@ -6290,8 +6444,8 @@
         steps: 0,
         totalSteps: 0,
         inventory: { candy: 2, vitamin: 0, book: 0 },
-        accessories: { a_glasses: false, a_ribbon: false, a_crown: false },
-        equipped: { a_glasses: false, a_ribbon: false, a_crown: false },
+        accessories: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false },
+        equipped: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false },
         character: {
           stage: 1,
           type: null,
@@ -6300,7 +6454,13 @@
           maxExp: 40
         },
         currentTheme: 'forest',
-        logs: []
+        logs: [],
+        settings: {
+          vibration: true,
+          sound: true,
+          largeFont: false
+        },
+        trainingLevels: { strength: 1, agility: 1, luck: 1 }
       };
       isSensorActive = false;
       accelerationHistory = [];
@@ -6584,6 +6744,9 @@
       if (key === 'a_glasses') return '선글라스';
       if (key === 'a_ribbon') return '머리띠';
       if (key === 'a_crown') return '황금왕관';
+      if (key === 'a_mirror') return '거울';
+      if (key === 'a_plane') return '종이비행기';
+      if (key === 'a_clover') return '네잎클로버';
       return key;
     }
 
