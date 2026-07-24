@@ -1302,6 +1302,11 @@
       border: 1.5px solid var(--lcd-dark);
       border-radius: 0px;
     }
+    
+    .hatch-now-btn:active {
+      transform: translate(1px, 1px) !important;
+      box-shadow: 1px 1px 0 var(--lcd-mid) !important;
+    }
 
     .home-bubble-box::after {
       content: '';
@@ -5275,9 +5280,7 @@
 
       if (isEgg) {
         bubbleText = `${title}! 저는 아직 알 속에 있어요. 어서 부화시켜서 저랑 더 많은 이야기를 나눠요!`;
-        optionsHTML = `
-          <button class="home-bubble-btn exit" onclick="closeHomeBubble()">대화 종료</button>
-        `;
+        optionsHTML = '';
       } else {
         switch (interactionStep) {
           case 'ask_name':
@@ -5307,7 +5310,6 @@
               <button class="home-bubble-btn" onclick="setInteractionStep('mood')">기분 물어보기</button>
               <button class="home-bubble-btn" onclick="setInteractionStep('schedule')">일정 등록하기</button>
               <button class="home-bubble-btn" onclick="setInteractionStep('game_ready')">숫자 맞추기 하기</button>
-              <button class="home-bubble-btn exit" onclick="closeHomeBubble()">대화 종료</button>
             `;
             break;
             
@@ -5324,7 +5326,6 @@
             bubbleText = `정말 기쁜 소식이네요! ${title}이 행복하시면 저도 덩달아 둥실둥실 신이 나요! 늘 행복한 하루 되셔요!`;
             optionsHTML = `
               <button class="home-bubble-btn" onclick="setInteractionStep('start')">처음으로</button>
-              <button class="home-bubble-btn exit" onclick="closeHomeBubble()">대화 종료</button>
             `;
             break;
             
@@ -5332,7 +5333,6 @@
             bubbleText = `에구... 속상한 일이 있으셨군요. 제가 곁에서 애교도 부리고 응원해 드릴 테니 힘내세요! 파이팅이에요!`;
             optionsHTML = `
               <button class="home-bubble-btn" onclick="setInteractionStep('start')">처음으로</button>
-              <button class="home-bubble-btn exit" onclick="closeHomeBubble()">대화 종료</button>
             `;
             break;
             
@@ -5362,7 +5362,6 @@
             bubbleText = "오늘의 일정을 체크리스트에 등록했어요! 화면 구석에서 확인하시고 실천해 보셔요!";
             optionsHTML = `
               <button class="home-bubble-btn" onclick="setInteractionStep('start')">처음으로</button>
-              <button class="home-bubble-btn exit" onclick="closeHomeBubble()">대화 종료</button>
             `;
             break;
             
@@ -5554,6 +5553,25 @@
 
       if (char.stage === 1) {
         petStageHTML = `<div class="shake-egg ${eatingClass}">${drawSprite('egg', frameIndex)}</div>`;
+        if (isHomeBubbleOpen) {
+          petStageHTML += `
+            <button onclick="event.stopPropagation(); passOneDay();" class="hatch-now-btn" style="
+              position: absolute;
+              bottom: 25px;
+              background-color: var(--lcd-dark);
+              color: var(--lcd-light);
+              border: 2px solid var(--lcd-dark);
+              border-radius: 0px;
+              font-family: 'NeoDunggeunmo', monospace;
+              font-size: 0.55rem;
+              padding: 4px 8px;
+              cursor: pointer;
+              box-shadow: 2px 2px 0 var(--lcd-mid);
+              z-index: 100;
+              image-rendering: pixelated;
+            ">바로 부화하기</button>
+          `;
+        }
         const remainingMs = Math.max(0, getHatchRemainingMs());
         const remainingHours = Math.floor(remainingMs / (1000 * 60 * 60));
         const remainingMinutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
