@@ -5078,12 +5078,13 @@
         rightEyeCenter = { cx: 14, cy: 11 };
       }
 
-      spriteGrid.forEach((row, y) => {
-        for (let x = 0; x < row.length; x++) {
+      for (let y = -3; y < numRows; y++) {
+        const row = (y >= 0) ? spriteGrid[y] : null;
+        for (let x = 0; x < numCols; x++) {
           let fill = null;
           let isEyeOverride = false;
 
-          if (eyeState !== 'normal') {
+          if (y >= 0 && eyeState !== 'normal') {
             const isLeftEyeArea = Math.abs(x - leftEyeCenter.cx) <= 1 && Math.abs(y - leftEyeCenter.cy) <= 1;
             const isRightEyeArea = Math.abs(x - rightEyeCenter.cx) <= 1 && Math.abs(y - rightEyeCenter.cy) <= 1;
 
@@ -5201,7 +5202,7 @@
               }
             }
 
-            if (!fill) {
+            if (!fill && y >= 0) {
               const char = row[x];
               if (char !== '.') {
                 fill = colors[char] || '#0f380f';
@@ -5218,7 +5219,7 @@
             ctx.fillRect(rx, ry, rw, rh);
           }
         }
-      });
+      }
     }
 
     // Returns { primary, secondary, outline, bg } from the current character's SPRITE_COLORS
@@ -6124,8 +6125,11 @@
       const pixelSize = 3.5;
       let svgContent = '';
 
-      spriteGrid.forEach((row, y) => {
-        for (let x = 0; x < row.length; x++) {
+      const numRows = spriteGrid.length;
+      const numCols = spriteGrid[0].length;
+      for (let y = -3; y < numRows; y++) {
+        const row = (y >= 0) ? spriteGrid[y] : null;
+        for (let x = 0; x < numCols; x++) {
           let fill = null;
 
           // Layer accessories only on hatched characters (stage > 1)
@@ -6209,7 +6213,7 @@
             }
           }
 
-          if (!fill) {
+          if (!fill && y >= 0) {
             const char = row[x];
             if (char !== '.') {
               fill = colors[char] || '#0f380f';
@@ -6220,10 +6224,10 @@
             svgContent += `<rect x="${x * pixelSize}" y="${y * pixelSize}" width="${pixelSize}" height="${pixelSize}" fill="${fill}" />`;
           }
         }
-      });
+      }
 
       return `
-        <svg viewBox="0 0 85 85" class="sprite-svg" style="shape-rendering: crispEdges;">
+        <svg viewBox="0 -10.5 84 94.5" class="sprite-svg" style="shape-rendering: crispEdges;">
           <g>${svgContent}</g>
         </svg>
       `;
