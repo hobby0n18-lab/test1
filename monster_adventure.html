@@ -5305,8 +5305,14 @@
       const isEgg = (char.stage === 1);
       const tLvl = state.trainingLevels ? state.trainingLevels.strength : 1;
       const isInfinite = (tLvl > 10);
-      const targetScore = (isEgg || isInfinite) ? Infinity : Math.min(10, tLvl) * 5;
+      let targetScore = (isEgg || isInfinite) ? Infinity : Math.min(10, tLvl) * 5;
+      if (!isEgg && !isInfinite && tLvl >= 4) {
+        targetScore = tLvl * 4;
+      }
       const totalBricks = isInfinite ? 6000 : (isEgg ? 12 : (Math.min(10, tLvl) * 6) * 2);
+
+      const hasLivesSystem = (!isEgg && tLvl >= 5);
+      let lives = hasLivesSystem ? 3 : 1;
 
       const canvasWidth = 360;
       const canvasHeight = 405;
@@ -5457,23 +5463,35 @@
             }
 
             if (ballY > canvasHeight) {
-              gameStatus = 'lost';
-              eyeState = 'lose';
               playBeep('c');
-              if (isEgg) {
-                const rewardSteps = gameScore * 50;
-                state.steps += rewardSteps;
-                addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
-                save();
-              } else if (isInfinite) {
-                const rewardSteps = gameScore * 50;
-                state.steps += rewardSteps;
-                addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
-                save();
+              lives--;
+              if (lives > 0) {
+                // Reset ball and paddle
+                ballX = canvasWidth / 2;
+                ballY = canvasHeight - 75;
+                ballDX = 2.25;
+                ballDY = -2.25;
+                paddleX = (canvasWidth - paddleWidth) / 2;
+                countdownFrames = 120; // 2 seconds countdown
+                addLog(`공을 놓쳤습니다! 남은 목숨: ${lives}`, "system");
               } else {
-                addLog("근력 훈련 실패... 공을 놓쳤습니다.", "system");
+                gameStatus = 'lost';
+                eyeState = 'lose';
+                if (isEgg) {
+                  const rewardSteps = gameScore * 50;
+                  state.steps += rewardSteps;
+                  addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
+                  save();
+                } else if (isInfinite) {
+                  const rewardSteps = gameScore * 50;
+                  state.steps += rewardSteps;
+                  addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
+                  save();
+                } else {
+                  addLog("근력 훈련 실패... 공을 놓쳤습니다.", "system");
+                }
+                if (overlayBtn) overlayBtn.style.display = 'block';
               }
-              if (overlayBtn) overlayBtn.style.display = 'block';
             }
 
             let dangerTriggered = false;
@@ -5530,23 +5548,37 @@
             });
 
             if (dangerTriggered && gameStatus === 'playing') {
-              gameStatus = 'lost';
-              eyeState = 'lose';
               playBeep('c');
-              if (isEgg) {
-                const rewardSteps = gameScore * 50;
-                state.steps += rewardSteps;
-                addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
-                save();
-              } else if (isInfinite) {
-                const rewardSteps = gameScore * 50;
-                state.steps += rewardSteps;
-                addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
-                save();
+              lives--;
+              if (lives > 0) {
+                // Push bricks back up by 80px
+                brickYOffset = Math.max(0, brickYOffset - 80);
+                // Reset ball and paddle
+                ballX = canvasWidth / 2;
+                ballY = canvasHeight - 75;
+                ballDX = 2.25;
+                ballDY = -2.25;
+                paddleX = (canvasWidth - paddleWidth) / 2;
+                countdownFrames = 120; // 2 seconds countdown
+                addLog(`벽돌이 선에 닿았습니다! 벽돌 후퇴! 남은 목숨: ${lives}`, "system");
               } else {
-                addLog("근력 훈련 실패... 벽돌이 바닥에 닿았습니다.", "system");
+                gameStatus = 'lost';
+                eyeState = 'lose';
+                if (isEgg) {
+                  const rewardSteps = gameScore * 50;
+                  state.steps += rewardSteps;
+                  addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
+                  save();
+                } else if (isInfinite) {
+                  const rewardSteps = gameScore * 50;
+                  state.steps += rewardSteps;
+                  addLog(`근력 훈련 종료! 깬 블럭 수 ${gameScore}개, 걸음 수 +${rewardSteps} 획득!`, "evolve");
+                  save();
+                } else {
+                  addLog("근력 훈련 실패... 벽돌이 바닥에 닿았습니다.", "system");
+                }
+                if (overlayBtn) overlayBtn.style.display = 'block';
               }
-              if (overlayBtn) overlayBtn.style.display = 'block';
             }
           } // end countdown else
         }
@@ -5594,6 +5626,15 @@
         ctx.strokeText(hudText, 9, 16);
         ctx.fillStyle = gc.primary;
         ctx.fillText(hudText, 9, 16);
+
+        if (hasLivesSystem) {
+          ctx.textAlign = 'right';
+          const livesText = `♥`.repeat(lives) + `♡`.repeat(3 - lives);
+          ctx.font = 'bold 13px "Noto Sans KR", monospace';
+          ctx.strokeText(livesText, canvasWidth - 9, 16);
+          ctx.fillStyle = gc.primary;
+          ctx.fillText(livesText, canvasWidth - 9, 16);
+        }
 
         if (gameStatus === 'won') {
           drawDotText(ctx, 'SUCCESS!!', canvasWidth / 2, canvasHeight / 2 - 14, 4, gc.primary, gc.outline);
