@@ -2466,7 +2466,7 @@
         [
           "........................",
           "...........XX...........",
-          "..........XXX..........",
+          "..........XXX...........",
           "..........XWBX..........",
           "..........XWBXX.........",
           ".........XXWBBX.........",
@@ -5126,7 +5126,7 @@
               const baseType = type.split('_')[0];
               const pos = ACCESSORY_MAP[baseType] || { headY: 8, headX: 11 };
               let headY = pos.headY;
-              const headX = pos.headX;
+              let headX = pos.headX;
 
               if (baseType === 'wind') {
                 headY = (frame === 0) ? 9 : 8;
@@ -5138,6 +5138,11 @@
               const eyeY = eyes.eyeY;
               const leftEyeX = eyes.leftEyeX;
               const rightEyeX = eyes.rightEyeX;
+
+              const waterFireStages = ['aqua', 'ocean', 'poseidon', 'dragon', 'inferno', 'kaiser'];
+              if (waterFireStages.includes(baseType)) {
+                headX = Math.round((leftEyeX + rightEyeX) / 2);
+              }
 
               if (state.equipped.a_crown) {
                 if (y === headY - 3 && (x === headX - 2 || x === headX || x === headX + 2)) fill = '#e74c3c';
@@ -6143,7 +6148,7 @@
             const baseType = type.split('_')[0];
             const pos = ACCESSORY_MAP[baseType] || { headY: 8, headX: 11 };
             let headY = pos.headY;
-            const headX = pos.headX;
+            let headX = pos.headX;
 
             if (baseType === 'wind') {
               headY = (frame === 0) ? 9 : 8;
@@ -6155,6 +6160,11 @@
             const eyeY = eyes.eyeY;
             const leftEyeX = eyes.leftEyeX;
             const rightEyeX = eyes.rightEyeX;
+
+            const waterFireStages = ['aqua', 'ocean', 'poseidon', 'dragon', 'inferno', 'kaiser'];
+            if (waterFireStages.includes(baseType)) {
+              headX = Math.round((leftEyeX + rightEyeX) / 2);
+            }
 
             if (state.equipped.a_crown) {
               if (y === headY - 3 && (x === headX - 2 || x === headX || x === headX + 2)) fill = '#e74c3c';
