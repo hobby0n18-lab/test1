@@ -3633,7 +3633,7 @@
       a_ribbon: `<svg class="pixel-icon" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M0 2 H3 L4 3 L5 2 H8 V4 L6 6 L8 7 H7 L5 5 L4 4 L3 5 L1 7 H0 L2 6 Z" fill="#ec4899" /></svg>`,
       a_crown: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M0 2 L2 4 L4 1 L6 4 L8 2 V7 H0 Z" fill="#facc15"/></svg>`,
       a_mirror: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M2 1 H6 V2 H7 V6 H6 V7 H2 V6 H1 V2 Z M3 2 H5 V5 H3 Z" fill="#60a5fa"/></svg>`,
-      a_plane: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M0 3h7v1h-7z M6 0h1v7h-1z M4 1h1v1h-1z M4 5h1v1h-1z M2 2h1v1h-1z M2 4h1v1h-1z" fill="#111827"/><path d="M5 1h1v1h-1z M5 5h1v1h-1z M3 2h3v1h-3z M3 4h3v1h-3z" fill="#ffffff"/></svg>`,
+      a_plane: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M5 1h1v1h-1z M3 2h1v1h-1z M5 2h1v1h-1z M1 3h1v1h-1z M3 3h3v1h-3z M3 4h1v1h-1z M5 4h1v1h-1z M5 5h1v1h-1z" fill="#111827"/><path d="M4 2h1v1h-1z M2 3h1v1h-1z M4 4h1v1h-1z" fill="#ffffff"/></svg>`,
       a_clover: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M1 2 H3 V0 H5 V2 H7 V4 H5 V6 H3 V4 H1 Z M4 4 H5 V7 H4 Z" fill="#22c55e"/></svg>`,
       sa_stone: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M2 1h4v1h1v4h-1v1h-4v-1h-1v-4h1z" fill="#94a3b8"/><path d="M2 2h3v1h1v2h-1v1h-3z" fill="#cbd5e1"/><path d="M3 2h2v1h-2z" fill="#ffffff"/></svg>`,
       sa_water: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M3 1h2v1h1v2h1v2h-1v1h-4v-1h-1v-2h1v-2h1z" fill="#0284c7"/><path d="M3 2h2v1h1v2h-1v1h-2v-3z" fill="#38bdf8"/><path d="M3 3h1v1h-1z" fill="#ffffff"/></svg>`,
@@ -5334,29 +5334,26 @@
               }
               if (!fill && state.equipped.a_plane) {
                 const offset = (frame === 0) ? 0 : 1;
-                const px = 15 + offset;
-                const py = 1 + offset;
-                if (x >= px && x <= px + 6 && y >= py && y <= py + 6) {
+                const px = 17 + offset;
+                const py = 2 + offset;
+                if (x >= px && x <= px + 4 && y >= py && y <= py + 4) {
                   const dx = x - px;
                   const dy = y - py;
                   // Outline (#111827)
                   if (
-                    (dy === 0 && dx === 6) ||
-                    (dy === 1 && (dx === 4 || dx === 6)) ||
-                    (dy === 2 && (dx === 2 || dx === 6)) ||
-                    (dy === 3) ||
-                    (dy === 4 && (dx === 2 || dx === 6)) ||
-                    (dy === 5 && (dx === 4 || dx === 6)) ||
-                    (dy === 6 && dx === 6)
+                    (dy === 0 && dx === 4) ||
+                    (dy === 1 && (dx === 2 || dx === 4)) ||
+                    (dy === 2 && (dx === 0 || dx === 2 || dx === 3 || dx === 4)) ||
+                    (dy === 3 && (dx === 2 || dx === 4)) ||
+                    (dy === 4 && dx === 4)
                   ) {
                     fill = '#111827';
                   }
                   // White fill (#ffffff)
                   else if (
-                    (dy === 1 && dx === 5) ||
-                    (dy === 2 && dx >= 3 && dx <= 5) ||
-                    (dy === 4 && dx >= 3 && dx <= 5) ||
-                    (dy === 5 && dx === 5)
+                    (dy === 1 && dx === 3) ||
+                    (dy === 2 && dx === 1) ||
+                    (dy === 3 && dx === 3)
                   ) {
                     fill = '#ffffff';
                   }
@@ -6530,29 +6527,26 @@
             }
             if (!fill && state.equipped.a_plane) {
               const offset = (frame === 0) ? 0 : 1;
-              const px = 15 + offset;
-              const py = 1 + offset;
-              if (x >= px && x <= px + 6 && y >= py && y <= py + 6) {
+              const px = 17 + offset;
+              const py = 2 + offset;
+              if (x >= px && x <= px + 4 && y >= py && y <= py + 4) {
                 const dx = x - px;
                 const dy = y - py;
                 // Outline (#111827)
                 if (
-                  (dy === 0 && dx === 6) ||
-                  (dy === 1 && (dx === 4 || dx === 6)) ||
-                  (dy === 2 && (dx === 2 || dx === 6)) ||
-                  (dy === 3) ||
-                  (dy === 4 && (dx === 2 || dx === 6)) ||
-                  (dy === 5 && (dx === 4 || dx === 6)) ||
-                  (dy === 6 && dx === 6)
+                  (dy === 0 && dx === 4) ||
+                  (dy === 1 && (dx === 2 || dx === 4)) ||
+                  (dy === 2 && (dx === 0 || dx === 2 || dx === 3 || dx === 4)) ||
+                  (dy === 3 && (dx === 2 || dx === 4)) ||
+                  (dy === 4 && dx === 4)
                 ) {
                   fill = '#111827';
                 }
                 // White fill (#ffffff)
                 else if (
-                  (dy === 1 && dx === 5) ||
-                  (dy === 2 && dx >= 3 && dx <= 5) ||
-                  (dy === 4 && dx >= 3 && dx <= 5) ||
-                  (dy === 5 && dx === 5)
+                  (dy === 1 && dx === 3) ||
+                  (dy === 2 && dx === 1) ||
+                  (dy === 3 && dx === 3)
                 ) {
                   fill = '#ffffff';
                 }
