@@ -5342,74 +5342,8 @@
                 }
               }
 
-              // Special attribute accessories (4x4 pixels) - top-right transparent space of the sprite
-              const sax = headX + 4;
-              const say = headY - 3;
-              const isBadgePixel = (x >= sax && x < sax + 4 && y >= say && y < say + 4);
-              if (isBadgePixel && (!fill && (y < 0 || !row || row[x] === '.'))) {
-                const dx = x - sax;
-                const dy = y - say;
-                if (state.equipped.sa_stone) {
-                  if (dy === 0 && (dx === 1 || dx === 2)) fill = '#94a3b8';
-                  else if (dy === 1 && (dx === 0 || dx === 3)) fill = '#475569';
-                  else if (dy === 1 && (dx === 1 || dx === 2)) fill = '#94a3b8';
-                  else if (dy === 2 && (dx === 0 || dx === 3)) fill = '#475569';
-                  else if (dy === 2 && (dx === 1 || dx === 2)) fill = '#cbd5e1';
-                  else if (dy === 3 && (dx === 1 || dx === 2)) fill = '#475569';
-                } else if (state.equipped.sa_water) {
-                  if (dy === 0 && dx === 1) fill = '#38bdf8';
-                  else if (dy === 1 && dx === 1) fill = '#38bdf8';
-                  else if (dy === 1 && dx === 2) fill = '#0284c7';
-                  else if (dy === 2 && dx <= 2) fill = '#38bdf8';
-                  else if (dy === 2 && dx === 3) fill = '#0284c7';
-                  else if (dy === 3 && dx === 1) fill = '#38bdf8';
-                  else if (dy === 3 && dx === 2) fill = '#0284c7';
-                } else if (state.equipped.sa_fire) {
-                  if (dy === 0 && dx === 1) fill = '#eab308';
-                  else if (dy === 1 && dx === 0) fill = '#ef4444';
-                  else if (dy === 1 && dx === 1) fill = '#f97316';
-                  else if (dy === 1 && dx === 2) fill = '#eab308';
-                  else if (dy === 2 && dx <= 1) fill = '#ef4444';
-                  else if (dy === 2 && dx === 2) fill = '#f97316';
-                  else if (dy === 2 && dx === 3) fill = '#eab308';
-                  else if (dy === 3 && dx === 1) fill = '#ef4444';
-                  else if (dy === 3 && dx === 2) fill = '#f97316';
-                } else if (state.equipped.sa_wind) {
-                  if (dy === 0 && (dx === 0 || dx === 3)) fill = '#0284c7';
-                  else if (dy === 0 && (dx === 1 || dx === 2)) fill = '#e0f2fe';
-                  else if (dy === 1 && dx <= 1) fill = '#0284c7';
-                  else if (dy === 1 && dx === 2) fill = '#e0f2fe';
-                  else if (dy === 1 && dx === 3) fill = '#0284c7';
-                  else if (dy === 2 && (dx === 1 || dx === 2)) fill = '#0284c7';
-                  else if (dy === 3 && dx === 2) fill = '#0284c7';
-                } else if (state.equipped.sa_moon) {
-                  if (dy === 0 && (dx === 1 || dx === 2)) fill = '#fef08a';
-                  else if (dy === 0 && dx === 3) fill = '#eab308';
-                  else if (dy === 1 && dx === 0) fill = '#fef08a';
-                  else if (dy === 1 && dx === 1) fill = '#eab308';
-                  else if (dy === 2 && dx === 0) fill = '#fef08a';
-                  else if (dy === 2 && (dx === 1 || dx === 2)) fill = '#eab308';
-                  else if (dy === 3 && (dx === 1 || dx === 2)) fill = '#eab308';
-                } else if (state.equipped.sa_sun) {
-                  if (dy === 0 && dx === 1) fill = '#f59e0b';
-                  else if (dy === 0 && dx === 2) fill = '#f43f5e';
-                  else if (dy === 1 && (dx === 0 || dx === 3)) fill = '#f59e0b';
-                  else if (dy === 1 && (dx === 1 || dx === 2)) fill = '#f43f5e';
-                  else if (dy === 2 && dx === 3) fill = '#f59e0b';
-                  else if (dy === 2 && dx <= 2) fill = '#f43f5e';
-                  else if (dy === 3 && dx === 1) fill = '#f43f5e';
-                  else if (dy === 3 && dx === 2) fill = '#f59e0b';
-                } else if (state.equipped.sa_elec) {
-                  if (dy === 0 && dx === 2) fill = '#facc15';
-                  else if (dy === 0 && dx === 3) fill = '#d97706';
-                  else if (dy === 1 && (dx === 1 || dx === 2)) fill = '#facc15';
-                  else if (dy === 1 && dx === 3) fill = '#d97706';
-                  else if (dy === 2 && dx <= 1) fill = '#facc15';
-                  else if (dy === 2 && dx === 2) fill = '#d97706';
-                  else if (dy === 3 && dx === 0) fill = '#facc15';
-                  else if (dy === 3 && dx === 1) fill = '#d97706';
-                }
-              }
+              // Special attribute rendering on Canvas removed (using floating HTML particles instead)
+            }
             }
 
             if (!fill && y >= 0) {
@@ -6233,6 +6167,43 @@
       renderScreen();
     }
 
+    function renderSpecialParticles() {
+      if (state.character.stage === 1) return '';
+      let activeKey = null;
+      const specKeys = ['sa_stone', 'sa_water', 'sa_fire', 'sa_wind', 'sa_moon', 'sa_sun', 'sa_elec'];
+      for (const k of specKeys) {
+        if (state.equipped[k]) {
+          activeKey = k;
+          break;
+        }
+      }
+      if (!activeKey) return '';
+
+      let svgMarkup = '';
+      if (activeKey === 'sa_stone') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="1" y="0" width="2" height="1" fill="#94a3b8"/><rect x="0" y="1" width="1" height="1" fill="#475569"/><rect x="1" y="1" width="2" height="1" fill="#94a3b8"/><rect x="3" y="1" width="1" height="1" fill="#475569"/><rect x="0" y="2" width="1" height="1" fill="#475569"/><rect x="1" y="2" width="2" height="1" fill="#cbd5e1"/><rect x="3" y="2" width="1" height="1" fill="#475569"/><rect x="1" y="3" width="2" height="1" fill="#475569"/></svg>`;
+      } else if (activeKey === 'sa_water') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="1" y="0" width="1" height="1" fill="#38bdf8"/><rect x="1" y="1" width="1" height="1" fill="#38bdf8"/><rect x="2" y="1" width="1" height="1" fill="#0284c7"/><rect x="0" y="2" width="3" height="1" fill="#38bdf8"/><rect x="3" y="2" width="1" height="1" fill="#0284c7"/><rect x="1" y="3" width="1" height="1" fill="#38bdf8"/><rect x="2" y="3" width="1" height="1" fill="#0284c7"/></svg>`;
+      } else if (activeKey === 'sa_fire') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="1" y="0" width="1" height="1" fill="#eab308"/><rect x="0" y="1" width="1" height="1" fill="#ef4444"/><rect x="1" y="1" width="1" height="1" fill="#f97316"/><rect x="2" y="1" width="1" height="1" fill="#eab308"/><rect x="0" y="2" width="2" height="1" fill="#ef4444"/><rect x="2" y="2" width="1" height="1" fill="#f97316"/><rect x="3" y="2" width="1" height="1" fill="#eab308"/><rect x="1" y="3" width="1" height="1" fill="#ef4444"/><rect x="2" y="3" width="1" height="1" fill="#f97316"/></svg>`;
+      } else if (activeKey === 'sa_wind') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="0" y="0" width="1" height="1" fill="#0284c7"/><rect x="1" y="0" width="2" height="1" fill="#e0f2fe"/><rect x="3" y="0" width="1" height="1" fill="#0284c7"/><rect x="0" y="1" width="2" height="1" fill="#0284c7"/><rect x="2" y="1" width="1" height="1" fill="#e0f2fe"/><rect x="3" y="1" width="1" height="1" fill="#0284c7"/><rect x="1" y="2" width="2" height="1" fill="#0284c7"/><rect x="2" y="3" width="1" height="1" fill="#0284c7"/></svg>`;
+      } else if (activeKey === 'sa_moon') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="1" y="0" width="2" height="1" fill="#fef08a"/><rect x="3" y="0" width="1" height="1" fill="#eab308"/><rect x="0" y="1" width="1" height="1" fill="#fef08a"/><rect x="1" y="1" width="1" height="1" fill="#eab308"/><rect x="0" y="2" width="1" height="1" fill="#fef08a"/><rect x="1" y="2" width="2" height="1" fill="#eab308"/><rect x="1" y="3" width="2" height="1" fill="#eab308"/></svg>`;
+      } else if (activeKey === 'sa_sun') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="1" y="0" width="1" height="1" fill="#f59e0b"/><rect x="2" y="0" width="1" height="1" fill="#f43f5e"/><rect x="0" y="1" width="1" height="1" fill="#f59e0b"/><rect x="1" y="1" width="2" height="1" fill="#f43f5e"/><rect x="3" y="1" width="1" height="1" fill="#f59e0b"/><rect x="0" y="2" width="3" height="1" fill="#f43f5e"/><rect x="3" y="2" width="1" height="1" fill="#f59e0b"/><rect x="1" y="3" width="1" height="1" fill="#f43f5e"/><rect x="2" y="3" width="1" height="1" fill="#f59e0b"/></svg>`;
+      } else if (activeKey === 'sa_elec') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="2" y="0" width="1" height="1" fill="#facc15"/><rect x="3" y="0" width="1" height="1" fill="#d97706"/><rect x="1" y="1" width="2" height="1" fill="#facc15"/><rect x="3" y="1" width="1" height="1" fill="#d97706"/><rect x="0" y="2" width="2" height="1" fill="#facc15"/><rect x="2" y="2" width="1" height="1" fill="#d97706"/><rect x="0" y="3" width="1" height="1" fill="#facc15"/><rect x="1" y="3" width="1" height="1" fill="#d97706"/></svg>`;
+      }
+
+      // 3 particles floating around, moved 10px down and 2px closer to the center than original version
+      return `
+        <div class="spec-particle spec-particle-a" style="left: 22px; top: 18px;">${svgMarkup}</div>
+        <div class="spec-particle spec-particle-b" style="right: 22px; top: 22px;">${svgMarkup}</div>
+        <div class="spec-particle spec-particle-c" style="left: 30px; top: 38px;">${svgMarkup}</div>
+      `;
+    }
+
     function setInteractionStep(step) {
       initAudio();
       playBeep('a');
@@ -6376,6 +6347,7 @@
         <div class="lcd-home-view">
           <div class="stage-section" onclick="handleCharacterClick(event)" style="cursor: pointer;" title="캐릭터 터치하기">
             ${petStageHTML}
+            ${renderSpecialParticles()}
             
             <!-- Checklist on home screen if items exist -->
             ${(state.checklist && state.checklist.length > 0) ? `
@@ -6541,74 +6513,8 @@
               }
             }
 
-            // Special attribute accessories (4x4 pixels) - top-right transparent space of the sprite
-            const sax = headX + 4;
-            const say = headY - 3;
-            const isBadgePixel = (x >= sax && x < sax + 4 && y >= say && y < say + 4);
-            if (isBadgePixel && (!fill && (y < 0 || !row || row[x] === '.'))) {
-              const dx = x - sax;
-              const dy = y - say;
-              if (state.equipped.sa_stone) {
-                if (dy === 0 && (dx === 1 || dx === 2)) fill = '#94a3b8';
-                else if (dy === 1 && (dx === 0 || dx === 3)) fill = '#475569';
-                else if (dy === 1 && (dx === 1 || dx === 2)) fill = '#94a3b8';
-                else if (dy === 2 && (dx === 0 || dx === 3)) fill = '#475569';
-                else if (dy === 2 && (dx === 1 || dx === 2)) fill = '#cbd5e1';
-                else if (dy === 3 && (dx === 1 || dx === 2)) fill = '#475569';
-              } else if (state.equipped.sa_water) {
-                if (dy === 0 && dx === 1) fill = '#38bdf8';
-                else if (dy === 1 && dx === 1) fill = '#38bdf8';
-                else if (dy === 1 && dx === 2) fill = '#0284c7';
-                else if (dy === 2 && dx <= 2) fill = '#38bdf8';
-                else if (dy === 2 && dx === 3) fill = '#0284c7';
-                else if (dy === 3 && dx === 1) fill = '#38bdf8';
-                else if (dy === 3 && dx === 2) fill = '#0284c7';
-              } else if (state.equipped.sa_fire) {
-                if (dy === 0 && dx === 1) fill = '#eab308';
-                else if (dy === 1 && dx === 0) fill = '#ef4444';
-                else if (dy === 1 && dx === 1) fill = '#f97316';
-                else if (dy === 1 && dx === 2) fill = '#eab308';
-                else if (dy === 2 && dx <= 1) fill = '#ef4444';
-                else if (dy === 2 && dx === 2) fill = '#f97316';
-                else if (dy === 2 && dx === 3) fill = '#eab308';
-                else if (dy === 3 && dx === 1) fill = '#ef4444';
-                else if (dy === 3 && dx === 2) fill = '#f97316';
-              } else if (state.equipped.sa_wind) {
-                if (dy === 0 && (dx === 0 || dx === 3)) fill = '#0284c7';
-                else if (dy === 0 && (dx === 1 || dx === 2)) fill = '#e0f2fe';
-                else if (dy === 1 && dx <= 1) fill = '#0284c7';
-                else if (dy === 1 && dx === 2) fill = '#e0f2fe';
-                else if (dy === 1 && dx === 3) fill = '#0284c7';
-                else if (dy === 2 && (dx === 1 || dx === 2)) fill = '#0284c7';
-                else if (dy === 3 && dx === 2) fill = '#0284c7';
-              } else if (state.equipped.sa_moon) {
-                if (dy === 0 && (dx === 1 || dx === 2)) fill = '#fef08a';
-                else if (dy === 0 && dx === 3) fill = '#eab308';
-                else if (dy === 1 && dx === 0) fill = '#fef08a';
-                else if (dy === 1 && dx === 1) fill = '#eab308';
-                else if (dy === 2 && dx === 0) fill = '#fef08a';
-                else if (dy === 2 && (dx === 1 || dx === 2)) fill = '#eab308';
-                else if (dy === 3 && (dx === 1 || dx === 2)) fill = '#eab308';
-              } else if (state.equipped.sa_sun) {
-                if (dy === 0 && dx === 1) fill = '#f59e0b';
-                else if (dy === 0 && dx === 2) fill = '#f43f5e';
-                else if (dy === 1 && (dx === 0 || dx === 3)) fill = '#f59e0b';
-                else if (dy === 1 && (dx === 1 || dx === 2)) fill = '#f43f5e';
-                else if (dy === 2 && dx === 3) fill = '#f59e0b';
-                else if (dy === 2 && dx <= 2) fill = '#f43f5e';
-                else if (dy === 3 && dx === 1) fill = '#f43f5e';
-                else if (dy === 3 && dx === 2) fill = '#f59e0b';
-              } else if (state.equipped.sa_elec) {
-                if (dy === 0 && dx === 2) fill = '#facc15';
-                else if (dy === 0 && dx === 3) fill = '#d97706';
-                else if (dy === 1 && (dx === 1 || dx === 2)) fill = '#facc15';
-                else if (dy === 1 && dx === 3) fill = '#d97706';
-                else if (dy === 2 && dx <= 1) fill = '#facc15';
-                else if (dy === 2 && dx === 2) fill = '#d97706';
-                else if (dy === 3 && dx === 0) fill = '#facc15';
-                else if (dy === 3 && dx === 1) fill = '#d97706';
-              }
-            }
+            // Special attribute rendering on SVG removed (using floating HTML particles instead)
+          }
           }
 
           if (!fill && y >= 0) {
