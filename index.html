@@ -4983,15 +4983,15 @@
       stone: { headY: 2, headX: 11 },
       iron: { headY: 4, headX: 11 },
       golem: { headY: 2, headX: 11 },
-      aqua: { headY: 8, headX: 11 },
-      ocean: { headY: 6, headX: 11 },
-      poseidon: { headY: 5, headX: 11 },
-      dragon: { headY: 6, headX: 11 },
-      inferno: { headY: 5, headX: 11 },
-      kaiser: { headY: 4, headX: 11 },
-      wind: { headY: 8, headX: 11 },
-      vortex: { headY: 8, headX: 11 },
-      wizard: { headY: 6, headX: 11 },
+      aqua: { headY: 15, headX: 11 },
+      ocean: { headY: 15, headX: 11 },
+      poseidon: { headY: 9, headX: 11 },
+      dragon: { headY: 9, headX: 11 },
+      inferno: { headY: 12, headX: 11 },
+      kaiser: { headY: 12, headX: 11 },
+      wind: { headY: 9, headX: 11 },
+      vortex: { headY: 10, headX: 11 },
+      wizard: { headY: 13, headX: 11 },
       lunya: { headY: 6, headX: 8 },
       creta: { headY: 5, headX: 8 },
       blacktiger: { headY: 5, headX: 8 },
@@ -5125,8 +5125,14 @@
             if (state.character.stage > 1) {
               const baseType = type.split('_')[0];
               const pos = ACCESSORY_MAP[baseType] || { headY: 8, headX: 11 };
-              const headY = pos.headY;
+              let headY = pos.headY;
               const headX = pos.headX;
+
+              if (baseType === 'wind') {
+                headY = (frame === 0) ? 9 : 8;
+              } else if (baseType === 'vortex') {
+                headY = (frame === 0) ? 10 : 9;
+              }
 
               const eyes = getEyePositions(spriteGrid, baseType);
               const eyeY = eyes.eyeY;
@@ -6136,8 +6142,14 @@
           if (state.character.stage > 1) {
             const baseType = type.split('_')[0];
             const pos = ACCESSORY_MAP[baseType] || { headY: 8, headX: 11 };
-            const headY = pos.headY;
+            let headY = pos.headY;
             const headX = pos.headX;
+
+            if (baseType === 'wind') {
+              headY = (frame === 0) ? 9 : 8;
+            } else if (baseType === 'vortex') {
+              headY = (frame === 0) ? 10 : 9;
+            }
 
             const eyes = getEyePositions(spriteGrid, baseType);
             const eyeY = eyes.eyeY;
