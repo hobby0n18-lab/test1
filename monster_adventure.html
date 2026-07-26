@@ -3767,10 +3767,21 @@
       }
 
       addLog(`테마가 [${themeName.toUpperCase()}] 배경으로 교체되었습니다.`, "system");
-      if (!skipRender) {
-        renderScreen();
+
+      // 기대 테마 매칭 체크
+      if (state.expectedTheme === themeName) {
+        state.thankYouReason = 'change_theme';
+        state.expectedTheme = null;
+        save();
+        if (!skipRender) {
+          triggerImmediateThemeThankYou();
+        }
+      } else {
+        if (!skipRender) {
+          renderScreen();
+        }
+        save();
       }
-      save();
     }
 
     /* Sound/Render loop bindings */
@@ -3826,8 +3837,37 @@
 
       isHomeBubbleOpen = false;
       screenState = 'home';
-      renderScreen();
-      resetIdleTimer();
+      
+      // 기대 상호작용 성공 후 홈 복귀 시 감동 멘트 분기
+      if (state.thankYouReason) {
+        isHomeBubbleOpen = true;
+        if (state.thankYouReason === 'buy_item') {
+          interactionStep = 'thank_buy_item';
+        } else if (state.thankYouReason === 'feed_item') {
+          interactionStep = 'thank_feed_item';
+        }
+        
+        activeReactionType = 'heart';
+        state.thankYouReason = null;
+        save();
+        renderScreen();
+        
+        if (idleTimer) {
+          clearTimeout(idleTimer);
+          idleTimer = null;
+        }
+        
+        setTimeout(() => {
+          activeReactionType = null;
+          isHomeBubbleOpen = false;
+          interactionStep = 'start';
+          renderScreen();
+          resetIdleTimer();
+        }, 2500);
+      } else {
+        renderScreen();
+        resetIdleTimer();
+      }
     }
 
     function toggleShop() {
@@ -6028,6 +6068,31 @@
       }
     }
 
+    function triggerImmediateThemeThankYou() {
+      activeReactionType = 'heart';
+      isHomeBubbleOpen = true;
+      interactionStep = 'thank_theme';
+
+      const themeNamesKr = { forest: '숲', street: '골목', space: '우주' };
+      const themeKr = themeNamesKr[state.currentTheme] || '새';
+      state.thankYouItemName = themeKr;
+
+      renderScreen();
+
+      if (idleTimer) {
+        clearTimeout(idleTimer);
+        idleTimer = null;
+      }
+
+      setTimeout(() => {
+        activeReactionType = null;
+        isHomeBubbleOpen = false;
+        interactionStep = 'start';
+        renderScreen();
+        resetIdleTimer();
+      }, 2500);
+    }
+
     function showIdleRandomMessage() {
       const title = state.userTitle;
       if (!title) {
@@ -6037,34 +6102,70 @@
         
         const incompleteTasks = state.checklist ? state.checklist.filter(item => !item.completed).map(item => item.text) : [];
         if (incompleteTasks.length > 0) {
-          messages.push(`오늘 할 일은 ${incompleteTasks.slice(0, 2).join(', ')} 이에요.`);
+          messages.push({ type: 'normal', text: `오늘 할 일은 ${incompleteTasks.slice(0, 2).join(', ')} 이에요.` });
         } else {
-          messages.push(`오늘 할 일은 모두 끝났어요! 정말 멋져요, ${title}!`);
+          messages.push({ type: 'normal', text: `오늘 할 일은 모두 끝났어요! 정말 멋져요, ${title}!` });
         }
         
         const lastMood = state.lastMood || 'none';
         if (lastMood === 'good') {
-          messages.push(`${title}이 기분 좋으시다니 저도 너무 기뻐요! 둥실둥실~`);
+          messages.push({ type: 'normal', text: `${title}이 기분 좋으시다니 저도 너무 기뻐요! 둥실둥실~` });
         } else if (lastMood === 'sad') {
-          messages.push(`우울한 기분은 저 멀리 날려버려요! 제가 늘 응원하고 있어요.`);
+          messages.push({ type: 'normal', text: `우울한 기분은 저 멀리 날려버려요! 제가 늘 응원하고 있어요.` });
         } else {
-          messages.push(`오늘 하루는 어떠신가요? 기분이 어떠신지 궁금해요.`);
+          messages.push({ type: 'normal', text: `오늘 하루는 어떠신가요? 기분이 어떠신지 궁금해요.` });
         }
         
-        messages.push(`저랑 훈련하러 가지 않을래요? 오늘 훈련도 힘차게 해봐요!`);
-        messages.push(`몸이 근질근질해요. 어서 훈련을 시작해요!`);
+        messages.push({ type: 'normal', text: `저랑 훈련하러 가지 않을래요? 오늘 훈련도 힘차게 해봐요!` });
+        messages.push({ type: 'normal', text: `몸이 근질근질해요. 어서 훈련을 시작해요!` });
         
-        const items = ['사탕', '비타민', '마법서'];
-        const randomItem = items[Math.floor(Math.random() * items.length)];
-        messages.push(`${randomItem}은 무슨 맛일지 너무 궁금해요!`);
+        // 아이템 궁금증
+        const items = [
+          { id: 'candy', name: '사탕' },
+          { id: 'vitamin', name: '비타민' },
+          { id: 'book', name: '마법서' }
+        ];
+        const randomItemObj = items[Math.floor(Math.random() * items.length)];
+        messages.push({
+          type: 'item',
+          id: randomItemObj.id,
+          text: `${randomItemObj.name}은 무슨 맛일지 너무 궁금해요!`
+        });
         
-        const themes = { forest: '숲', alley: '골목', space: '우주' };
+        // 배경 궁금증
+        const themes = [
+          { id: 'forest', name: '숲' },
+          { id: 'street', name: '골목' },
+          { id: 'space', name: '우주' }
+        ];
         const currentTheme = state.currentTheme || 'forest';
-        const otherThemes = Object.keys(themes).filter(t => t !== currentTheme).map(t => themes[t]);
-        const randomTheme = otherThemes[Math.floor(Math.random() * otherThemes.length)];
-        messages.push(`${randomTheme}은 어떤 곳일지 정말 궁금해요.`);
+        const otherThemes = themes.filter(t => t.id !== currentTheme);
+        const randomThemeObj = otherThemes[Math.floor(Math.random() * otherThemes.length)];
+        let themeSubject = randomThemeObj.name + '은';
+        if (randomThemeObj.id === 'space') {
+          themeSubject = '우주는';
+        }
+        messages.push({
+          type: 'theme',
+          id: randomThemeObj.id,
+          text: `${themeSubject} 어떤 곳일지 정말 궁금해요.`
+        });
         
-        currentIdleMessage = messages[Math.floor(Math.random() * messages.length)];
+        const selected = messages[Math.floor(Math.random() * messages.length)];
+        currentIdleMessage = selected.text;
+        
+        // 기대 상태 캐싱
+        if (selected.type === 'item') {
+          state.expectedItem = selected.id;
+          state.expectedTheme = null;
+        } else if (selected.type === 'theme') {
+          state.expectedTheme = selected.id;
+          state.expectedItem = null;
+        } else {
+          state.expectedItem = null;
+          state.expectedTheme = null;
+        }
+        save();
       }
       
       interactionStep = 'idle_message';
@@ -6205,6 +6306,15 @@
           case 'idle_thankyou':
             bubbleText = currentIdleThankYouMessage;
             break;
+          case 'thank_buy_item':
+            bubbleText = `앗! 제가 궁금해하던 <strong>${state.thankYouItemName}</strong>을(를) 선물해주셨네요! 너무 신나요! 고마워요!`;
+            break;
+          case 'thank_feed_item':
+            bubbleText = `우와! 제가 맛보고 싶어하던 <strong>${state.thankYouItemName}</strong>을(를) 직접 먹여주셨네요! 역시 최고예요! 정말 맛있어요!`;
+            break;
+          case 'thank_theme':
+            bubbleText = `우와! 제가 가보고 싶어하던 <strong>${state.thankYouItemName}</strong> 배경으로 바꿔주셨네요! 너무 신비롭고 이뻐요!`;
+            break;
         }
       }
 
@@ -6227,6 +6337,9 @@
       switch (interactionStep) {
         case 'idle_message':
         case 'idle_thankyou':
+        case 'thank_buy_item':
+        case 'thank_feed_item':
+        case 'thank_theme':
           optionsHTML = '';
           break;
 
@@ -7023,6 +7136,14 @@
         state.steps -= selected.price;
         state.inventory[selected.id] = (state.inventory[selected.id] || 0) + 1;
         addLog(`상점: [${selected.name}]을(를) 직접 구매했습니다! (-${selected.price}걸음)`);
+        
+        // 기대 아이템 매칭 체크
+        if (state.expectedItem === itemId) {
+          state.thankYouReason = 'buy_item';
+          state.thankYouItemName = selected.name;
+          state.expectedItem = null;
+        }
+
         showShopToast(`${selected.name} 구매 완료!`);
         updateDrawerQuantities();
         renderScreen();
@@ -7049,6 +7170,14 @@
 
       // Deduct item count and process feed
       state.inventory[selectedKey]--;
+
+      // 기대 아이템 섭취 체크
+      if (state.expectedItem === selectedKey) {
+        state.thankYouReason = 'feed_item';
+        state.thankYouItemName = getItemNameKr(selectedKey);
+        state.expectedItem = null;
+      }
+
       playBeep('feed');
       triggerActionBubble();
 
