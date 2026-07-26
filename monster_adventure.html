@@ -520,9 +520,11 @@
     /* alert-blink removed */
 
     /* Sprite Drawing Styles */
-    .sprite-svg {
-      width: 120px;
-      height: 120px;
+    .sprite-svg,
+    .bounce-slime,
+    .shake-egg {
+      width: 160px;
+      height: 135px;
       z-index: 2;
       transition: transform 0.15s ease;
       position: relative;
@@ -560,9 +562,6 @@
     .shake-egg {
       animation: egg-shake 1.8s ease-in-out infinite;
       transform-origin: bottom center;
-      position: relative;
-      width: 120px;
-      height: 120px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -584,9 +583,6 @@
     .bounce-slime {
       animation: slime-bounce 1s ease-in-out infinite;
       transform-origin: bottom center;
-      position: relative;
-      width: 120px;
-      height: 120px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1041,9 +1037,11 @@
         padding: 14px;
       }
 
-      .sprite-svg {
-        width: 170px;
-        height: 170px;
+      .sprite-svg,
+      .bounce-slime,
+      .shake-egg {
+        width: 226px;
+        height: 191px;
       }
 
       .lcd-header {
@@ -6211,11 +6209,11 @@
         svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="2" y="0" width="1" height="1" fill="#facc15"/><rect x="3" y="0" width="1" height="1" fill="#d97706"/><rect x="1" y="1" width="2" height="1" fill="#facc15"/><rect x="3" y="1" width="1" height="1" fill="#d97706"/><rect x="0" y="2" width="2" height="1" fill="#facc15"/><rect x="2" y="2" width="1" height="1" fill="#d97706"/><rect x="0" y="3" width="1" height="1" fill="#facc15"/><rect x="1" y="3" width="1" height="1" fill="#d97706"/></svg>`;
       }
 
-      // 3 particles floating around, relative to the 120px character container (expanded by 3px in each direction)
+      // 3 particles floating around, using percentage coordinates for responsive scaling
       return `
-        <div class="spec-particle spec-particle-a" style="left: 9px; top: 55px;">${svgMarkup}</div>
-        <div class="spec-particle spec-particle-b" style="right: 9px; top: 59px;">${svgMarkup}</div>
-        <div class="spec-particle spec-particle-c" style="left: 19px; top: 85px;">${svgMarkup}</div>
+        <div class="spec-particle spec-particle-a" style="left: 12%; top: 15%;">${svgMarkup}</div>
+        <div class="spec-particle spec-particle-b" style="right: 2%; top: 18%;">${svgMarkup}</div>
+        <div class="spec-particle spec-particle-c" style="left: 15%; top: 48%;">${svgMarkup}</div>
       `;
     }
 
