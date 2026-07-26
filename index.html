@@ -5344,13 +5344,12 @@
 
               // Special attribute rendering on Canvas removed (using floating HTML particles instead)
             }
-            }
+          }
 
-            if (!fill && y >= 0) {
-              const char = row[x];
-              if (char !== '.') {
-                fill = colors[char] || '#0f380f';
-              }
+          if (!fill && y >= 0) {
+            const char = row[x];
+            if (char !== '.') {
+              fill = colors[char] || '#0f380f';
             }
           }
 
@@ -6514,7 +6513,6 @@
             }
 
             // Special attribute rendering on SVG removed (using floating HTML particles instead)
-          }
           }
 
           if (!fill && y >= 0) {
