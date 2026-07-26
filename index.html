@@ -1676,11 +1676,11 @@
           <!-- 스크롤 영역 -->
           <div style="flex:1; overflow-y:auto; padding: 10px 10px 6px; box-sizing:border-box;">
 
-            <!-- 근력 · 벽돌깨기 -->
+            <!-- 근력 훈련 -->
             <div style="margin-bottom:12px;">
               <div class="train-guide-title"><svg class="pixel-icon" style="fill:var(--lcd-light);" viewBox="0 0 8 8">
                   <path d="M4 1 H6 V3 H4 Z M2 3 H6 V5 H2 Z M1 4 H3 V8 H1 Z M3 6 H7 V8 H3 Z" />
-                </svg> 근력 · 벽돌깨기</div>
+                </svg> 근력 훈련</div>
               <table class="train-guide-table">
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">조작</td>
@@ -1688,11 +1688,11 @@
                 </tr>
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">방법</td>
-                  <td>공을 튕겨 벽돌 전부 파괴</td>
+                  <td>공을 튕겨 블록 전부 파괴</td>
                 </tr>
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">성공</td>
-                  <td>모든 벽돌 파괴 → 클리어</td>
+                  <td>모든 블록 파괴 → 클리어</td>
                 </tr>
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">실패</td>
@@ -1707,11 +1707,11 @@
 
             <div style="border-top:1px dashed var(--lcd-mid); margin-bottom:12px;"></div>
 
-            <!-- 민첩 · 스네이크 -->
+            <!-- 민첩 훈련 -->
             <div style="margin-bottom:12px;">
               <div class="train-guide-title"><svg class="pixel-icon" style="fill:var(--lcd-light);" viewBox="0 0 8 8">
                   <path d="M4 0 H5 V1 H4 Z M3 2 H6 L5 4 L7 6 H5 L4 5 L3 6 H1 V5 H3 Z" />
-                </svg> 민첩 · 스네이크</div>
+                </svg> 민첩 훈련</div>
               <table class="train-guide-table">
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">조작</td>
@@ -1738,11 +1738,11 @@
 
             <div style="border-top:1px dashed var(--lcd-mid); margin-bottom:12px;"></div>
 
-            <!-- 행운 · 지뢰찾기 -->
+            <!-- 행운 훈련 -->
             <div style="margin-bottom:6px;">
               <div class="train-guide-title"><svg class="pixel-icon" style="fill:var(--lcd-light);" viewBox="0 0 8 8">
                   <path d="M3 1 H5 V3 H7 V5 H5 V7 H3 V5 H1 V3 H3 Z" fill-rule="evenodd" />
-                </svg> 행운 · 지뢰찾기</div>
+                </svg> 행운 훈련</div>
               <table class="train-guide-table">
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">조작</td>
@@ -1750,11 +1750,11 @@
                 </tr>
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">&nbsp;</td>
-                  <td>깃발 모드 → 지뢰 표시</td>
+                  <td>깃발 모드 → 위험 표시</td>
                 </tr>
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">방법</td>
-                  <td>지뢰 없는 칸 전부 열기</td>
+                  <td>위험 없는 칸 전부 열기</td>
                 </tr>
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">성공</td>
@@ -1762,7 +1762,7 @@
                 </tr>
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">실패</td>
-                  <td>지뢰 칸 탭 시 즉시 종료</td>
+                  <td>위험 칸 탭 시 즉시 종료</td>
                 </tr>
                 <tr>
                   <td style="color:var(--lcd-mid); white-space:nowrap; padding-right:6px;">보상</td>
@@ -5429,22 +5429,49 @@
       const type = getSlimeTypeKey();
       const sc = SPRITE_COLORS[type] || SPRITE_COLORS.egg;
 
-      // Priority order for "primary" body color
-      const primaryKeys = ['C', 'G', 'R', 'Y', 'L', 'W', 'S', 'B', 'M', 'T'];
-      // Priority order for "secondary / accent" color
-      const secondaryKeys = ['E', 'W', 'S', 'L', 'Y', 'R', 'C', 'G', 'B', 'M', 'T'];
+      const colorMapping = {
+        egg: { primary: 'C', secondary: 'X' },
+        stone: { primary: 'G', secondary: 'H' },
+        iron: { primary: 'G', secondary: 'E' },
+        golem: { primary: 'G', secondary: 'K' },
+        aqua: { primary: 'C', secondary: 'W' },
+        ocean: { primary: 'C', secondary: 'H' },
+        poseidon: { primary: 'C', secondary: 'H' },
+        dragon: { primary: 'R', secondary: 'Y' },
+        inferno: { primary: 'R', secondary: 'Y' },
+        kaiser: { primary: 'R', secondary: 'Y' },
+        wind: { primary: 'C', secondary: 'W' },
+        vortex: { primary: 'C', secondary: 'W' },
+        wizard: { primary: 'W', secondary: 'S' },
+        lunya: { primary: 'W', secondary: 'M' },
+        creta: { primary: 'W', secondary: 'Y' },
+        blacktiger: { primary: 'T', secondary: 'R' },
+        solmong: { primary: 'W', secondary: 'S' },
+        ilf: { primary: 'W', secondary: 'S' },
+        baekho: { primary: 'W', secondary: 'R' },
+        eleki: { primary: 'Y', secondary: 'L' },
+        rayoki: { primary: 'Y', secondary: 'R' },
+        thunderbunny: { primary: 'Y', secondary: 'B' }
+      };
 
-      let primary = '#2980b9';
-      for (const k of primaryKeys) {
-        if (sc[k]) { primary = sc[k]; break; }
-      }
-
-      let secondary = sc['E'] || sc['X'] || '#0f380f';
-      for (const k of secondaryKeys) {
-        if (sc[k] && sc[k] !== primary) { secondary = sc[k]; break; }
-      }
-
+      const mapping = colorMapping[type] || { primary: 'C', secondary: 'X' };
+      
+      let primary = sc[mapping.primary] || '#2980b9';
+      let secondary = sc[mapping.secondary] || '#0f380f';
       const outline = sc['X'] || '#0f380f';
+
+      if (!sc[mapping.primary]) {
+        const primaryKeys = ['C', 'G', 'R', 'Y', 'L', 'W', 'S', 'B', 'M', 'T'];
+        for (const k of primaryKeys) {
+          if (sc[k]) { primary = sc[k]; break; }
+        }
+      }
+      if (!sc[mapping.secondary]) {
+        const secondaryKeys = ['W', 'S', 'L', 'Y', 'R', 'C', 'G', 'B', 'M', 'T', 'H'];
+        for (const k of secondaryKeys) {
+          if (sc[k] && sc[k] !== primary) { secondary = sc[k]; break; }
+        }
+      }
 
       // Resolve CSS variables to actual color strings for canvas use
       const rootStyle = getComputedStyle(document.documentElement);
@@ -5485,10 +5512,12 @@
       let count = 0;
       let row = 0;
 
-      const rowOffset = isInfinite ? 18 : (isEgg ? 0 : (Math.min(10, tLvl) - 1) * 2);
+      const initialRows = 15;
+      const rowOffset = isInfinite ? 11 : (isEgg ? 0 : (Math.min(10, tLvl) - 1) * 2);
+      const startTotalBricks = isInfinite ? (initialRows * cols) : totalBricks;
 
-      while (count < totalBricks) {
-        for (let col = 0; col < cols && count < totalBricks; col++) {
+      while (count < startTotalBricks) {
+        for (let col = 0; col < cols && count < startTotalBricks; col++) {
           const bx = col * (brickWidth + gap) + 6;
           const by = (row - rowOffset) * (brickHeight + gap) + 6;
           bricks.push({
@@ -5602,6 +5631,31 @@
             ballY += ballDY;
 
             brickYOffset += brickSpeed;
+
+            if (isInfinite) {
+              // 1. 가장 위에 있는 벽돌의 실제 y 좌표가 -50보다 아래로 내려오면 그 위에 새 줄을 추가한다.
+              let minY = Infinity;
+              bricks.forEach(b => {
+                if (b.y < minY) minY = b.y;
+              });
+              
+              if (minY !== Infinity && minY + brickYOffset > -50) {
+                const newY = minY - (brickHeight + gap);
+                for (let col = 0; col < cols; col++) {
+                  const bx = col * (brickWidth + gap) + 6;
+                  bricks.push({
+                    x: bx,
+                    y: newY,
+                    width: brickWidth,
+                    height: brickHeight,
+                    active: true
+                  });
+                }
+              }
+              
+              // 2. 화면 아래로 완전히 내려가서 더 이상 쓸모없는 벽돌들은 정리하여 메모리 누수를 막는다.
+              bricks = bricks.filter(b => (b.y + brickYOffset) < canvasHeight + 50);
+            }
 
             if (ballX <= 0 || ballX + ballSize >= canvasWidth) {
               ballDX = -ballDX;
@@ -5781,7 +5835,7 @@
         ctx.textAlign = 'left';
         ctx.strokeStyle = gc.outline;
         ctx.lineWidth = 3;
-        const hudText = isEgg ? `BREAK: ${gameScore}` : `BREAK: ${gameScore}/${targetScore}`;
+        const hudText = (isEgg || isInfinite) ? `BREAK: ${gameScore}` : `BREAK: ${gameScore}/${targetScore}`;
         ctx.strokeText(hudText, 9, 16);
         ctx.fillStyle = gc.primary;
         ctx.fillText(hudText, 9, 16);
@@ -6689,35 +6743,44 @@
     function getSlimeTypeKey() {
       const type = state.character.type;
       const stage = state.character.stage;
-      if (!type) return 'egg';
+      const level = state.character.level || 1;
+      if (!type || stage === 1) return 'egg';
+
+      // Determine stage directly based on character level
+      let currentStage = 2;
+      if (level >= 10) {
+        currentStage = 4;
+      } else if (level >= 5) {
+        currentStage = 3;
+      }
 
       if (type === 'stone') {
-        if (stage === 2) return 'stone'; // Lv 1~4
-        if (stage === 3) return 'iron';  // Lv 5~9
+        if (currentStage === 2) return 'stone'; // Lv 1~4
+        if (currentStage === 3) return 'iron';  // Lv 5~9
         return 'golem';                 // Lv 10+
       } else if (type === 'aqua') {
-        if (stage === 2) return 'aqua';
-        if (stage === 3) return 'ocean';
+        if (currentStage === 2) return 'aqua';
+        if (currentStage === 3) return 'ocean';
         return 'poseidon';
       } else if (type === 'dragon') {
-        if (stage === 2) return 'dragon';
-        if (stage === 3) return 'inferno';
+        if (currentStage === 2) return 'dragon';
+        if (currentStage === 3) return 'inferno';
         return 'kaiser';
       } else if (type === 'wind') {
-        if (stage === 2) return 'wind';
-        if (stage === 3) return 'vortex';
+        if (currentStage === 2) return 'wind';
+        if (currentStage === 3) return 'vortex';
         return 'wizard';
       } else if (type === 'lunya') {
-        if (stage === 2) return 'lunya';
-        if (stage === 3) return 'creta';
+        if (currentStage === 2) return 'lunya';
+        if (currentStage === 3) return 'creta';
         return 'blacktiger';
       } else if (type === 'solmong') {
-        if (stage === 2) return 'solmong';
-        if (stage === 3) return 'ilf';
+        if (currentStage === 2) return 'solmong';
+        if (currentStage === 3) return 'ilf';
         return 'baekho';
       } else if (type === 'eleki') {
-        if (stage === 2) return 'eleki';
-        if (stage === 3) return 'rayoki';
+        if (currentStage === 2) return 'eleki';
+        if (currentStage === 3) return 'rayoki';
         return 'thunderbunny';
       }
     }
@@ -6726,35 +6789,44 @@
     function getSlimeName() {
       const type = state.character.type;
       const stage = state.character.stage;
-      if (!type) return '알';
+      const level = state.character.level || 1;
+      if (!type || stage === 1) return '알';
+
+      // Determine stage directly based on character level
+      let currentStage = 2;
+      if (level >= 10) {
+        currentStage = 4;
+      } else if (level >= 5) {
+        currentStage = 3;
+      }
 
       if (type === 'stone') {
-        if (stage === 2) return '돌 슬라임';
-        if (stage === 3) return '철 슬라임';
+        if (currentStage === 2) return '돌 슬라임';
+        if (currentStage === 3) return '철 슬라임';
         return '강철 골렘';
       } else if (type === 'aqua') {
-        if (stage === 2) return '물 슬라임';
-        if (stage === 3) return '대양 슬라임';
+        if (currentStage === 2) return '물 슬라임';
+        if (currentStage === 3) return '대양 슬라임';
         return '포세이돈';
       } else if (type === 'dragon') {
-        if (stage === 2) return '용용이 슬라임';
-        if (stage === 3) return '지옥 화염룡';
+        if (currentStage === 2) return '용용이 슬라임';
+        if (currentStage === 3) return '지옥 화염룡';
         return '카이저 드래곤';
       } else if (type === 'wind') {
-        if (stage === 2) return '풍차 슬라임';
-        if (stage === 3) return '소용돌이 슬라임';
+        if (currentStage === 2) return '풍차 슬라임';
+        if (currentStage === 3) return '소용돌이 슬라임';
         return '바람 마법사';
       } else if (type === 'lunya') {
-        if (stage === 2) return '루냥';
-        if (stage === 3) return '크레타';
+        if (currentStage === 2) return '루냥';
+        if (currentStage === 3) return '크레타';
         return '흑랑이';
       } else if (type === 'solmong') {
-        if (stage === 2) return '솔멍';
-        if (stage === 3) return '일프';
+        if (currentStage === 2) return '솔멍';
+        if (currentStage === 3) return '일프';
         return '백호';
       } else if (type === 'eleki') {
-        if (stage === 2) return '엘레끼';
-        if (stage === 3) return '라요끼';
+        if (currentStage === 2) return '엘레끼';
+        if (currentStage === 3) return '라요끼';
         return '천둥번끼';
       }
     }
