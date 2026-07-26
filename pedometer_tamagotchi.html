@@ -830,7 +830,7 @@
     }
 
     .pixel-modal {
-      background-color: #2b303c;
+      background-color: #f3f4f6;
       border: 4px solid var(--accent-color);
       box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6);
       width: 90%;
@@ -891,15 +891,15 @@
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
-      color: #e2e8f0;
+      color: #1e293b;
     }
 
     .guide-section-title {
       font-family: 'Press Start 2P', monospace;
       font-size: 0.62rem;
-      color: #facc15;
+      color: var(--accent-color);
       margin-bottom: 0.2rem;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
       padding-bottom: 4px;
     }
 
@@ -917,14 +917,14 @@
 
     .spec-table th,
     .spec-table td {
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(0, 0, 0, 0.12);
       padding: 4px 6px;
       text-align: center;
     }
 
     .spec-table th {
-      background-color: rgba(255, 255, 255, 0.08);
-      color: #facc15;
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--accent-color);
     }
 
     @media (max-width: 500px) {
@@ -1432,7 +1432,7 @@
     .train-guide-title {
       font-family: 'Press Start 2P', monospace;
       font-size: 1.1rem;
-      color: #f3f4f6;
+      color: var(--lcd-light);
       background: var(--lcd-dark);
       padding: 4px 7px;
       border-radius: 3px;
@@ -1585,7 +1585,7 @@
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 72%;
-          background: #f3f4f6;
+          background: var(--lcd-light);
           z-index: 70;
           flex-direction: column;
           box-sizing: border-box;
@@ -1600,7 +1600,7 @@
 
             <!-- 근력 · 벽돌깨기 -->
             <div style="margin-bottom:12px;">
-              <div class="train-guide-title"><svg class="pixel-icon" style="fill:#f3f4f6;" viewBox="0 0 8 8">
+              <div class="train-guide-title"><svg class="pixel-icon" style="fill:var(--lcd-light);" viewBox="0 0 8 8">
                   <path d="M4 1 H6 V3 H4 Z M2 3 H6 V5 H2 Z M1 4 H3 V8 H1 Z M3 6 H7 V8 H3 Z" />
                 </svg> 근력 · 벽돌깨기</div>
               <table class="train-guide-table">
@@ -1631,7 +1631,7 @@
 
             <!-- 민첩 · 스네이크 -->
             <div style="margin-bottom:12px;">
-              <div class="train-guide-title"><svg class="pixel-icon" style="fill:#f3f4f6;" viewBox="0 0 8 8">
+              <div class="train-guide-title"><svg class="pixel-icon" style="fill:var(--lcd-light);" viewBox="0 0 8 8">
                   <path d="M4 0 H5 V1 H4 Z M3 2 H6 L5 4 L7 6 H5 L4 5 L3 6 H1 V5 H3 Z" />
                 </svg> 민첩 · 스네이크</div>
               <table class="train-guide-table">
@@ -1662,7 +1662,7 @@
 
             <!-- 행운 · 지뢰찾기 -->
             <div style="margin-bottom:6px;">
-              <div class="train-guide-title"><svg class="pixel-icon" style="fill:#f3f4f6;" viewBox="0 0 8 8">
+              <div class="train-guide-title"><svg class="pixel-icon" style="fill:var(--lcd-light);" viewBox="0 0 8 8">
                   <path d="M3 1 H5 V3 H7 V5 H5 V7 H3 V5 H1 V3 H3 Z" fill-rule="evenodd" />
                 </svg> 행운 · 지뢰찾기</div>
               <table class="train-guide-table">
@@ -1699,7 +1699,7 @@
           <div style="text-align:center; padding:7px 0 6px; border-top:2px solid var(--lcd-dark);">
             <button onclick="document.getElementById('training-guide-modal').style.display='none'" style="
                 background: var(--lcd-dark);
-                color: #f3f4f6;
+                color: var(--lcd-light);
                 border: none;
                 border-radius: 4px;
                 font-family: 'Press Start 2P', monospace;
