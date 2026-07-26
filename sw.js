@@ -1,9 +1,8 @@
-const CACHE_NAME = 'monster-adventure-v27';
+const CACHE_NAME = 'monster-adventure-v28';
 const ASSETS = [
   './',
   'index.html',
   'monster_adventure.html',
-  'pedometer_tamagotchi.html',
   'manifest.json',
   'icon.svg',
   'icon-192.png',
