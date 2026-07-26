@@ -5841,18 +5841,16 @@
           case 'game_win_lvlup':
             bubbleText = `우와, 정답이에요! [<strong>${upDownTarget}</strong>]을(를) 맞추셨네요! 게다가 레벨업까지 하셨어요! 축하드려요, ${title}!`;
             break;
-          case 'stretch_ask':
-            bubbleText = `오랫동안 같은 자세로 계셨나요, ${title}? 지금 몸에 찌뿌둥하거나 불편한 곳이 있으신가요?`;
+          case 'adventure_analysis': {
+            const distance = (state.totalSteps * 0.0007).toFixed(2);
+            bubbleText = `오늘은 <strong>${state.totalSteps}</strong>걸음 걸었어요. 총 <strong>${distance}</strong>km에요.`;
             break;
-          case 'stretch_neck':
-            bubbleText = `목과 어깨가 뻐근하시군요!<br>바르게 앉아 머리를 손으로 감싸고 옆으로 지긋이 10초간 당겨주세요. 좌우 번갈아 해주시면 어깨 뭉침이 싹 풀릴 거예요! 🧘`;
+          }
+          case 'adventure_analysis_more': {
+            const calories = (state.totalSteps * 0.04).toFixed(1);
+            bubbleText = `<strong>${calories}</strong>kcal 만큼 썼어요.`;
             break;
-          case 'stretch_back':
-            bubbleText = `허리가 찌릿하고 뻐근하시군요!<br>깍지 낀 손을 하늘 높이 쭉 뻗어 기지개를 크게 켜보세요! 그 다음 상체를 천천히 좌우로 기울여 옆구리와 척추를 늘려주세요!`;
-            break;
-          case 'stretch_legs':
-            bubbleText = `다리가 무겁고 단단해지셨군요!<br>일어서서 한쪽 발목을 뒤로 잡아 엉덩이 쪽으로 당기며 허벅지 앞쪽을 늘려보세요. 10초씩 해주면 혈액순환에 아주 좋아요! 🚶`;
-            break;
+          }
         }
       }
 
@@ -5898,7 +5896,7 @@
             <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('mood')">기분 물어보기</button>
             <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('schedule')">일정 등록하기</button>
             <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('game_ready')">숫자 맞추기 하기</button>
-            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('stretch_ask')">스트레칭 팁 보기</button>
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('adventure_analysis')">오늘의 모험 분석</button>
           `;
           break;
 
@@ -5991,20 +5989,16 @@
           `;
           break;
 
-        case 'stretch_ask':
+        case 'adventure_analysis':
           optionsHTML = `
-            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('stretch_neck')">🙆 목과 어깨가 뻐근해</button>
-            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('stretch_back')">🧘 허리가 뻐근해</button>
-            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('stretch_legs')">🦵 다리가 묵직해</button>
-            <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">이전으로</button>
+            <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">다른 대화로</button>
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('adventure_analysis_more')">그리고?</button>
           `;
           break;
 
-        case 'stretch_neck':
-        case 'stretch_back':
-        case 'stretch_legs':
+        case 'adventure_analysis_more':
           optionsHTML = `
-            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('start')">처음으로</button>
+            <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">다른 대화로</button>
           `;
           break;
       }
