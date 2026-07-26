@@ -1,4 +1,4 @@
-const CACHE_NAME = 'monster-adventure-v34';
+const CACHE_NAME = 'monster-adventure-v35';
 const ASSETS = [
   './',
   'index.html',
