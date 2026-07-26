@@ -3848,7 +3848,18 @@
           return state.trainingLevels && state.trainingLevels.luck > 10;
         }
         if (item.id.startsWith('sa_')) {
-          return state.character.level >= 10 && state.character.stage >= 4;
+          const isLv10 = state.character.level >= 10 && state.character.stage >= 4;
+          if (!isLv10) return false;
+
+          const type = state.character.type;
+          if (item.id === 'sa_stone') return type === 'stone';
+          if (item.id === 'sa_water') return type === 'aqua';
+          if (item.id === 'sa_fire') return type === 'dragon';
+          if (item.id === 'sa_wind') return type === 'wind';
+          if (item.id === 'sa_moon') return type === 'lunya';
+          if (item.id === 'sa_sun') return type === 'solmong';
+          if (item.id === 'sa_elec') return type === 'eleki';
+          return false;
         }
         return true;
       });
