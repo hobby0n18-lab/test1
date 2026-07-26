@@ -5218,7 +5218,7 @@
 
       for (let y = -3; y < numRows; y++) {
         const row = (y >= 0) ? spriteGrid[y] : null;
-        for (let x = -4; x < numCols; x++) {
+        for (let x = -8; x < numCols; x++) {
           let fill = null;
           let isEyeOverride = false;
 
@@ -5323,12 +5323,12 @@
                 }
               }
               if (!fill && state.equipped.a_mirror) {
-                const mx = headX - 7;
-                if (x >= mx - 1 && x <= mx + 1 && y >= headY && y <= headY + 6) {
+                const mx = headX - 9;
+                if (x >= mx - 2 && x <= mx + 2 && y >= headY && y <= headY + 6) {
                   if (y === headY || y === headY + 6) {
-                    if (x === mx) fill = '#475569';
+                    if (x >= mx - 1 && x <= mx + 1) fill = '#475569';
                   } else {
-                    const isBorder = (x === mx - 1 || x === mx + 1);
+                    const isBorder = (x === mx - 2 || x === mx + 2);
                     if (isBorder) fill = '#475569';
                     else fill = '#93c5fd';
                   }
@@ -6211,11 +6211,11 @@
         svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="2" y="0" width="1" height="1" fill="#facc15"/><rect x="3" y="0" width="1" height="1" fill="#d97706"/><rect x="1" y="1" width="2" height="1" fill="#facc15"/><rect x="3" y="1" width="1" height="1" fill="#d97706"/><rect x="0" y="2" width="2" height="1" fill="#facc15"/><rect x="2" y="2" width="1" height="1" fill="#d97706"/><rect x="0" y="3" width="1" height="1" fill="#facc15"/><rect x="1" y="3" width="1" height="1" fill="#d97706"/></svg>`;
       }
 
-      // 3 particles floating around, relative to the 120px character container (slightly expanded)
+      // 3 particles floating around, relative to the 120px character container (expanded by 3px in each direction)
       return `
-        <div class="spec-particle spec-particle-a" style="left: 12px; top: 58px;">${svgMarkup}</div>
-        <div class="spec-particle spec-particle-b" style="right: 12px; top: 62px;">${svgMarkup}</div>
-        <div class="spec-particle spec-particle-c" style="left: 22px; top: 82px;">${svgMarkup}</div>
+        <div class="spec-particle spec-particle-a" style="left: 9px; top: 55px;">${svgMarkup}</div>
+        <div class="spec-particle spec-particle-b" style="right: 9px; top: 59px;">${svgMarkup}</div>
+        <div class="spec-particle spec-particle-c" style="left: 19px; top: 85px;">${svgMarkup}</div>
       `;
     }
 
@@ -6434,7 +6434,7 @@
       const numCols = spriteGrid[0].length;
       for (let y = -3; y < numRows; y++) {
         const row = (y >= 0) ? spriteGrid[y] : null;
-        for (let x = -4; x < numCols; x++) {
+        for (let x = -8; x < numCols; x++) {
           let fill = null;
 
           // Layer accessories only on hatched characters (stage > 1)
@@ -6501,12 +6501,12 @@
               }
             }
             if (!fill && state.equipped.a_mirror) {
-              const mx = headX - 7;
-              if (x >= mx - 1 && x <= mx + 1 && y >= headY && y <= headY + 6) {
+              const mx = headX - 9;
+              if (x >= mx - 2 && x <= mx + 2 && y >= headY && y <= headY + 6) {
                 if (y === headY || y === headY + 6) {
-                  if (x === mx) fill = '#475569';
+                  if (x >= mx - 1 && x <= mx + 1) fill = '#475569';
                 } else {
-                  const isBorder = (x === mx - 1 || x === mx + 1);
+                  const isBorder = (x === mx - 2 || x === mx + 2);
                   if (isBorder) fill = '#475569';
                   else fill = '#93c5fd';
                 }
@@ -6553,7 +6553,7 @@
       }
 
       return `
-        <svg viewBox="-14 -10.5 98 94.5" class="sprite-svg" style="shape-rendering: crispEdges;">
+        <svg viewBox="-28 -10.5 112 94.5" class="sprite-svg" style="shape-rendering: crispEdges;">
           <g>${svgContent}</g>
         </svg>
       `;
