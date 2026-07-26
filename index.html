@@ -1844,6 +1844,34 @@
                 <path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" />
               </svg></span>
           </div>
+          <div class="feed-slot" id="slot-sa_stone" onclick="toggleEquip('sa_stone')" title="돌 장식 장착/해제" style="display: none;">
+            <span class="icon" style="font-size: 0.85rem; display: flex; align-items: center; justify-content: center;">🪨</span>
+            <span class="qty" id="status-sa_stone"><svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" /></svg></span>
+          </div>
+          <div class="feed-slot" id="slot-sa_water" onclick="toggleEquip('sa_water')" title="물 장식 장착/해제" style="display: none;">
+            <span class="icon" style="font-size: 0.85rem; display: flex; align-items: center; justify-content: center;">💧</span>
+            <span class="qty" id="status-sa_water"><svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" /></svg></span>
+          </div>
+          <div class="feed-slot" id="slot-sa_fire" onclick="toggleEquip('sa_fire')" title="불꽃 장식 장착/해제" style="display: none;">
+            <span class="icon" style="font-size: 0.85rem; display: flex; align-items: center; justify-content: center;">🔥</span>
+            <span class="qty" id="status-sa_fire"><svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" /></svg></span>
+          </div>
+          <div class="feed-slot" id="slot-sa_wind" onclick="toggleEquip('sa_wind')" title="바람 장식 장착/해제" style="display: none;">
+            <span class="icon" style="font-size: 0.85rem; display: flex; align-items: center; justify-content: center;">🪽</span>
+            <span class="qty" id="status-sa_wind"><svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" /></svg></span>
+          </div>
+          <div class="feed-slot" id="slot-sa_moon" onclick="toggleEquip('sa_moon')" title="달 장식 장착/해제" style="display: none;">
+            <span class="icon" style="font-size: 0.85rem; display: flex; align-items: center; justify-content: center;">🌙</span>
+            <span class="qty" id="status-sa_moon"><svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" /></svg></span>
+          </div>
+          <div class="feed-slot" id="slot-sa_sun" onclick="toggleEquip('sa_sun')" title="해 장식 장착/해제" style="display: none;">
+            <span class="icon" style="font-size: 0.85rem; display: flex; align-items: center; justify-content: center;">☀️</span>
+            <span class="qty" id="status-sa_sun"><svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" /></svg></span>
+          </div>
+          <div class="feed-slot" id="slot-sa_elec" onclick="toggleEquip('sa_elec')" title="전기 장식 장착/해제" style="display: none;">
+            <span class="icon" style="font-size: 0.85rem; display: flex; align-items: center; justify-content: center;">⚡</span>
+            <span class="qty" id="status-sa_elec"><svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" /></svg></span>
+          </div>
         </div>
 
         <!-- 7. SETTINGS DRAWER PANEL -->
@@ -3524,8 +3552,8 @@
       steps: 0,
       totalSteps: 0,
       inventory: { candy: 2, vitamin: 0, book: 0 },
-      accessories: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false },
-      equipped: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false },
+      accessories: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false, sa_stone: false, sa_water: false, sa_fire: false, sa_wind: false, sa_moon: false, sa_sun: false, sa_elec: false },
+      equipped: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false, sa_stone: false, sa_water: false, sa_fire: false, sa_wind: false, sa_moon: false, sa_sun: false, sa_elec: false },
       checklist: [],
       userTitle: null,
       character: {
@@ -3560,6 +3588,13 @@
       a_mirror: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M2 1 H6 V2 H7 V6 H6 V7 H2 V6 H1 V2 Z M3 2 H5 V5 H3 Z" fill="#60a5fa"/></svg>`,
       a_plane: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M1 1 L7 3 L2 5 Z M2 5 L4 7 L7 3 Z" fill="#cbd5e1"/></svg>`,
       a_clover: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M1 2 H3 V0 H5 V2 H7 V4 H5 V6 H3 V4 H1 Z M4 4 H5 V7 H4 Z" fill="#22c55e"/></svg>`,
+      sa_stone: '🪨',
+      sa_water: '💧',
+      sa_fire: '🔥',
+      sa_wind: '🪽',
+      sa_moon: '🌙',
+      sa_sun: '☀️',
+      sa_elec: '⚡',
       strength: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M4 1 H6 V3 H4 Z M2 3 H6 V5 H2 Z M1 4 H3 V8 H1 Z M3 6 H7 V8 H3 Z"/></svg>`,
       agility: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M4 0 H5 V1 H4 Z M3 2 H6 L5 4 L7 6 H5 L4 5 L3 6 H1 V5 H3 Z"/></svg>`,
       luck: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M3 1 H5 V3 H7 V5 H5 V7 H3 V5 H1 V3 H3 Z" fill-rule="evenodd"/></svg>`,
@@ -3590,7 +3625,14 @@
       { id: 'a_crown', name: '황금왕관', price: 5000, type: 'accessory', desc: '정수리에 올리는 눈부신 보석 왕관' },
       { id: 'a_mirror', name: '거울', price: 7000, type: 'accessory', desc: '캐릭터 왼쪽에 배치되는 신비로운 거울' },
       { id: 'a_plane', name: '종이비행기', price: 7000, type: 'accessory', desc: '캐릭터 우상단을 떠다니는 종이비행기' },
-      { id: 'a_clover', name: '네잎클로버', price: 7000, type: 'accessory', desc: '캐릭터의 눈가 옆에 붙는 행운의 네잎클로버' }
+      { id: 'a_clover', name: '네잎클로버', price: 7000, type: 'accessory', desc: '캐릭터의 눈가 옆에 붙는 행운의 네잎클로버' },
+      { id: 'sa_stone', name: '돌 장식', price: 9000, type: 'accessory', desc: '돌 속성을 나타내는 4x4 픽셀 장식' },
+      { id: 'sa_water', name: '물 장식', price: 9000, type: 'accessory', desc: '물 속성을 나타내는 4x4 픽셀 장식' },
+      { id: 'sa_fire', name: '불꽃 장식', price: 9000, type: 'accessory', desc: '불꽃 속성을 나타내는 4x4 픽셀 장식' },
+      { id: 'sa_wind', name: '바람 장식', price: 9000, type: 'accessory', desc: '바람 속성을 나타내는 4x4 픽셀 장식' },
+      { id: 'sa_moon', name: '달 장식', price: 9000, type: 'accessory', desc: '달 속성을 나타내는 4x4 픽셀 장식' },
+      { id: 'sa_sun', name: '해 장식', price: 9000, type: 'accessory', desc: '해 속성을 나타내는 4x4 픽셀 장식' },
+      { id: 'sa_elec', name: '전기 장식', price: 9000, type: 'accessory', desc: '전기 속성을 나타내는 4x4 픽셀 장식' }
     ];
 
     const TRAINING_ITEMS = [
@@ -3609,8 +3651,13 @@
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
-          if (!parsed.accessories) parsed.accessories = { a_glasses: false, a_ribbon: false, a_crown: false };
-          if (!parsed.equipped) parsed.equipped = { a_glasses: false, a_ribbon: false, a_crown: false };
+          const accKeys = ['a_glasses', 'a_ribbon', 'a_crown', 'a_mirror', 'a_plane', 'a_clover', 'sa_stone', 'sa_water', 'sa_fire', 'sa_wind', 'sa_moon', 'sa_sun', 'sa_elec'];
+          if (!parsed.accessories) parsed.accessories = {};
+          if (!parsed.equipped) parsed.equipped = {};
+          accKeys.forEach(key => {
+            if (parsed.accessories[key] === undefined) parsed.accessories[key] = false;
+            if (parsed.equipped[key] === undefined) parsed.equipped[key] = false;
+          });
           if (!parsed.checklist) parsed.checklist = [];
           if (!parsed.trainingLevels) parsed.trainingLevels = { strength: 1, agility: 1, luck: 1 };
           if (parsed.userTitle === undefined) parsed.userTitle = null;
@@ -3799,6 +3846,9 @@
         }
         if (item.id === 'a_clover') {
           return state.trainingLevels && state.trainingLevels.luck > 10;
+        }
+        if (item.id.startsWith('sa_')) {
+          return state.character.level >= 10 && state.character.stage >= 4;
         }
         return true;
       });
@@ -5666,14 +5716,14 @@
       if (book) book.textContent = `x${state.inventory.book || 0}`;
 
       // Sync wearable accessory equip states in drawer slot text
-      const accKeys = ['a_glasses', 'a_ribbon', 'a_crown', 'a_mirror', 'a_plane', 'a_clover'];
+      const accKeys = ['a_glasses', 'a_ribbon', 'a_crown', 'a_mirror', 'a_plane', 'a_clover', 'sa_stone', 'sa_water', 'sa_fire', 'sa_wind', 'sa_moon', 'sa_sun', 'sa_elec'];
       accKeys.forEach(key => {
         const slotEl = document.getElementById(`slot-${key}`);
         const statusEl = document.getElementById(`status-${key}`);
         if (!statusEl || !slotEl) return;
 
         if (!state.accessories[key]) {
-          if (key === 'a_mirror' || key === 'a_plane' || key === 'a_clover') {
+          if (key === 'a_mirror' || key === 'a_plane' || key === 'a_clover' || key.startsWith('sa_')) {
             slotEl.style.display = 'none';
           } else {
             statusEl.innerHTML = '<svg class="pixel-icon" style="fill:currentColor;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z"/></svg>';
@@ -6371,6 +6421,80 @@
                 }
               }
             }
+
+            // 7. Special attribute accessories (4x4 pixels) - float next to head
+            const sax = headX + 4;
+            const say = headY - 1;
+
+            if (!fill && state.equipped.sa_stone) {
+              if (y === say && (x === sax + 1 || x === sax + 2)) fill = '#94a3b8';
+              else if (y === say + 1 && (x === sax || x === sax + 3)) fill = '#475569';
+              else if (y === say + 1 && (x === sax + 1 || x === sax + 2)) fill = '#94a3b8';
+              else if (y === say + 2 && (x === sax || x === sax + 3)) fill = '#475569';
+              else if (y === say + 2 && (x === sax + 1 || x === sax + 2)) fill = '#cbd5e1';
+              else if (y === say + 3 && (x === sax + 1 || x === sax + 2)) fill = '#475569';
+            }
+            if (!fill && state.equipped.sa_water) {
+              if (y === say && x === sax + 1) fill = '#38bdf8';
+              else if (y === say + 1 && x === sax + 1) fill = '#38bdf8';
+              else if (y === say + 1 && x === sax + 2) fill = '#0284c7';
+              else if (y === say + 2 && (x === sax || x === sax + 1 || x === sax + 2)) fill = '#38bdf8';
+              else if (y === say + 2 && x === sax + 3) fill = '#0284c7';
+              else if (y === say + 3 && x === sax + 1) fill = '#38bdf8';
+              else if (y === say + 3 && x === sax + 2) fill = '#0284c7';
+            }
+            if (!fill && state.equipped.sa_fire) {
+              if (y === say && x === sax + 1) fill = '#eab308';
+              else if (y === say + 1 && x === sax) fill = '#ef4444';
+              else if (y === say + 1 && x === sax + 1) fill = '#f97316';
+              else if (y === say + 1 && x === sax + 2) fill = '#eab308';
+              else if (y === say + 2 && (x === sax || x === sax + 1)) fill = '#ef4444';
+              else if (y === say + 2 && x === sax + 2) fill = '#f97316';
+              else if (y === say + 2 && x === sax + 3) fill = '#eab308';
+              else if (y === say + 3 && x === sax + 1) fill = '#ef4444';
+              else if (y === say + 3 && x === sax + 2) fill = '#f97316';
+            }
+            if (!fill && state.equipped.sa_wind) {
+              if (y === say && x === sax) fill = '#0284c7';
+              else if (y === say && (x === sax + 1 || x === sax + 2)) fill = '#e0f2fe';
+              else if (y === say && x === sax + 3) fill = '#0284c7';
+              else if (y === say + 1 && (x === sax || x === sax + 1)) fill = '#0284c7';
+              else if (y === say + 1 && x === sax + 2) fill = '#e0f2fe';
+              else if (y === say + 1 && x === sax + 3) fill = '#0284c7';
+              else if (y === say + 2 && (x === sax + 1 || x === sax + 2)) fill = '#0284c7';
+              else if (y === say + 3 && x === sax + 2) fill = '#0284c7';
+            }
+            if (!fill && state.equipped.sa_moon) {
+              if (y === say && (x === sax + 1 || x === sax + 2)) fill = '#fef08a';
+              else if (y === say && x === sax + 3) fill = '#eab308';
+              else if (y === say + 1 && x === sax) fill = '#fef08a';
+              else if (y === say + 1 && x === sax + 1) fill = '#eab308';
+              else if (y === say + 2 && x === sax) fill = '#fef08a';
+              else if (y === say + 2 && (x === sax + 1 || x === sax + 2)) fill = '#eab308';
+              else if (y === say + 3 && (x === sax + 1 || x === sax + 2)) fill = '#eab308';
+            }
+            if (!fill && state.equipped.sa_sun) {
+              if (y === say && x === sax + 1) fill = '#f59e0b';
+              else if (y === say && x === sax + 2) fill = '#f43f5e';
+              else if (y === say + 1 && x === sax) fill = '#f59e0b';
+              else if (y === say + 1 && (x === sax + 1 || x === sax + 2)) fill = '#f43f5e';
+              else if (y === say + 1 && x === sax + 3) fill = '#f59e0b';
+              else if (y === say + 2 && x === sax) fill = '#f43f5e';
+              else if (y === say + 2 && (x === sax + 1 || x === sax + 2)) fill = '#f43f5e';
+              else if (y === say + 2 && x === sax + 3) fill = '#f59e0b';
+              else if (y === say + 3 && x === sax + 1) fill = '#f43f5e';
+              else if (y === say + 3 && x === sax + 2) fill = '#f59e0b';
+            }
+            if (!fill && state.equipped.sa_elec) {
+              if (y === say && x === sax + 2) fill = '#facc15';
+              else if (y === say && x === sax + 3) fill = '#d97706';
+              else if (y === say + 1 && (x === sax + 1 || x === sax + 2)) fill = '#facc15';
+              else if (y === say + 1 && x === sax + 3) fill = '#d97706';
+              else if (y === say + 2 && (x === sax || x === sax + 1)) fill = '#facc15';
+              else if (y === say + 2 && x === sax + 2) fill = '#d97706';
+              else if (y === say + 3 && x === sax) fill = '#facc15';
+              else if (y === say + 3 && x === sax + 1) fill = '#d97706';
+            }
           }
 
           if (!fill && y >= 0) {
@@ -6412,6 +6536,16 @@
 
       state.equipped[key] = !state.equipped[key];
       playBeep('b');
+
+      if (state.equipped[key]) {
+        // If equipping a special attribute, unequip all other special attributes to prevent overlap
+        if (key.startsWith('sa_')) {
+          const specKeys = ['sa_stone', 'sa_water', 'sa_fire', 'sa_wind', 'sa_moon', 'sa_sun', 'sa_elec'];
+          specKeys.forEach(k => {
+            if (k !== key) state.equipped[k] = false;
+          });
+        }
+      }
 
       const statusKr = state.equipped[key] ? '장착' : '해제';
       addLog(`육성: 캐릭터가 [${getItemNameKr(key)}]을(를) ${statusKr}했습니다!`);
@@ -6668,8 +6802,8 @@
         steps: 0,
         totalSteps: 0,
         inventory: { candy: 2, vitamin: 0, book: 0 },
-        accessories: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false },
-        equipped: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false },
+        accessories: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false, sa_stone: false, sa_water: false, sa_fire: false, sa_wind: false, sa_moon: false, sa_sun: false, sa_elec: false },
+        equipped: { a_glasses: false, a_ribbon: false, a_crown: false, a_mirror: false, a_plane: false, a_clover: false, sa_stone: false, sa_water: false, sa_fire: false, sa_wind: false, sa_moon: false, sa_sun: false, sa_elec: false },
         character: {
           stage: 1,
           type: null,
@@ -6971,6 +7105,13 @@
       if (key === 'a_mirror') return '거울';
       if (key === 'a_plane') return '종이비행기';
       if (key === 'a_clover') return '네잎클로버';
+      if (key === 'sa_stone') return '돌 장식';
+      if (key === 'sa_water') return '물 장식';
+      if (key === 'sa_fire') return '불꽃 장식';
+      if (key === 'sa_wind') return '바람 장식';
+      if (key === 'sa_moon') return '달 장식';
+      if (key === 'sa_sun') return '해 장식';
+      if (key === 'sa_elec') return '전기 장식';
       return key;
     }
 
