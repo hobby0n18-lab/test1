@@ -3835,10 +3835,9 @@
       if (icon3) icon3.classList.remove('selected');
       if (icon4) icon4.classList.remove('selected');
 
-      isHomeBubbleOpen = false;
       screenState = 'home';
       
-      // 기대 상호작용 성공 후 홈 복귀 시 감동 멘트 분기
+      // 1. 기대 상호작용 성공 후 홈 복귀 시 감동 멘트 분기
       if (state.thankYouReason) {
         isHomeBubbleOpen = true;
         if (state.thankYouReason === 'buy_item') {
@@ -3864,7 +3863,16 @@
           renderScreen();
           resetIdleTimer();
         }, 2500);
-      } else {
+      } 
+      // 2. 아무 상호작용 없이 복귀했으나 이전 대기 대사 상태가 보존된 경우 말풍선 복구
+      else if (interactionStep === 'idle_message') {
+        isHomeBubbleOpen = true;
+        renderScreen();
+        resetIdleTimer();
+      }
+      // 3. 평범한 복귀
+      else {
+        isHomeBubbleOpen = false;
         renderScreen();
         resetIdleTimer();
       }
@@ -3879,9 +3887,15 @@
         screenState = 'home';
       }
 
-      // 메뉴 진입 시 말풍선 초기화
+      // 이미 상점이 열려 있는 상태에서 닫으려고 한다면, goHome으로 일괄 위임
+      if (isShopOpen) {
+        goHome(true);
+        return;
+      }
+
+      // 메뉴 진입 시 임시로 말풍선은 닫아주지만, 대기 대사 상태는 리셋하지 않고 보존
       isHomeBubbleOpen = false;
-      if (interactionStep === 'idle_message' || interactionStep === 'idle_thankyou') {
+      if (interactionStep !== 'idle_message') {
         interactionStep = 'start';
       }
 
@@ -3913,20 +3927,12 @@
         if (settingsDrawer) settingsDrawer.classList.remove('active');
       }
 
-      isShopOpen = !isShopOpen;
+      isShopOpen = true;
 
-      if (isShopOpen) {
-        if (shopIcon) shopIcon.classList.add('selected');
-        if (homeIcon) homeIcon.classList.remove('selected');
-        if (shopBlind) shopBlind.classList.add('active');
-        addLog("상점 창이 열렸습니다. 아이템을 구매할 수 있습니다.", "system");
-      } else {
-        if (shopIcon) shopIcon.classList.remove('selected');
-        if (homeIcon) homeIcon.classList.add('selected');
-        if (shopBlind) shopBlind.classList.remove('active');
-        addLog("상점 창이 닫혔습니다.", "system");
-        resetIdleTimer();
-      }
+      if (shopIcon) shopIcon.classList.add('selected');
+      if (homeIcon) homeIcon.classList.remove('selected');
+      if (shopBlind) shopBlind.classList.add('active');
+      addLog("상점 창이 열렸습니다. 아이템을 구매할 수 있습니다.", "system");
 
       renderScreen();
     }
@@ -3997,9 +4003,15 @@
         screenState = 'home';
       }
 
-      // 메뉴 진입 시 말풍선 초기화
+      // 이미 가방이 열려 있는 상태에서 닫으려고 한다면, goHome으로 일괄 위임
+      if (isBagDrawerOpen) {
+        goHome(true);
+        return;
+      }
+
+      // 메뉴 진입 시 임시로 말풍선은 닫아주지만, 대기 대사 상태는 리셋하지 않고 보존
       isHomeBubbleOpen = false;
-      if (interactionStep === 'idle_message' || interactionStep === 'idle_thankyou') {
+      if (interactionStep !== 'idle_message') {
         interactionStep = 'start';
       }
 
@@ -4031,20 +4043,12 @@
         if (settingsDrawer) settingsDrawer.classList.remove('active');
       }
 
-      isBagDrawerOpen = !isBagDrawerOpen;
+      isBagDrawerOpen = true;
 
-      if (isBagDrawerOpen) {
-        if (bagIcon) bagIcon.classList.add('selected');
-        if (homeIcon) homeIcon.classList.remove('selected');
-        if (drawer) drawer.classList.add('active');
-        addLog("가방 창이 열렸습니다. 아이템 피딩 혹은 보유 악세서리 장착이 가능합니다.", "system");
-      } else {
-        if (bagIcon) bagIcon.classList.remove('selected');
-        if (homeIcon) homeIcon.classList.add('selected');
-        if (drawer) drawer.classList.remove('active');
-        addLog("가방 창이 닫혔습니다.", "system");
-        resetIdleTimer();
-      }
+      if (bagIcon) bagIcon.classList.add('selected');
+      if (homeIcon) homeIcon.classList.remove('selected');
+      if (drawer) drawer.classList.add('active');
+      addLog("가방 창이 열렸습니다. 아이템 피딩 혹은 보유 악세서리 장착이 가능합니다.", "system");
 
       updateDrawerQuantities();
       renderScreen();
@@ -4130,9 +4134,15 @@
         screenState = 'home';
       }
 
-      // 메뉴 진입 시 말풍선 초기화
+      // 이미 훈련소가 열려 있는 상태에서 닫으려고 한다면, goHome으로 일괄 위임
+      if (isTrainingOpen) {
+        goHome(true);
+        return;
+      }
+
+      // 메뉴 진입 시 임시로 말풍선은 닫아주지만, 대기 대사 상태는 리셋하지 않고 보존
       isHomeBubbleOpen = false;
-      if (interactionStep === 'idle_message' || interactionStep === 'idle_thankyou') {
+      if (interactionStep !== 'idle_message') {
         interactionStep = 'start';
       }
 
@@ -4164,20 +4174,12 @@
         if (settingsDrawer) settingsDrawer.classList.remove('active');
       }
 
-      isTrainingOpen = !isTrainingOpen;
+      isTrainingOpen = true;
 
-      if (isTrainingOpen) {
-        if (trainingIcon) trainingIcon.classList.add('selected');
-        if (homeIcon) homeIcon.classList.remove('selected');
-        if (trainingBlind) trainingBlind.classList.add('active');
-        addLog("훈련소 창이 열렸습니다. 훈련을 시작할 수 있습니다.", "system");
-      } else {
-        if (trainingIcon) trainingIcon.classList.remove('selected');
-        if (homeIcon) homeIcon.classList.add('selected');
-        if (trainingBlind) trainingBlind.classList.remove('active');
-        addLog("훈련소 창이 닫혔습니다.", "system");
-        resetIdleTimer();
-      }
+      if (trainingIcon) trainingIcon.classList.add('selected');
+      if (homeIcon) homeIcon.classList.remove('selected');
+      if (trainingBlind) trainingBlind.classList.add('active');
+      addLog("훈련소 창이 열렸습니다. 훈련을 시작할 수 있습니다.", "system");
 
       renderScreen();
     }
