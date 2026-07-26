@@ -4332,6 +4332,12 @@
                     const expReward = 20 + char.level * 2;
                     char.exp += expReward;
                     addLog(`민첩 훈련 성공! EXP +${expReward} 획득!`, "evolve");
+                    if (state.trainingLevels.agility <= 10) {
+                      state.trainingLevels.agility++;
+                      const nextLvl = state.trainingLevels.agility;
+                      const nextLvlStr = nextLvl > 10 ? '무한' : nextLvl;
+                      addLog(`훈련 성공! 민첩 훈련 레벨이 ${nextLvlStr}(으)로 상승했습니다!`, "evolve");
+                    }
                     checkEvolution();
                     save();
                     if (overlayBtn) overlayBtn.style.display = 'block';
