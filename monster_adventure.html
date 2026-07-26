@@ -5843,12 +5843,31 @@
             break;
           case 'adventure_analysis': {
             const distance = (state.totalSteps * 0.0007).toFixed(2);
-            bubbleText = `오늘은 <strong>${state.totalSteps}</strong>걸음 걸었어요. 총 <strong>${distance}</strong>km에요.`;
+            bubbleText = `오늘은 <strong>${state.totalSteps}</strong>걸음 걸었어요! 총 <strong>${distance}</strong>km에요!`;
             break;
           }
           case 'adventure_analysis_more': {
             const calories = (state.totalSteps * 0.04).toFixed(1);
-            bubbleText = `<strong>${calories}</strong>kcal 만큼 썼어요.`;
+            const calVal = parseFloat(calories);
+            let foodRecommendation = '';
+            if (calVal < 30) {
+              foodRecommendation = '방울토마토 5개(약 15kcal) 정도의 아주 가벼운 간식 수준이에요! 🍅';
+            } else if (calVal < 80) {
+              foodRecommendation = '삶은 계란 한 개(약 80kcal) 정도의 칼로리에요! 🥚';
+            } else if (calVal < 150) {
+              foodRecommendation = '바나나 한 개(약 100kcal) 정도의 칼로리에요! 🍌';
+            } else if (calVal < 250) {
+              foodRecommendation = '편의점 삼각김밥 한 개(약 200kcal) 정도의 칼로리에요! 🍙';
+            } else if (calVal < 350) {
+              foodRecommendation = '흰 쌀밥 한 공기(약 300kcal) 정도의 칼로리에요! 🍚';
+            } else if (calVal < 550) {
+              foodRecommendation = '라면 한 그릇(약 500kcal) 정도의 칼로리에요! 🍜';
+            } else if (calVal < 800) {
+              foodRecommendation = '맛있는 피자 두 조각(약 700kcal) 정도의 칼로리에요! 🍕';
+            } else {
+              foodRecommendation = '우와! 무려 후라이드 치킨 반 마리(약 1000kcal) 이상의 칼로리를 불태우셨어요! 🍗';
+            }
+            bubbleText = `<strong>${calories}</strong>kcal 만큼 썼어요!<br>이것은 ${foodRecommendation}`;
             break;
           }
         }
