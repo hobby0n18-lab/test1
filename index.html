@@ -27,7 +27,7 @@
       font-weight: normal;
       font-style: normal;
     }
-    
+
     /* CSS Variables for Dynamic Color Schemes */
     :root {
       color-scheme: only light;
@@ -53,7 +53,9 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    input, textarea, select {
+    input,
+    textarea,
+    select {
       user-select: text !important;
       -webkit-user-select: text !important;
     }
@@ -525,6 +527,7 @@
       transition: transform 0.15s ease;
       position: relative;
     }
+
     .sprite-svg rect {
       shape-rendering: crispEdges;
     }
@@ -833,6 +836,7 @@
     #first-launch-modal .pixel-modal {
       background-color: #2b303c;
     }
+
     #first-launch-modal .pixel-modal-body {
       color: #e2e8f0;
     }
@@ -1055,32 +1059,43 @@
       .feed-slot .icon {
         font-size: 1.2rem;
       }
-      
+
       /* Mobile Dialog Bubble & Training guide text size overrides */
       .home-bubble-box {
-        font-size: 0.9rem !important; /* Larger text on mobile */
+        font-size: 0.9rem !important;
+        /* Larger text on mobile */
         padding: 10px 12px !important;
-        left: 0; right: 0; margin: 0 auto; width: 88%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 88%;
       }
+
       .home-bubble-btn {
         font-size: 0.78rem !important;
         padding: 6px 8px !important;
       }
+
       .hatch-now-btn {
-        font-size: 0.95rem !important; /* Larger button text */
+        font-size: 0.95rem !important;
+        /* Larger button text */
         padding: 8px 16px !important;
         bottom: 25px !important;
       }
+
       .home-bubble-options-container {
         bottom: 10px !important;
         gap: 6px !important;
       }
+
       .train-guide-header {
         font-size: 1.35rem !important;
       }
+
       .train-guide-title {
         font-size: 1.25rem !important;
       }
+
       .train-guide-table {
         font-size: 1.05rem !important;
         line-height: 2.2 !important;
@@ -1218,7 +1233,9 @@
       display: inline-block;
       vertical-align: middle;
     }
-    .pixel-icon path, .pixel-icon rect {
+
+    .pixel-icon path,
+    .pixel-icon rect {
       shape-rendering: crispEdges;
     }
 
@@ -1235,7 +1252,7 @@
       font-size: 0.55rem;
       color: var(--lcd-dark);
       z-index: 10;
-      box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.15);
       display: flex;
       flex-direction: column;
       max-height: 85px;
@@ -1303,32 +1320,32 @@
       line-height: 1.4;
       color: var(--lcd-dark);
       z-index: 45;
-      box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.15);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      overflow: visible;
       scrollbar-width: none;
       -ms-overflow-style: none;
       font-family: 'NeoDunggeunmo', monospace;
     }
-    
+
     .home-bubble-box::-webkit-scrollbar {
       display: none;
     }
-    
+
     .home-bubble-text {
       margin-bottom: 5px;
       word-break: keep-all;
       font-family: 'NeoDunggeunmo', monospace;
     }
-    
+
     .home-bubble-options {
       display: flex;
       flex-direction: column;
       gap: 3px;
       margin-top: 3px;
     }
-    
+
     .home-bubble-btn {
       background-color: var(--lcd-dark);
       color: var(--lcd-bg);
@@ -1339,24 +1356,24 @@
       font-size: 0.7rem;
       text-align: center;
       cursor: pointer;
-      box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+      box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
     }
-    
+
     .home-bubble-btn:active {
       transform: translate(0.5px, 0.5px);
-      box-shadow: 0.5px 0.5px 0 rgba(0,0,0,0.2);
+      box-shadow: 0.5px 0.5px 0 rgba(0, 0, 0, 0.2);
     }
-    
+
     .home-bubble-btn.exit {
       background-color: var(--lcd-light);
       color: var(--lcd-dark);
       border: 1.5px solid var(--lcd-dark);
       border-radius: 0px;
     }
-    
+
     .hatch-now-btn {
       position: absolute;
       bottom: 30px;
@@ -1378,7 +1395,7 @@
       image-rendering: crisp-edges;
       animation: pulse-centered-animation 2.4s infinite ease-in-out;
     }
-    
+
     .hatch-now-btn:active {
       transform: translate(-50%, 1px) !important;
       box-shadow: 1px 1px 0 var(--lcd-mid) !important;
@@ -1396,32 +1413,36 @@
       gap: 5px;
       z-index: 100;
     }
-    
+
     /* Pulse Animations for Dialogue Buttons */
     @keyframes pulse-animation {
       0% {
         transform: scale(1);
       }
+
       50% {
         transform: scale(1.03);
       }
+
       100% {
         transform: scale(1);
       }
     }
-    
+
     @keyframes pulse-centered-animation {
       0% {
         transform: translateX(-50%) scale(1);
       }
+
       50% {
         transform: translateX(-50%) scale(1.04);
       }
+
       100% {
         transform: translateX(-50%) scale(1);
       }
     }
-    
+
     .pulse-button {
       animation: pulse-animation 2.4s infinite ease-in-out;
     }
@@ -1470,6 +1491,7 @@
       border-bottom: 2px solid var(--lcd-dark);
       z-index: 46;
     }
+
     .home-bubble-box::before {
       display: none;
     }
@@ -1485,7 +1507,8 @@
         <span>NOTICE</span>
       </div>
       <div class="pixel-modal-body" style="align-items: center; text-align: center; padding: 1.5rem 1rem;">
-        <div style="font-size: 1rem; font-weight: bold; color: #facc15; margin-bottom: 1rem; line-height: 1.5; font-family: 'Noto Sans KR', sans-serif;">
+        <div
+          style="font-size: 1rem; font-weight: bold; color: #facc15; margin-bottom: 1rem; line-height: 1.5; font-family: 'Noto Sans KR', sans-serif;">
           알을 발견했습니다!<br>함께 모험해보세요!
         </div>
         <button onclick="handleFirstLaunchOk()" style="
@@ -1791,7 +1814,8 @@
                 <path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" />
               </svg></span>
           </div>
-          <div class="feed-slot" id="slot-a_mirror" onclick="toggleEquip('a_mirror')" title="거울 장착/해제" style="display: none;">
+          <div class="feed-slot" id="slot-a_mirror" onclick="toggleEquip('a_mirror')" title="거울 장착/해제"
+            style="display: none;">
             <span class="icon"><svg class="pixel-icon" viewBox="0 0 8 8">
                 <path d="M2 1 H6 V2 H7 V6 H6 V7 H2 V6 H1 V2 Z M3 2 H5 V5 H3 Z" fill="#60a5fa" />
               </svg></span>
@@ -1800,7 +1824,8 @@
                 <path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" />
               </svg></span>
           </div>
-          <div class="feed-slot" id="slot-a_plane" onclick="toggleEquip('a_plane')" title="종이비행기 장착/해제" style="display: none;">
+          <div class="feed-slot" id="slot-a_plane" onclick="toggleEquip('a_plane')" title="종이비행기 장착/해제"
+            style="display: none;">
             <span class="icon"><svg class="pixel-icon" viewBox="0 0 8 8">
                 <path d="M1 1 L7 3 L2 5 Z M2 5 L4 7 L7 3 Z" fill="#cbd5e1" />
               </svg></span>
@@ -1809,7 +1834,8 @@
                 <path d="M2 1 H6 V3 H5 V1 H3 V3 H2 Z M1 3 H7 V8 H1 Z M3 5 H5 V7 H3 Z" />
               </svg></span>
           </div>
-          <div class="feed-slot" id="slot-a_clover" onclick="toggleEquip('a_clover')" title="네잎클로버 장착/해제" style="display: none;">
+          <div class="feed-slot" id="slot-a_clover" onclick="toggleEquip('a_clover')" title="네잎클로버 장착/해제"
+            style="display: none;">
             <span class="icon"><svg class="pixel-icon" viewBox="0 0 8 8" fill-rule="evenodd">
                 <path d="M1 2 H3 V0 H5 V2 H7 V4 H5 V6 H3 V4 H1 Z M4 4 H5 V7 H4 Z" fill="#22c55e" />
               </svg></span>
@@ -2274,7 +2300,7 @@
           "........................"
         ]
       ],
-                  stone: [
+      stone: [
         [
           "........................",
           ".......XXXXXXXXXXX......",
@@ -2328,7 +2354,7 @@
           ".......XXXXXXXXXXX......"
         ]
       ],
-                  iron: [
+      iron: [
         [
           "........................",
           "........................",
@@ -2382,7 +2408,7 @@
           "........................"
         ]
       ],
-                  golem: [
+      golem: [
         [
           ".........VVV.V..........",
           "...........VV...........",
@@ -2436,7 +2462,7 @@
           ".....XXXXXX...XXXXX....."
         ]
       ],
-                  aqua: [
+      aqua: [
         [
           "........................",
           "...........X............",
@@ -2491,7 +2517,7 @@
           "........................"
         ]
       ],
-                                    ocean: [
+      ocean: [
         [
           "........................",
           "........................",
@@ -2545,7 +2571,7 @@
           "........................"
         ]
       ],
-                                    poseidon: [
+      poseidon: [
         [
           ".......XXXXX......X.....",
           "......XHHCCX.....XX.XX..",
@@ -2599,7 +2625,7 @@
           "..................XX...."
         ]
       ],
-            dragon: [
+      dragon: [
         [
           "........................",
           "...........X............",
@@ -2611,8 +2637,8 @@
           "....XWWWWWWOX...OYXXX...",
           "...XXWWWWWWWO...OWYWX...",
           "...OWWWWWWWWWX.XXWYXOX..",
-          "..XXWRWWWWWWWOXOYWXXXX..",
-          "..XWWEWWWOEWWROWXOX.....",
+          "..XXWWWWWWWWWOXOYWXXXX..",
+          "..XWWEWWWWEWWROWXOX.....",
           "..XWWXWWWWXWWROOXXX.....",
           "..XWWWWWWWWWWRXX........",
           "..XWWWWWWWWWWROX........",
@@ -2638,8 +2664,8 @@
           "..XOWWWWWWROX..OWYWX....",
           "..XWWWWWWWWWO..OWYYXX...",
           "..OWWWWWWWWWRXXWWWXOX...",
-          ".XXWEOWWREWWRXXXWO.XX...",
-          ".XWWXOWWRXWWROOXXX......",
+          ".XXWEWWWWEWWRXXXWO.XX...",
+          ".XWWXWWWWXWWROOXXX......",
           ".XWWWWWWWWWWRXXX.X......",
           ".XRWWWWWWWWWRRO.........",
           "..OWWWWWWWWWROX.........",
@@ -2653,7 +2679,7 @@
           "........................"
         ]
       ],
-            inferno: [
+      inferno: [
         [
           "........................",
           "........XX...XXX........",
@@ -2707,7 +2733,7 @@
           "........................"
         ]
       ],
-                  kaiser: [
+      kaiser: [
         [
           ".......XX...X...........",
           "......XOO..XO...........",
@@ -2761,7 +2787,7 @@
           "........................"
         ]
       ],
-            wind: [
+      wind: [
         [
           "........................",
           "..........WWWW..........",
@@ -2815,7 +2841,7 @@
           "........................"
         ]
       ],
-            vortex: [
+      vortex: [
         [
           ".....BBB.BBBWBBB........",
           "...GWWWWBBWBBBWBBGG.....",
@@ -2869,11 +2895,11 @@
           "....BBBBBBBBBBBGWWBB...."
         ]
       ],
-            wizard: [
+      wizard: [
         [
           "........................",
           "........................",
-          "............X..........",
+          "............X...........",
           "...........XWX..........",
           "..........XWDX..........",
           ".........XWWDDX.........",
@@ -2923,7 +2949,7 @@
           ".XXXXXXXXXXXXXXXXXX....."
         ]
       ],
-                  lunya: [
+      lunya: [
         [
           "........................",
           "..XX.........XXX........",
@@ -2931,21 +2957,21 @@
           ".XWWXX.....XXWWHX.......",
           ".XHXWXX...XXWWHHX.......",
           ".XHXWXXXXXXWXHHHX.......",
-          ".XHWOXHHWXWWXHHHX.......",
-          ".XHHWWMMMWWWXHHHX.......",
-          "XHWWWMMMWWWWOOHHX.......",
-          "XWWWWMMMWWWWWOOOX.......",
+          ".XHWOOWWWWWWXHHHX.......",
+          ".XHHWWMMWWWWXHHHX.......",
+          "XHWWWMMMMWWWOOHHX.......",
+          "XWWWWMMWWWWWWOOOX.......",
           "XWWWWMMMMWWWWWOWX.......",
           "XHWWWWMMWWWWWWWWXXXX....",
           "XWWWWWWWWWWWWWWWWXXXX...",
           "XWWXXWWWWWWXXWWWWXXXXX..",
           "XWWEEWWWWWWEEWWWWHXXXXX.",
           "XHWXXWWWWWWXXWWWWWXXXXXX",
-          "XHWWWWWWWWWWWWWWWWXXWWWX",
-          "XWHWWWWWWWWWWWWWOOX.XWWX",
-          "XOHWWWWWWWWWWWOOOXXXWWWX",
-          "XOWWWWWWWWWWOOOOXOOOWWWX",
-          ".XOOOOWWWOOOOOOXXOOWWWWX",
+          "XHWWWWWWWWWWWWWWWWXXOOWX",
+          "XWHWWWWWWWWWWWWWOOX.XOWX",
+          "XOHWWWWWWWWWWWOOOXXXXWWX",
+          "XOWWWWWWWWWWOOOOXWWWWWWX",
+          ".XOOOOWWWOOOOOOXXWWWWWWX",
           ".XXXXXXXXXXXXXXXXXWWWWX.",
           ".................XXXXX..",
           "........................"
@@ -2958,17 +2984,17 @@
           "..XHWXX......XRHX.XXXXXX",
           "..XHWWX.....XWWHX.XXXXXX",
           ".XHHXWXXXXXXWXHHX.XWRXXX",
-          ".XHHXWOWWWXXWXHHX.XWWWXX",
-          ".XHHXWWXMMXWWXHHX.XXWWX.",
-          ".XHRHWXMMMXWWOHHX.XXWXXX",
-          ".XWWWWXMMWWWWWWXX.XXXWXX",
-          ".XWWWWXMMMXWWWOXX.XXXHXX",
-          "XHHWWWWXMMXWWWWWX.XXXWXX",
-          "XOHWWWWWWWWWWWWOXX.XXWWX",
-          "XHWWWWWWWWWWWWWWWX.XXWWX",
-          "XHWWXXWWWWWWXXWWWX.XXWWX",
+          ".XHHXWOWWWWWWXHHX.XWWWX.",
+          ".XHHXWWWMMWWWXHHX.XWWWX.",
+          ".XHRHWWMMMMWWOHHX.XWWWX.",
+          ".XWWWWWMMWWWWWWXX.XWWWX.",
+          ".XWWWWWMMMMWWWOXX.XWWHX.",
+          "XHHWWWWWMMWWWWWWX.XWWWX.",
+          "XOHWWWWWWWWWWWWOXX.XWWWX.",
+          "XHWWWWWWWWWWWWWWWX.XWWWX",
+          "XHWWXXWWWWWWXXWWWX.XWWWX",
           "XHWWEEWWWWWWEEWHHHX.XWOX",
-          "XHHWXXWWWWWWXXWWWOX.XXWX",
+          "XHHWXXWWWWWWXXWWWOX.XWWX",
           "XHHWWWWWWWWWWWWWWOX.XWOX",
           "XOWWWWWWWWWWWWWWOX.XWOOX",
           "XOOWWWWWWWWWWWOOXXXOOOOX",
@@ -2977,28 +3003,28 @@
           "..XXXXXXXXXXXX.........."
         ]
       ],
-                  creta: [
+      creta: [
         [
           "........................",
           "........................",
-          "........................",
-          "..XXXXX....XXXXX........",
-          "..XXXXX....XXXXX........",
-          "..XXHXXXXXXXXXXX........",
-          "..XHYXXXXXXXXYHX........",
-          "..XHXXOOXXXOXXHX........",
-          "..XXXOOXXXXOOXXX........",
-          "..XXOOOXXOOOOXXXX.......",
+          "...XXX.......XXX........",
+          "..XXXXX....XXXXXX.......",
+          "..XHHOOX...XOOHHX.......",
+          "..XHYYOXXXXXOYYHX.......",
+          "..XHYXXOOOOOXXYHX.......",
+          "..XHXOOOXXOOOOXHX.......",
           "..XXOOOXXXXOOOOXX.......",
-          "..XOOOOXXXXOOOOXX.......",
-          "..XOXXOOOOOXXXOOX.......",
-          ".XXOXEEOOOOXEEOOXX......",
-          ".XXYXXXOOOOXXXOYXXXXXXX.",
-          ".XYYXXXOOOOXXXXYXXWXXXXX",
-          ".XYYYYOOOOOOYYYYXXOXXXXX",
-          ".XXYYYOOOOOOYYYOXXXXXXXX",
-          ".XXXOOOOOOOOXXOXXXXXXXXX",
-          "..XXXOOXOOOOXXXXX..XXXXX",
+          "..XOOOOXXOOOOOOOX.......",
+          "..XOOOOXXXXOOOOOX.......",
+          "..XOOOOOXXOOOOOOX.......",
+          "..XOYOOOOOOOOYOOX.......",
+          ".XOOYEYOOOOYEYOOOX......",
+          ".XYOYEYOOOOYEYOYOXXXXXX.",
+          ".XYOOEYOOOOYEOOYOXWXXXXX",
+          ".XYYOOOOOOOOOOYYOXOXXXXX",
+          ".XOYYYOOOOOOYYYOXXXXXXXX",
+          ".XOOOOOOOOOOOOOXXXXXXXXX",
+          "..XXOOOOOOOOOOOXX..XXXXX",
           "....XXXXXXXXXXX......XX.",
           "........................",
           "........................",
@@ -3007,16 +3033,16 @@
         [
           "........................",
           "........................",
-          "........................",
+          "...XXX.......XXX........",
           "..XXXXX.....XXXXX.......",
-          "..XXXXXX....XXXXX.......",
-          "..XXXXXXXXXXXXXXX.......",
-          "..XXHYXXXXXXXXYHX.......",
-          "..XXYXXXXXXXXXXHX.......",
-          "..XXXXOXXXXXOOXXX.......",
-          "...XXOOXXXOOOOOOX.......",
-          "..XXXOOXXXXXOOOOX.......",
-          "..XXOOOOXXXOOOXOXX......",
+          "..XHHOOX....XOHHX.......",
+          "..XHYYOXXXXXXOYHX.......",
+          "..XHYYXOOOOOXYYHX.......",
+          "..XHYXOOOXXOOOXHX.......",
+          "..XHXOOOXXXXOOOXX.......",
+          "..XXOOOOXXOOOOOOX.......",
+          "..XXXOOOXXXXOOOOX.......",
+          "..XXOOOOOXXOOOXOXX......",
           "..XXXXXOOOOOXXXOOX......",
           "..XXXXXXOOOXXXXOXX......",
           ".XXYXXXXOOOXXXXYOXXXXX..",
@@ -3031,7 +3057,7 @@
           "........................"
         ]
       ],
-                  blacktiger: [
+      blacktiger: [
         [
           "........................",
           "....XXXX...XXXX..XXXX...",
@@ -3085,7 +3111,7 @@
           "........................"
         ]
       ],
-            solmong: [
+      solmong: [
         [
           "........................",
           "........................",
@@ -3139,7 +3165,7 @@
           "........................"
         ]
       ],
-            ilf: [
+      ilf: [
         [
           "........................",
           "........................",
@@ -3193,7 +3219,7 @@
           "........................"
         ]
       ],
-            baekho: [
+      baekho: [
         [
           "........................",
           "........................",
@@ -3247,7 +3273,7 @@
           "........................"
         ]
       ],
-            eleki: [
+      eleki: [
         [
           "........................",
           "......X..........XX.....",
@@ -3301,7 +3327,7 @@
           "....XXXXXXXXXXXXXXXX...."
         ]
       ],
-                              rayoki: [
+      rayoki: [
         [
           "........................",
           "........................",
@@ -3355,7 +3381,7 @@
           "........................"
         ]
       ],
-                  thunderbunny: [
+      thunderbunny: [
         [
           "........................",
           "........................",
@@ -3408,7 +3434,8 @@
           "........................",
           "........................"
         ]
-      ]};;
+      ]
+    };;
 
     /* Furniture Sprites & Colors removed */
 
@@ -3470,24 +3497,25 @@
       stone: { '.': 'transparent', 'X': '#0f380f', 'G': '#7f8c8d', 'H': '#bdc3c7', 'D': '#34495e', 'E': '#0f380f' },
       iron: { '.': 'transparent', 'X': '#0f380f', 'G': '#7f8c8d', 'H': '#bdc3c7', 'D': '#34495e', 'I': '#bdc3c7', 'J': '#34495e', 'E': '#e74c3c' },
       golem: { '.': 'transparent', 'X': '#0f380f', 'G': '#7f8c8d', 'H': '#bdc3c7', 'D': '#34495e', 'V': '#27ae60', 'K': '#2ecc71', 'L': '#27ae60', 'E': '#0f380f' },
-                  aqua: { '.': 'transparent', 'X': '#0f380f', 'C': '#2980b9', 'B': '#3498db', 'D': '#1f3a52', 'E': '#0f380f', 'W': '#ffffff' },
+      aqua: { '.': 'transparent', 'X': '#0f380f', 'C': '#2980b9', 'B': '#3498db', 'D': '#1f3a52', 'E': '#0f380f', 'W': '#ffffff' },
       ocean: { '.': 'transparent', 'X': '#0f380f', 'C': '#1abc9c', 'B': '#16a085', 'D': '#117864', 'H': '#48c9b0', 'E': '#0f380f' },
       poseidon: { '.': 'transparent', 'X': '#0f380f', 'C': '#3fb0d0', 'B': '#1d8aa7', 'H': '#79d8ea', 'E': '#0f380f' },
-            dragon: { '.': 'transparent', 'X': '#0f380f', 'R': '#e67e22', 'O': '#d35400', 'W': '#f39c12', 'Y': '#f1c40f', 'E': '#0f380f' },
-            inferno: { '.': 'transparent', 'X': '#0f380f', 'R': '#c0392b', 'O': '#962d22', 'W': '#d35400', 'Y': '#f1c40f', 'E': '#0f380f' },
-                  kaiser: { '.': 'transparent', 'X': '#0f380f', 'R': '#8e44ad', 'O': '#6c3483', 'W': '#a569bd', 'Y': '#f1c40f', 'E': '#f1c40f', 'F': '#c0392b', 'V': '#d35400' },
-            wind: { '.': 'transparent', 'X': '#0f380f', 'C': '#95a5a6', 'D': '#7f8c8d', 'H': '#ffffff', 'W': '#2ecc71', 'G': '#7defa1', 'R': '#e74c3c', 'B': '#3498db', 'E': '#0f380f' },
-            vortex: { '.': 'transparent', 'X': '#0f380f', 'C': '#95a5a6', 'D': '#7f8c8d', 'H': '#ffffff', 'W': '#27ae60', 'G': '#2ecc71', 'B': '#3498db', 'Y': '#f1c40f', 'R': '#e74c3c', 'E': '#0f380f' },
-            wizard: { '.': 'transparent', 'X': '#0f380f', 'W': '#1abc9c', 'D': '#16a085', 'S': '#f1c40f', 'Y': '#d4ac0d', 'O': '#ffffff', 'B': '#cbd5e1', 'G': '#84ed8c', 'H': '#27ae60', 'E': '#0f380f' },
-                  lunya: { '.': 'transparent', 'X': '#111827', 'B': '#1e293b', 'D': '#0f172a', 'H': '#e8c4fc', 'M': '#facc15', 'R': '#8e44ad', 'O': '#6c3483', 'W': '#a569bd', 'E': '#2ecc71' },
+      dragon: { '.': 'transparent', 'X': '#0f380f', 'R': '#e67e22', 'O': '#d35400', 'W': '#f39c12', 'Y': '#f1c40f', 'E': '#0f380f' },
+      inferno: { '.': 'transparent', 'X': '#0f380f', 'R': '#c0392b', 'O': '#962d22', 'W': '#d35400', 'Y': '#f1c40f', 'E': '#0f380f' },
+      kaiser: { '.': 'transparent', 'X': '#0f380f', 'R': '#8e44ad', 'O': '#6c3483', 'W': '#a569bd', 'Y': '#f1c40f', 'E': '#f1c40f', 'F': '#c0392b', 'V': '#d35400' },
+      wind: { '.': 'transparent', 'X': '#0f380f', 'C': '#95a5a6', 'D': '#7f8c8d', 'H': '#ffffff', 'W': '#2ecc71', 'G': '#7defa1', 'R': '#e74c3c', 'B': '#3498db', 'E': '#0f380f' },
+      vortex: { '.': 'transparent', 'X': '#0f380f', 'C': '#95a5a6', 'D': '#7f8c8d', 'H': '#ffffff', 'W': '#27ae60', 'G': '#2ecc71', 'B': '#3498db', 'Y': '#f1c40f', 'R': '#e74c3c', 'E': '#0f380f' },
+      wizard: { '.': 'transparent', 'X': '#0f380f', 'W': '#1abc9c', 'D': '#16a085', 'S': '#f1c40f', 'Y': '#d4ac0d', 'O': '#ffffff', 'B': '#cbd5e1', 'G': '#84ed8c', 'H': '#27ae60', 'E': '#0f380f' },
+      lunya: { '.': 'transparent', 'X': '#111827', 'B': '#1e293b', 'D': '#0f172a', 'H': '#e8c4fc', 'M': '#facc15', 'R': '#8e44ad', 'O': '#6c3483', 'W': '#a569bd', 'E': '#2ecc71' },
       creta: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#3e2a63', 'W': '#5a4587', 'H': '#ffffff', 'M': '#111827', 'E': '#111827' },
       blacktiger: { '.': 'transparent', 'X': '#111827', 'B': '#1e293b', 'D': '#0f172a', 'H': '#475569', 'T': '#ffffff', 'R': '#ff5c8d', 'O': '#6c3483', 'W': '#a569bd', 'Y': '#f1c40f', 'E': '#111827' },
-            solmong: { '.': 'transparent', 'X': '#111827', 'W': '#ffffff', 'H': '#cbd5e1', 'S': '#e74c3c', 'T': '#ff80a0', 'E': '#111827' },
+      solmong: { '.': 'transparent', 'X': '#111827', 'W': '#ffffff', 'H': '#cbd5e1', 'S': '#e74c3c', 'T': '#ff80a0', 'E': '#111827' },
       ilf: { '.': 'transparent', 'X': '#111827', 'W': '#ffffff', 'H': '#cbd5e1', 'S': '#e74c3c', 'T': '#c0392b', 'E': '#d35400' },
       baekho: { '.': 'transparent', 'X': '#111827', 'W': '#ffffff', 'H': '#cbd5e1', 'R': '#e74c3c', 'O': '#c0392b', 'E': '#f39c12' },
-            eleki: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#d4ac0d', 'W': '#fcf3cf', 'L': '#3498db', 'E': '#111827' },
-                  rayoki: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#d4ac0d', 'W': '#ffffff', 'L': '#3498db', 'R': '#e74c3c' },
-      thunderbunny: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#d4ac0d', 'W': '#ffffff', 'L': '#3498db', 'B': '#2980b9', 'R': '#e74c3c' }};
+      eleki: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#d4ac0d', 'W': '#fcf3cf', 'L': '#3498db', 'E': '#111827' },
+      rayoki: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#d4ac0d', 'W': '#ffffff', 'L': '#3498db', 'R': '#e74c3c' },
+      thunderbunny: { '.': 'transparent', 'X': '#111827', 'Y': '#facc15', 'O': '#d4ac0d', 'W': '#ffffff', 'L': '#3498db', 'B': '#2980b9', 'R': '#e74c3c' }
+    };
 
     /* Game State Data */
     let state = {
@@ -4059,7 +4087,7 @@
       // Deduct steps
       state.steps -= 500;
       eggLuckClears = 0;
-      
+
       const tLvl = state.trainingLevels ? state.trainingLevels.luck : 1;
       const lvlStr = tLvl > 10 ? '무한' : tLvl;
       addLog(`행운 훈련 lv ${lvlStr} 시작! (-500걸음)`, "system");
@@ -4095,7 +4123,7 @@
       if (trainingIcon) trainingIcon.classList.remove('selected');
 
       state.steps -= 500;
-      
+
       const tLvl = state.trainingLevels ? state.trainingLevels.agility : 1;
       const lvlStr = tLvl > 10 ? '무한' : tLvl;
       addLog(`민첩 훈련 lv ${lvlStr} 시작! (-500걸음)`, "system");
@@ -4464,7 +4492,7 @@
       const char = state.character;
       const isEgg = (char.stage === 1);
       const tLvl = state.trainingLevels ? state.trainingLevels.luck : 1;
-      
+
       let N = 8;
       let numMines = 10;
 
@@ -4867,7 +4895,7 @@
 
       // Deduct steps
       state.steps -= 500;
-      
+
       const tLvl = state.trainingLevels ? state.trainingLevels.strength : 1;
       const lvlStr = tLvl > 10 ? '무한' : tLvl;
       addLog(`근력 훈련 lv ${lvlStr} 시작! (-500걸음)`, "system");
@@ -5132,6 +5160,9 @@
                 headY = (frame === 0) ? 9 : 8;
               } else if (baseType === 'vortex') {
                 headY = (frame === 0) ? 10 : 9;
+              } else if (baseType === 'lunya') {
+                headY = (frame === 0) ? 6 : 7;
+                headX = (frame === 0) ? 8 : 9;
               }
 
               const eyes = getEyePositions(spriteGrid, baseType);
@@ -5639,6 +5670,7 @@
     /* Dialogue & Checklist & Up/Down Game Interactions */
     let isHomeBubbleOpen = false;
     let interactionStep = 'start';
+    let justNamed = false;
     let upDownTarget = null;
     let upDownAttempts = 0;
     let upDownStatusText = '';
@@ -5646,16 +5678,16 @@
     function handleCharacterClick(event) {
       if (event) event.stopPropagation();
       initAudio();
-      
+
       // 다른 서브 메뉴가 켜져 있으면 작동하지 않음
       if (isShopOpen || isTrainingOpen || isBagDrawerOpen || (typeof isSettingsOpen !== 'undefined' && isSettingsOpen)) {
         return;
       }
-      
+
       if (screenState !== 'home') return;
-      
+
       playBeep('b');
-      
+
       if (isHomeBubbleOpen) {
         isHomeBubbleOpen = false;
       } else {
@@ -5664,6 +5696,7 @@
           interactionStep = 'ask_name';
         } else {
           interactionStep = 'start';
+          justNamed = false;
         }
       }
       renderScreen();
@@ -5712,18 +5745,33 @@
 
       const isEgg = (state.character.stage === 1);
       const title = state.userTitle || '주인님';
-      
+
       let bubbleText = '';
 
       if (isEgg) {
-        bubbleText = `${title}! 저는 아직 알 속에 있어요. 어서 부화시켜서 저랑 더 많은 이야기를 나눠요!`;
+        bubbleText = `저는 아직 알 속에 있어요. 어서 부화시켜서 저랑 더 많은 이야기를 나눠요!`;
       } else {
         switch (interactionStep) {
           case 'ask_name':
             bubbleText = "반가워요! 제가 앞으로 뭐라고 불러드리면 좋을까요?";
             break;
           case 'start':
-            bubbleText = `반가워요, ${title}! 오늘 저랑 어떤 대화를 하고 싶으신가요?`;
+            if (justNamed) {
+              bubbleText = `반가워요, ${title}! 오늘 저랑 어떤 대화를 하고 싶으신가요?`;
+            } else {
+              const hour = new Date().getHours();
+              let greeting = "반가워요";
+              if (hour >= 5 && hour < 12) {
+                greeting = "좋은 아침이에요";
+              } else if (hour >= 12 && hour < 17) {
+                greeting = "좋은 점심이에요";
+              } else if (hour >= 17 && hour < 22) {
+                greeting = "좋은 오후에요";
+              } else {
+                greeting = "좋은 밤이에요";
+              }
+              bubbleText = `${greeting}, ${title}! 오늘 저랑 어떤 대화를 하고 싶으신가요?`;
+            }
             break;
           case 'mood':
             bubbleText = `${title}과 함께할 수 있어서 저는 너무 행복해요! ${title}의 오늘 기분은 어떠신가요?`;
@@ -5751,6 +5799,18 @@
             break;
           case 'game_win_lvlup':
             bubbleText = `우와, 정답이에요! [<strong>${upDownTarget}</strong>]을(를) 맞추셨네요! 게다가 레벨업까지 하셨어요! 축하드려요, ${title}!`;
+            break;
+          case 'stretch_ask':
+            bubbleText = `오랫동안 같은 자세로 계셨나요, ${title}? 지금 몸에 찌뿌둥하거나 불편한 곳이 있으신가요?`;
+            break;
+          case 'stretch_neck':
+            bubbleText = `목과 어깨가 뻐근하시군요!<br>바르게 앉아 머리를 손으로 감싸고 옆으로 지긋이 10초간 당겨주세요. 좌우 번갈아 해주시면 어깨 뭉침이 싹 풀릴 거예요! 🧘`;
+            break;
+          case 'stretch_back':
+            bubbleText = `허리가 찌릿하고 뻐근하시군요!<br>깍지 낀 손을 하늘 높이 쭉 뻗어 기지개를 크게 켜보세요! 그 다음 상체를 천천히 좌우로 기울여 옆구리와 척추를 늘려주세요!`;
+            break;
+          case 'stretch_legs':
+            bubbleText = `다리가 무겁고 단단해지셨군요!<br>일어서서 한쪽 발목을 뒤로 잡아 엉덩이 쪽으로 당기며 허벅지 앞쪽을 늘려보세요. 10초씩 해주면 혈액순환에 아주 좋아요! 🚶`;
             break;
         }
       }
@@ -5791,15 +5851,16 @@
             </div>
           `;
           break;
-          
+
         case 'start':
           optionsHTML = `
             <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('mood')">기분 물어보기</button>
             <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('schedule')">일정 등록하기</button>
             <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('game_ready')">숫자 맞추기 하기</button>
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('stretch_ask')">스트레칭 팁 보기</button>
           `;
           break;
-          
+
         case 'mood':
           optionsHTML = `
             <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('mood_good')">나도 기분 좋아!</button>
@@ -5807,19 +5868,19 @@
             <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">이전으로</button>
           `;
           break;
-          
+
         case 'mood_good':
           optionsHTML = `
             <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('start')">처음으로</button>
           `;
           break;
-          
+
         case 'mood_sad':
           optionsHTML = `
             <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('start')">처음으로</button>
           `;
           break;
-          
+
         case 'schedule':
           optionsHTML = `
             <div style="display: flex; gap: 4px; width: 100%;">
@@ -5840,20 +5901,20 @@
             <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')" style="margin-top: 4px; width: 30%; align-self: center;">이전으로</button>
           `;
           break;
-          
+
         case 'schedule_added':
           optionsHTML = `
             <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('start')">처음으로</button>
           `;
           break;
-          
+
         case 'game_ready':
           optionsHTML = `
             <button class="home-bubble-btn pulse-button" onclick="startUpDownGame()">게임 시작하기!</button>
             <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">이전으로</button>
           `;
           break;
-          
+
         case 'game_playing':
           optionsHTML = `
             <div style="display: flex; gap: 4px; width: 100%;">
@@ -5874,7 +5935,7 @@
             <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')" style="margin-top: 4px; width: 30%; align-self: center;">그만하기</button>
           `;
           break;
-          
+
         case 'game_win':
           optionsHTML = `
             <button class="home-bubble-btn pulse-button" onclick="startUpDownGame()">한 판 더!</button>
@@ -5888,6 +5949,23 @@
             <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">돌아가기</button>
           `;
           break;
+
+        case 'stretch_ask':
+          optionsHTML = `
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('stretch_neck')">🙆 목과 어깨가 뻐근해</button>
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('stretch_back')">🧘 허리가 뻐근해</button>
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('stretch_legs')">🦵 다리가 묵직해</button>
+            <button class="home-bubble-btn exit pulse-button" onclick="setInteractionStep('start')">이전으로</button>
+          `;
+          break;
+
+        case 'stretch_neck':
+        case 'stretch_back':
+        case 'stretch_legs':
+          optionsHTML = `
+            <button class="home-bubble-btn pulse-button" onclick="setInteractionStep('start')">처음으로</button>
+          `;
+          break;
       }
 
       return optionsHTML;
@@ -5899,6 +5977,7 @@
       playBeep('b');
       state.userTitle = title;
       save();
+      justNamed = true;
       interactionStep = 'start';
       addLog(`호칭 설정: 앞으로 캐릭터가 [${title}](으)로 부릅니다.`, 'system');
       renderScreen();
@@ -5973,7 +6052,7 @@
         state.character.exp += expReward;
         checkEvolution();
         save();
-        
+
         addLog(`게임: 숫자 맞추기 성공! (시도 횟수: ${upDownAttempts}회, 경험치 +${expReward})`);
         const leveledUp = state.character.level > oldLevel;
         interactionStep = leveledUp ? 'game_win_lvlup' : 'game_win';
@@ -6155,6 +6234,9 @@
               headY = (frame === 0) ? 9 : 8;
             } else if (baseType === 'vortex') {
               headY = (frame === 0) ? 10 : 9;
+            } else if (baseType === 'lunya') {
+              headY = (frame === 0) ? 6 : 7;
+              headX = (frame === 0) ? 8 : 9;
             }
 
             const eyes = getEyePositions(spriteGrid, baseType);
