@@ -336,7 +336,10 @@
       left: 0;
       z-index: 0;
       pointer-events: none;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
       image-rendering: pixelated;
+      image-rendering: crisp-edges;
     }
 
     /* LCD Home Layout */
@@ -518,10 +521,12 @@
     .sprite-svg {
       width: 120px;
       height: 120px;
-      image-rendering: pixelated;
       z-index: 2;
       transition: transform 0.15s ease;
       position: relative;
+    }
+    .sprite-svg rect {
+      shape-rendering: crispEdges;
     }
 
     /* Shaking animation for Egg */
@@ -1204,7 +1209,9 @@
       fill: var(--lcd-dark);
       display: inline-block;
       vertical-align: middle;
-      image-rendering: pixelated;
+    }
+    .pixel-icon path, .pixel-icon rect {
+      shape-rendering: crispEdges;
     }
 
     /* Checklist & Dialogue Interaction styles */
@@ -1357,7 +1364,10 @@
       cursor: pointer;
       box-shadow: 2px 2px 0 var(--lcd-mid);
       z-index: 100;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
       image-rendering: pixelated;
+      image-rendering: crisp-edges;
       animation: pulse-centered-animation 2.4s infinite ease-in-out;
     }
     
@@ -1704,7 +1714,7 @@
         <div class="feed-drawer" id="lcd-feed-drawer">
           <!-- 도구 피딩 슬롯들 -->
           <div class="feed-slot" onclick="useItemDirect('candy')" title="사탕 즉시 먹이기">
-            <span class="icon"><svg class="pixel-icon" viewBox="0 0 8 8" style="image-rendering: pixelated;">
+            <span class="icon"><svg class="pixel-icon" viewBox="0 0 8 8" style="shape-rendering: crispEdges;">
                 <defs>
                   <linearGradient id="candy-stripe-drawer" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="#ef4444" />
@@ -1935,7 +1945,7 @@
             <tbody>
               <tr>
                 <td style="text-align:left;"><span style="display:inline-flex; align-items:center; gap:4px;"><svg
-                      class="pixel-icon" viewBox="0 0 8 8" style="image-rendering: pixelated; min-width: 1.1em;">
+                      class="pixel-icon" viewBox="0 0 8 8" style="shape-rendering: crispEdges; min-width: 1.1em;">
                       <defs>
                         <linearGradient id="candy-stripe-help" x1="0%" y1="0%" x2="100%" y2="100%">
                           <stop offset="0%" stop-color="#ef4444" />
@@ -3505,7 +3515,7 @@
       training: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M0 2 H2 V6 H0 Z M2 3 H6 V5 H2 Z M6 2 H8 V6 H6 Z"/></svg>`,
       bag: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M2 1 H6 V2 H7 V7 H1 V2 H2 Z M3 3 H5 V4 H3 Z M2 5 H6 V6 H2 Z"/></svg>`,
       settings: `<svg class="pixel-icon" viewBox="0 0 8 8"><path d="M3 0 H5 V1 H6 L7 2 V3 H8 V5 H7 V6 L6 7 H5 V8 H3 V7 L2 6 H1 V5 H0 V3 H1 V2 L2 1 H3 Z M3 3 H5 V5 H3 Z" fill-rule="evenodd"/></svg>`,
-      candy: `<svg class="pixel-icon" viewBox="0 0 8 8" style="image-rendering: pixelated;"><defs><linearGradient id="candy-stripe-shop" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ef4444" /><stop offset="25%" stop-color="#ef4444" /><stop offset="25%" stop-color="#ffffff" /><stop offset="50%" stop-color="#ffffff" /><stop offset="50%" stop-color="#ef4444" /><stop offset="75%" stop-color="#ef4444" /><stop offset="75%" stop-color="#ffffff" /><stop offset="100%" stop-color="#ffffff" /></linearGradient></defs><path d="M0 1 H1 V2 H2 V3 H3 V5 H2 V6 H1 V7 H0 Z M8 1 H7 V2 H6 V3 H5 V5 H6 V6 H7 V7 H8 Z M3 2 H5 V3 H6 V5 H5 V6 H3 V5 H2 V3 H3 Z" fill="url(#candy-stripe-shop)" /></svg>`,
+      candy: `<svg class="pixel-icon" viewBox="0 0 8 8" style="shape-rendering: crispEdges;"><defs><linearGradient id="candy-stripe-shop" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ef4444" /><stop offset="25%" stop-color="#ef4444" /><stop offset="25%" stop-color="#ffffff" /><stop offset="50%" stop-color="#ffffff" /><stop offset="50%" stop-color="#ef4444" /><stop offset="75%" stop-color="#ef4444" /><stop offset="75%" stop-color="#ffffff" /><stop offset="100%" stop-color="#ffffff" /></linearGradient></defs><path d="M0 1 H1 V2 H2 V3 H3 V5 H2 V6 H1 V7 H0 Z M8 1 H7 V2 H6 V3 H5 V5 H6 V6 H7 V7 H8 Z M3 2 H5 V3 H6 V5 H5 V6 H3 V5 H2 V3 H3 Z" fill="url(#candy-stripe-shop)" /></svg>`,
       vitamin: `<svg class="pixel-icon" viewBox="0 0 8 8"><defs><linearGradient id="vitamin-half-shop" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="50%" stop-color="#facc15" /><stop offset="50%" stop-color="#ef4444" /></linearGradient></defs><path d="M1 5 L5 1 H7 V3 L3 7 H1 Z" fill="url(#vitamin-half-shop)" /></svg>`,
       book: `<svg class="pixel-icon" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M1 1 H7 V7 H1 Z M2 2 H6 V3 H2 Z M2 4 H6 V5 H2 Z M2 6 H6 V7 H2 Z" fill="#3b82f6" /></svg>`,
       a_glasses: `<svg class="pixel-icon" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M0 2 H8 V4 H7 V5 H5 V3 H3 V5 H1 V4 H0 Z" fill="#000000" /></svg>`,
@@ -4165,7 +4175,7 @@
       content.innerHTML = `
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;position:relative;z-index:10;">
           <canvas id="snake-canvas" width="${canvasWidth}" height="${canvasHeight}"
-            style="background-color:var(--lcd-bg);border:2px solid var(--lcd-dark);display:block;image-rendering:pixelated;touch-action:none;"></canvas>
+            style="background-color:var(--lcd-bg);border:2px solid var(--lcd-dark);display:block;image-rendering:-moz-crisp-edges;image-rendering:-webkit-optimize-contrast;image-rendering:pixelated;image-rendering:crisp-edges;touch-action:none;"></canvas>
           <div id="game-overlay-btn" style="position:absolute;bottom:8px;display:none;z-index:20;">
             <button onclick="goHome()" style="background-color:var(--lcd-dark);color:var(--lcd-bg);border:2px double var(--lcd-light);padding:5px 12px;font-family:'Press Start 2P',monospace;font-size:0.65rem;border-radius:4px;cursor:pointer;">확인</button>
           </div>
@@ -4173,7 +4183,17 @@
       `;
 
       const canvas = document.getElementById('snake-canvas');
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvasWidth * dpr;
+      canvas.height = canvasHeight * dpr;
+      canvas.style.width = canvasWidth + 'px';
+      canvas.style.height = canvasHeight + 'px';
       const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      ctx.imageSmoothingEnabled = false;
+      ctx.mozImageSmoothingEnabled = false;
+      ctx.webkitImageSmoothingEnabled = false;
+      ctx.msImageSmoothingEnabled = false;
       const overlayBtn = document.getElementById('game-overlay-btn');
 
       // ── 터치 스와이프 조작 (실시간 방향 전환) ────────────────────────────
@@ -4492,7 +4512,7 @@
 
       content.innerHTML = `
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; position: relative; z-index: 10; gap: 4px;">
-          <canvas id="luck-canvas" width="${canvasWidth}" height="${canvasHeight}" style="background-color: var(--lcd-bg); border: 2px solid var(--lcd-dark); display: block; image-rendering: pixelated; touch-action: none;"></canvas>
+          <canvas id="luck-canvas" width="${canvasWidth}" height="${canvasHeight}" style="background-color: var(--lcd-bg); border: 2px solid var(--lcd-dark); display: block; image-rendering: -moz-crisp-edges; image-rendering: -webkit-optimize-contrast; image-rendering: pixelated; image-rendering: crisp-edges; touch-action: none;"></canvas>
           
           <div style="display: flex; gap: 6px; align-items: center;">
             <button id="minesweeper-mode-btn" onclick="toggleMinesweeperMode()" style="background-color: var(--lcd-dark); color: var(--lcd-bg); border: 2px double var(--lcd-light); padding: 3px 6px; font-family: 'Noto Sans KR', sans-serif; font-size: 0.65rem; font-weight: bold; border-radius: 4px; cursor: pointer;"><svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8"><path d="M2 6 L6 2 L7 3 L3 7 Z M4 2 L6 0 H8 V2 L6 4 Z"/></svg>파기</button>
@@ -4505,7 +4525,17 @@
       `;
 
       const canvas = document.getElementById('luck-canvas');
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvasWidth * dpr;
+      canvas.height = canvasHeight * dpr;
+      canvas.style.width = canvasWidth + 'px';
+      canvas.style.height = canvasHeight + 'px';
       const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      ctx.imageSmoothingEnabled = false;
+      ctx.mozImageSmoothingEnabled = false;
+      ctx.webkitImageSmoothingEnabled = false;
+      ctx.msImageSmoothingEnabled = false;
       const overlayBtn = document.getElementById('game-overlay-btn');
 
       function generateMines(startRow, startCol) {
@@ -5166,8 +5196,12 @@
           }
 
           if (fill && fill !== 'transparent') {
+            const rx = Math.round(px + x * pixelWidth);
+            const ry = Math.round(py + y * pixelHeight);
+            const rw = Math.round(px + (x + 1) * pixelWidth) - rx;
+            const rh = Math.round(py + (y + 1) * pixelHeight) - ry;
             ctx.fillStyle = fill;
-            ctx.fillRect(px + x * pixelWidth, py + y * pixelHeight, pixelWidth, pixelHeight);
+            ctx.fillRect(rx, ry, rw, rh);
           }
         }
       });
@@ -5271,7 +5305,7 @@
 
       content.innerHTML = `
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; position: relative; z-index: 10;">
-          <canvas id="strength-canvas" width="${canvasWidth}" height="${canvasHeight}" style="background-color: var(--lcd-bg); border: 2px solid var(--lcd-dark); display: block; image-rendering: pixelated; touch-action: none;"></canvas>
+          <canvas id="strength-canvas" width="${canvasWidth}" height="${canvasHeight}" style="background-color: var(--lcd-bg); border: 2px solid var(--lcd-dark); display: block; image-rendering: -moz-crisp-edges; image-rendering: -webkit-optimize-contrast; image-rendering: pixelated; image-rendering: crisp-edges; touch-action: none;"></canvas>
           
           <div id="game-overlay-btn" style="position: absolute; bottom: 8px; display: none; z-index: 20;">
             <button onclick="goHome()" style="background-color: var(--lcd-dark); color: var(--lcd-bg); border: 2px double var(--lcd-light); padding: 5px 12px; font-family: 'Press Start 2P', monospace; font-size: 0.65rem; border-radius: 4px; cursor: pointer;">확인</button>
@@ -5280,7 +5314,17 @@
       `;
 
       const canvas = document.getElementById('strength-canvas');
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvasWidth * dpr;
+      canvas.height = canvasHeight * dpr;
+      canvas.style.width = canvasWidth + 'px';
+      canvas.style.height = canvasHeight + 'px';
       const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      ctx.imageSmoothingEnabled = false;
+      ctx.mozImageSmoothingEnabled = false;
+      ctx.webkitImageSmoothingEnabled = false;
+      ctx.msImageSmoothingEnabled = false;
       const overlayBtn = document.getElementById('game-overlay-btn');
 
       function movePaddle(clientX) {
