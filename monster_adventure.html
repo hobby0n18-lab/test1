@@ -3879,6 +3879,12 @@
         screenState = 'home';
       }
 
+      // 메뉴 진입 시 말풍선 초기화
+      isHomeBubbleOpen = false;
+      if (interactionStep === 'idle_message' || interactionStep === 'idle_thankyou') {
+        interactionStep = 'start';
+      }
+
       const shopBlind = document.getElementById('lcd-shop-blind');
       const shopIcon = document.getElementById('icon-1');
       const homeIcon = document.getElementById('icon-0');
@@ -3919,6 +3925,7 @@
         if (homeIcon) homeIcon.classList.add('selected');
         if (shopBlind) shopBlind.classList.remove('active');
         addLog("상점 창이 닫혔습니다.", "system");
+        resetIdleTimer();
       }
 
       renderScreen();
@@ -3990,6 +3997,12 @@
         screenState = 'home';
       }
 
+      // 메뉴 진입 시 말풍선 초기화
+      isHomeBubbleOpen = false;
+      if (interactionStep === 'idle_message' || interactionStep === 'idle_thankyou') {
+        interactionStep = 'start';
+      }
+
       const drawer = document.getElementById('lcd-feed-drawer');
       const bagIcon = document.getElementById('icon-3');
       const shopBlind = document.getElementById('lcd-shop-blind');
@@ -4030,6 +4043,7 @@
         if (homeIcon) homeIcon.classList.add('selected');
         if (drawer) drawer.classList.remove('active');
         addLog("가방 창이 닫혔습니다.", "system");
+        resetIdleTimer();
       }
 
       updateDrawerQuantities();
@@ -4116,6 +4130,12 @@
         screenState = 'home';
       }
 
+      // 메뉴 진입 시 말풍선 초기화
+      isHomeBubbleOpen = false;
+      if (interactionStep === 'idle_message' || interactionStep === 'idle_thankyou') {
+        interactionStep = 'start';
+      }
+
       const trainingBlind = document.getElementById('lcd-training-blind');
       const trainingIcon = document.getElementById('icon-2');
       const homeIcon = document.getElementById('icon-0');
@@ -4156,6 +4176,7 @@
         if (homeIcon) homeIcon.classList.add('selected');
         if (trainingBlind) trainingBlind.classList.remove('active');
         addLog("훈련소 창이 닫혔습니다.", "system");
+        resetIdleTimer();
       }
 
       renderScreen();
@@ -5995,6 +6016,7 @@
 
       if (isHomeBubbleOpen) {
         isHomeBubbleOpen = false;
+        interactionStep = 'start';
         resetIdleTimer();
       } else {
         isHomeBubbleOpen = true;
@@ -7643,7 +7665,15 @@
 
       // 조작 감지 리스너 추가
       ['mousedown', 'touchstart', 'keydown'].forEach(evtName => {
-        window.addEventListener(evtName, () => {
+        window.addEventListener(evtName, (e) => {
+          if (screenState === 'home' && isHomeBubbleOpen && interactionStep === 'idle_message') {
+            const isCharClick = e.target.closest('.stage-section') || e.target.closest('.home-bubble-box');
+            if (!isCharClick) {
+              isHomeBubbleOpen = false;
+              interactionStep = 'start';
+              renderScreen();
+            }
+          }
           if (interactionStep !== 'idle_thankyou') {
             resetIdleTimer();
           }
