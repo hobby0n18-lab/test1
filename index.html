@@ -580,6 +580,37 @@
       transform-origin: bottom center;
     }
 
+    /* Floating animations for special attribute particles */
+    @keyframes particle-float-a {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-4px) translateX(1px); }
+    }
+    @keyframes particle-float-b {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-2px) translateX(-2px); }
+    }
+    @keyframes particle-float-c {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-3px) translateX(1.5px); }
+    }
+
+    .spec-particle {
+      position: absolute;
+      width: 14px; /* 4x4 pixels * 3.5px */
+      height: 14px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .spec-particle-a {
+      animation: particle-float-a 2.4s ease-in-out infinite;
+    }
+    .spec-particle-b {
+      animation: particle-float-b 3s ease-in-out infinite;
+    }
+    .spec-particle-c {
+      animation: particle-float-c 1.8s ease-in-out infinite;
+    }
+
     /* Dramatic eating byte stretch animation */
     .sprite-eating {
       animation: eat-stretch 0.6s ease-in-out forwards !important;
@@ -6140,6 +6171,42 @@
       renderScreen();
     }
 
+    function renderSpecialParticles() {
+      if (state.character.stage === 1) return '';
+      let activeKey = null;
+      const specKeys = ['sa_stone', 'sa_water', 'sa_fire', 'sa_wind', 'sa_moon', 'sa_sun', 'sa_elec'];
+      for (const k of specKeys) {
+        if (state.equipped[k]) {
+          activeKey = k;
+          break;
+        }
+      }
+      if (!activeKey) return '';
+
+      let svgMarkup = '';
+      if (activeKey === 'sa_stone') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="1" y="0" width="2" height="1" fill="#94a3b8"/><rect x="0" y="1" width="1" height="1" fill="#475569"/><rect x="1" y="1" width="2" height="1" fill="#94a3b8"/><rect x="3" y="1" width="1" height="1" fill="#475569"/><rect x="0" y="2" width="1" height="1" fill="#475569"/><rect x="1" y="2" width="2" height="1" fill="#cbd5e1"/><rect x="3" y="2" width="1" height="1" fill="#475569"/><rect x="1" y="3" width="2" height="1" fill="#475569"/></svg>`;
+      } else if (activeKey === 'sa_water') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="1" y="0" width="1" height="1" fill="#38bdf8"/><rect x="1" y="1" width="1" height="1" fill="#38bdf8"/><rect x="2" y="1" width="1" height="1" fill="#0284c7"/><rect x="0" y="2" width="3" height="1" fill="#38bdf8"/><rect x="3" y="2" width="1" height="1" fill="#0284c7"/><rect x="1" y="3" width="1" height="1" fill="#38bdf8"/><rect x="2" y="3" width="1" height="1" fill="#0284c7"/></svg>`;
+      } else if (activeKey === 'sa_fire') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="1" y="0" width="1" height="1" fill="#eab308"/><rect x="0" y="1" width="1" height="1" fill="#ef4444"/><rect x="1" y="1" width="1" height="1" fill="#f97316"/><rect x="2" y="1" width="1" height="1" fill="#eab308"/><rect x="0" y="2" width="2" height="1" fill="#ef4444"/><rect x="2" y="2" width="1" height="1" fill="#f97316"/><rect x="3" y="2" width="1" height="1" fill="#eab308"/><rect x="1" y="3" width="1" height="1" fill="#ef4444"/><rect x="2" y="3" width="1" height="1" fill="#f97316"/></svg>`;
+      } else if (activeKey === 'sa_wind') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="0" y="0" width="1" height="1" fill="#0284c7"/><rect x="1" y="0" width="2" height="1" fill="#e0f2fe"/><rect x="3" y="0" width="1" height="1" fill="#0284c7"/><rect x="0" y="1" width="2" height="1" fill="#0284c7"/><rect x="2" y="1" width="1" height="1" fill="#e0f2fe"/><rect x="3" y="1" width="1" height="1" fill="#0284c7"/><rect x="1" y="2" width="2" height="1" fill="#0284c7"/><rect x="2" y="3" width="1" height="1" fill="#0284c7"/></svg>`;
+      } else if (activeKey === 'sa_moon') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="1" y="0" width="2" height="1" fill="#fef08a"/><rect x="3" y="0" width="1" height="1" fill="#eab308"/><rect x="0" y="1" width="1" height="1" fill="#fef08a"/><rect x="1" y="1" width="1" height="1" fill="#eab308"/><rect x="0" y="2" width="1" height="1" fill="#fef08a"/><rect x="1" y="2" width="2" height="1" fill="#eab308"/><rect x="1" y="3" width="2" height="1" fill="#eab308"/></svg>`;
+      } else if (activeKey === 'sa_sun') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="1" y="0" width="1" height="1" fill="#f59e0b"/><rect x="2" y="0" width="1" height="1" fill="#f43f5e"/><rect x="0" y="1" width="1" height="1" fill="#f59e0b"/><rect x="1" y="1" width="2" height="1" fill="#f43f5e"/><rect x="3" y="1" width="1" height="1" fill="#f59e0b"/><rect x="0" y="2" width="3" height="1" fill="#f43f5e"/><rect x="3" y="2" width="1" height="1" fill="#f59e0b"/><rect x="1" y="3" width="1" height="1" fill="#f43f5e"/><rect x="2" y="3" width="1" height="1" fill="#f59e0b"/></svg>`;
+      } else if (activeKey === 'sa_elec') {
+        svgMarkup = `<svg viewBox="0 0 4 4" style="shape-rendering: crispEdges; width:100%; height:100%;"><rect x="2" y="0" width="1" height="1" fill="#facc15"/><rect x="3" y="0" width="1" height="1" fill="#d97706"/><rect x="1" y="1" width="2" height="1" fill="#facc15"/><rect x="3" y="1" width="1" height="1" fill="#d97706"/><rect x="0" y="2" width="2" height="1" fill="#facc15"/><rect x="2" y="2" width="1" height="1" fill="#d97706"/><rect x="0" y="3" width="1" height="1" fill="#facc15"/><rect x="1" y="3" width="1" height="1" fill="#d97706"/></svg>`;
+      }
+
+      return `
+        <div class="spec-particle spec-particle-a" style="left: 12%; top: 12%;">${svgMarkup}</div>
+        <div class="spec-particle spec-particle-b" style="right: 12%; top: 18%;">${svgMarkup}</div>
+        <div class="spec-particle spec-particle-c" style="left: 20%; top: 48%;">${svgMarkup}</div>
+      `;
+    }
+
     function handleAddSchedule(text) {
       addChecklist(text);
       setInteractionStep('schedule_added');
@@ -6274,6 +6341,7 @@
         <div class="lcd-home-view">
           <div class="stage-section" onclick="handleCharacterClick(event)" style="cursor: pointer;" title="캐릭터 터치하기">
             ${petStageHTML}
+            ${renderSpecialParticles()}
             
             <!-- Checklist on home screen if items exist -->
             ${(state.checklist && state.checklist.length > 0) ? `
@@ -6439,79 +6507,7 @@
               }
             }
 
-            // 7. Special attribute accessories (4x4 pixels) - float next to head
-            const sax = headX + 4;
-            const say = headY - 1;
-
-            if (!fill && state.equipped.sa_stone) {
-              if (y === say && (x === sax + 1 || x === sax + 2)) fill = '#94a3b8';
-              else if (y === say + 1 && (x === sax || x === sax + 3)) fill = '#475569';
-              else if (y === say + 1 && (x === sax + 1 || x === sax + 2)) fill = '#94a3b8';
-              else if (y === say + 2 && (x === sax || x === sax + 3)) fill = '#475569';
-              else if (y === say + 2 && (x === sax + 1 || x === sax + 2)) fill = '#cbd5e1';
-              else if (y === say + 3 && (x === sax + 1 || x === sax + 2)) fill = '#475569';
-            }
-            if (!fill && state.equipped.sa_water) {
-              if (y === say && x === sax + 1) fill = '#38bdf8';
-              else if (y === say + 1 && x === sax + 1) fill = '#38bdf8';
-              else if (y === say + 1 && x === sax + 2) fill = '#0284c7';
-              else if (y === say + 2 && (x === sax || x === sax + 1 || x === sax + 2)) fill = '#38bdf8';
-              else if (y === say + 2 && x === sax + 3) fill = '#0284c7';
-              else if (y === say + 3 && x === sax + 1) fill = '#38bdf8';
-              else if (y === say + 3 && x === sax + 2) fill = '#0284c7';
-            }
-            if (!fill && state.equipped.sa_fire) {
-              if (y === say && x === sax + 1) fill = '#eab308';
-              else if (y === say + 1 && x === sax) fill = '#ef4444';
-              else if (y === say + 1 && x === sax + 1) fill = '#f97316';
-              else if (y === say + 1 && x === sax + 2) fill = '#eab308';
-              else if (y === say + 2 && (x === sax || x === sax + 1)) fill = '#ef4444';
-              else if (y === say + 2 && x === sax + 2) fill = '#f97316';
-              else if (y === say + 2 && x === sax + 3) fill = '#eab308';
-              else if (y === say + 3 && x === sax + 1) fill = '#ef4444';
-              else if (y === say + 3 && x === sax + 2) fill = '#f97316';
-            }
-            if (!fill && state.equipped.sa_wind) {
-              if (y === say && x === sax) fill = '#0284c7';
-              else if (y === say && (x === sax + 1 || x === sax + 2)) fill = '#e0f2fe';
-              else if (y === say && x === sax + 3) fill = '#0284c7';
-              else if (y === say + 1 && (x === sax || x === sax + 1)) fill = '#0284c7';
-              else if (y === say + 1 && x === sax + 2) fill = '#e0f2fe';
-              else if (y === say + 1 && x === sax + 3) fill = '#0284c7';
-              else if (y === say + 2 && (x === sax + 1 || x === sax + 2)) fill = '#0284c7';
-              else if (y === say + 3 && x === sax + 2) fill = '#0284c7';
-            }
-            if (!fill && state.equipped.sa_moon) {
-              if (y === say && (x === sax + 1 || x === sax + 2)) fill = '#fef08a';
-              else if (y === say && x === sax + 3) fill = '#eab308';
-              else if (y === say + 1 && x === sax) fill = '#fef08a';
-              else if (y === say + 1 && x === sax + 1) fill = '#eab308';
-              else if (y === say + 2 && x === sax) fill = '#fef08a';
-              else if (y === say + 2 && (x === sax + 1 || x === sax + 2)) fill = '#eab308';
-              else if (y === say + 3 && (x === sax + 1 || x === sax + 2)) fill = '#eab308';
-            }
-            if (!fill && state.equipped.sa_sun) {
-              if (y === say && x === sax + 1) fill = '#f59e0b';
-              else if (y === say && x === sax + 2) fill = '#f43f5e';
-              else if (y === say + 1 && x === sax) fill = '#f59e0b';
-              else if (y === say + 1 && (x === sax + 1 || x === sax + 2)) fill = '#f43f5e';
-              else if (y === say + 1 && x === sax + 3) fill = '#f59e0b';
-              else if (y === say + 2 && x === sax) fill = '#f43f5e';
-              else if (y === say + 2 && (x === sax + 1 || x === sax + 2)) fill = '#f43f5e';
-              else if (y === say + 2 && x === sax + 3) fill = '#f59e0b';
-              else if (y === say + 3 && x === sax + 1) fill = '#f43f5e';
-              else if (y === say + 3 && x === sax + 2) fill = '#f59e0b';
-            }
-            if (!fill && state.equipped.sa_elec) {
-              if (y === say && x === sax + 2) fill = '#facc15';
-              else if (y === say && x === sax + 3) fill = '#d97706';
-              else if (y === say + 1 && (x === sax + 1 || x === sax + 2)) fill = '#facc15';
-              else if (y === say + 1 && x === sax + 3) fill = '#d97706';
-              else if (y === say + 2 && (x === sax || x === sax + 1)) fill = '#facc15';
-              else if (y === say + 2 && x === sax + 2) fill = '#d97706';
-              else if (y === say + 3 && x === sax) fill = '#facc15';
-              else if (y === say + 3 && x === sax + 1) fill = '#d97706';
-            }
+            // Special attributes pixel rendering removed to use floating HTML particles instead
           }
 
           if (!fill && y >= 0) {
