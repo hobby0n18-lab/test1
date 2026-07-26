@@ -3827,6 +3827,7 @@
       isHomeBubbleOpen = false;
       screenState = 'home';
       renderScreen();
+      resetIdleTimer();
     }
 
     function toggleShop() {
@@ -5929,6 +5930,11 @@
     let upDownAttempts = 0;
     let upDownStatusText = '';
 
+    let idleTimer = null;
+    let currentIdleMessage = '';
+    let currentIdleThankYouMessage = '';
+    let activeReactionType = null;
+
     function handleCharacterClick(event) {
       if (event) event.stopPropagation();
       initAudio();
@@ -5942,8 +5948,14 @@
 
       playBeep('b');
 
+      if (interactionStep === 'idle_message' && isHomeBubbleOpen) {
+        handleIdleReaction();
+        return;
+      }
+
       if (isHomeBubbleOpen) {
         isHomeBubbleOpen = false;
+        resetIdleTimer();
       } else {
         isHomeBubbleOpen = true;
         if (state.userTitle === null || state.userTitle === undefined) {
@@ -5953,6 +5965,110 @@
           justNamed = false;
         }
       }
+      renderScreen();
+    }
+
+    function handleIdleReaction() {
+      activeReactionType = Math.random() < 0.5 ? 'heart' : 'exclamation';
+      
+      const thankYouMessages = [
+        "헤헤, 관심 가져줘서 고마워요!",
+        "우와! 쓰다듬어 주셔서 고마워요!",
+        "앗! 절 지켜보고 계셨군요? 고마워요!",
+        "헤헤, 반응해주셔서 정말 고마워요!"
+      ];
+      const selectedMsg = thankYouMessages[Math.floor(Math.random() * thankYouMessages.length)];
+      
+      interactionStep = 'idle_thankyou';
+      currentIdleThankYouMessage = selectedMsg;
+      renderScreen();
+      
+      if (idleTimer) {
+        clearTimeout(idleTimer);
+        idleTimer = null;
+      }
+      
+      setTimeout(() => {
+        activeReactionType = null;
+        isHomeBubbleOpen = false;
+        interactionStep = 'start';
+        renderScreen();
+        resetIdleTimer();
+      }, 1800);
+    }
+
+    function renderReactionParticles() {
+      if (!activeReactionType) return '';
+      const char = (activeReactionType === 'heart') ? '♥' : '!';
+      const color = (activeReactionType === 'heart') ? '#ef4444' : '#3b82f6';
+      const styles = [
+        `left: 10%; top: 10%; color: ${color}; font-size: 1.15rem; font-weight: bold; line-height: 1; pointer-events: none;`,
+        `right: 2%; top: 15%; color: ${color}; font-size: 1.15rem; font-weight: bold; line-height: 1; pointer-events: none;`,
+        `left: 12%; top: 45%; color: ${color}; font-size: 1.15rem; font-weight: bold; line-height: 1; pointer-events: none;`
+      ];
+      return `
+        <div class="spec-particle spec-particle-a" style="${styles[0]}">${char}</div>
+        <div class="spec-particle spec-particle-b" style="${styles[1]}">${char}</div>
+        <div class="spec-particle spec-particle-c" style="${styles[2]}">${char}</div>
+      `;
+    }
+
+    function resetIdleTimer() {
+      if (idleTimer) {
+        clearTimeout(idleTimer);
+        idleTimer = null;
+      }
+      
+      if (interactionStep === 'idle_thankyou') return;
+      
+      if (screenState === 'home' && state.character && state.character.stage > 1 && !isShopOpen && !isTrainingOpen && !isBagDrawerOpen && !isEatingAnimation) {
+        if (!isHomeBubbleOpen || interactionStep === 'start' || interactionStep === 'idle_message') {
+          idleTimer = setTimeout(showIdleRandomMessage, 10000);
+        }
+      }
+    }
+
+    function showIdleRandomMessage() {
+      const title = state.userTitle;
+      if (!title) {
+        currentIdleMessage = '제가 뭐라고 부르면 좋을지 알려주세요! 눌러주실 때까지 기다리고 있을게요!';
+      } else {
+        const messages = [];
+        
+        const incompleteTasks = state.checklist ? state.checklist.filter(item => !item.completed).map(item => item.text) : [];
+        if (incompleteTasks.length > 0) {
+          messages.push(`오늘 할 일은 ${incompleteTasks.slice(0, 2).join(', ')} 이에요.`);
+        } else {
+          messages.push(`오늘 할 일은 모두 끝났어요! 정말 멋져요, ${title}!`);
+        }
+        
+        const lastMood = state.lastMood || 'none';
+        if (lastMood === 'good') {
+          messages.push(`${title}이 기분 좋으시다니 저도 너무 기뻐요! 둥실둥실~`);
+        } else if (lastMood === 'sad') {
+          messages.push(`우울한 기분은 저 멀리 날려버려요! 제가 늘 응원하고 있어요.`);
+        } else {
+          messages.push(`오늘 하루는 어떠신가요? 기분이 어떠신지 궁금해요.`);
+        }
+        
+        messages.push(`저랑 훈련하러 가지 않을래요? 오늘 훈련도 힘차게 해봐요!`);
+        messages.push(`몸이 근질근질해요. 어서 훈련을 시작해요!`);
+        
+        const items = ['사탕', '비타민', '마법서'];
+        const randomItem = items[Math.floor(Math.random() * items.length)];
+        messages.push(`${randomItem}은 무슨 맛일지 너무 궁금해요!`);
+        
+        const themes = { forest: '숲', alley: '골목', space: '우주' };
+        const currentTheme = state.currentTheme || 'forest';
+        const otherThemes = Object.keys(themes).filter(t => t !== currentTheme).map(t => themes[t]);
+        const randomTheme = otherThemes[Math.floor(Math.random() * otherThemes.length)];
+        messages.push(`${randomTheme}은 어떤 곳일지 정말 궁금해요.`);
+        
+        currentIdleMessage = messages[Math.floor(Math.random() * messages.length)];
+      }
+      
+      interactionStep = 'idle_message';
+      isHomeBubbleOpen = true;
       renderScreen();
     }
 
@@ -6064,25 +6180,31 @@
             const calVal = parseFloat(calories);
             let foodRecommendation = '';
             if (calVal < 30) {
-              foodRecommendation = '방울토마토 5개(약 15kcal) 정도의 아주 가벼운 간식 수준이에요! 🍅';
+              foodRecommendation = '방울토마토 5개(약 15kcal) 정도의 아주 가벼운 간식 수준이에요!';
             } else if (calVal < 80) {
-              foodRecommendation = '삶은 계란 한 개(약 80kcal) 정도의 칼로리에요! 🥚';
+              foodRecommendation = '삶은 계란 한 개(약 80kcal) 정도의 칼로리에요!';
             } else if (calVal < 150) {
-              foodRecommendation = '바나나 한 개(약 100kcal) 정도의 칼로리에요! 🍌';
+              foodRecommendation = '바나나 한 개(약 100kcal) 정도의 칼로리에요!';
             } else if (calVal < 250) {
-              foodRecommendation = '편의점 삼각김밥 한 개(약 200kcal) 정도의 칼로리에요! 🍙';
+              foodRecommendation = '편의점 삼각김밥 한 개(약 200kcal) 정도의 칼로리에요!';
             } else if (calVal < 350) {
-              foodRecommendation = '흰 쌀밥 한 공기(약 300kcal) 정도의 칼로리에요! 🍚';
+              foodRecommendation = '흰 쌀밥 한 공기(약 300kcal) 정도의 칼로리에요!';
             } else if (calVal < 550) {
-              foodRecommendation = '라면 한 그릇(약 500kcal) 정도의 칼로리에요! 🍜';
+              foodRecommendation = '라면 한 그릇(약 500kcal) 정도의 칼로리에요!';
             } else if (calVal < 800) {
-              foodRecommendation = '맛있는 피자 두 조각(약 700kcal) 정도의 칼로리에요! 🍕';
+              foodRecommendation = '맛있는 피자 두 조각(약 700kcal) 정도의 칼로리에요!';
             } else {
-              foodRecommendation = '우와! 무려 후라이드 치킨 반 마리(약 1000kcal) 이상의 칼로리를 불태우셨어요! 🍗';
+              foodRecommendation = '우와! 무려 후라이드 치킨 반 마리(약 1000kcal) 이상의 칼로리를 불태우셨어요!';
             }
             bubbleText = `<strong>${calories}</strong>kcal 만큼 썼어요!<br>이것은 ${foodRecommendation}`;
             break;
           }
+          case 'idle_message':
+            bubbleText = currentIdleMessage;
+            break;
+          case 'idle_thankyou':
+            bubbleText = currentIdleThankYouMessage;
+            break;
         }
       }
 
@@ -6103,6 +6225,11 @@
       }
 
       switch (interactionStep) {
+        case 'idle_message':
+        case 'idle_thankyou':
+          optionsHTML = '';
+          break;
+
         case 'ask_name':
           optionsHTML = `
             <div style="display: flex; gap: 4px; width: 100%;">
@@ -6319,6 +6446,15 @@
     function setInteractionStep(step) {
       initAudio();
       playBeep('a');
+
+      if (step === 'mood_good') {
+        state.lastMood = 'good';
+        save();
+      } else if (step === 'mood_sad') {
+        state.lastMood = 'sad';
+        save();
+      }
+
       interactionStep = step;
       renderScreen();
     }
@@ -6432,6 +6568,7 @@
           <div class="bounce-slime ${eatingClass}">
             ${drawSprite(typeName, frameIndex)}
             ${renderSpecialParticles()}
+            ${renderReactionParticles()}
           </div>
         `;
 
@@ -6802,19 +6939,19 @@
 
       if (type === 'stone') {
         if (currentStage === 2) return '돌 슬라임';
-        if (currentStage === 3) return '철 슬라임';
-        return '강철 골렘';
+        if (currentStage === 3) return '바위 몬스터';
+        return '새싹 골렘';
       } else if (type === 'aqua') {
         if (currentStage === 2) return '물 슬라임';
-        if (currentStage === 3) return '대양 슬라임';
-        return '포세이돈';
+        if (currentStage === 3) return '머메이션';
+        return '세이론';
       } else if (type === 'dragon') {
-        if (currentStage === 2) return '용용이 슬라임';
-        if (currentStage === 3) return '지옥 화염룡';
+        if (currentStage === 2) return '용용이';
+        if (currentStage === 3) return '인페르뇽';
         return '카이저 드래곤';
       } else if (type === 'wind') {
-        if (currentStage === 2) return '풍차 슬라임';
-        if (currentStage === 3) return '소용돌이 슬라임';
+        if (currentStage === 2) return '바람개비 요정';
+        if (currentStage === 3) return '허리케인 정령';
         return '바람 마법사';
       } else if (type === 'lunya') {
         if (currentStage === 2) return '루냥';
@@ -7374,6 +7511,18 @@
           }
         }
       }
+
+      // 조작 감지 리스너 추가
+      ['mousedown', 'touchstart', 'keydown'].forEach(evtName => {
+        window.addEventListener(evtName, () => {
+          if (interactionStep !== 'idle_thankyou') {
+            resetIdleTimer();
+          }
+        }, { passive: true });
+      });
+
+      // 최초 감시 작동
+      resetIdleTimer();
 
     });
   </script>
