@@ -1941,6 +1941,12 @@
               </svg></span>
             <span class="qty" id="label-largeFont" style="font-size:0.5rem; font-weight:bold;">STD</span>
           </div>
+          <div class="feed-slot" onclick="resetGame()" id="setting-reset" title="초기화" style="color: #ef4444;">
+            <span class="icon"><svg class="pixel-icon" viewBox="0 0 8 8" style="fill:currentColor;">
+                <path d="M4 1 C5.7 1 7 2.3 7 4 H8 L6 6 L4 4 H5 C5 3.4 4.6 3 4 3 C3.4 3 3 3.4 3 4 C3 4.6 3.4 5 4 5 V6 C2.9 6 2 5.1 2 4 C2 2.9 2.9 2 4 2 Z" fill-rule="evenodd" />
+              </svg></span>
+            <span class="qty" style="font-size:0.42rem; font-weight:bold;">RST</span>
+          </div>
         </div>
       </div>
 
@@ -1949,29 +1955,6 @@
         LOADING...
       </div>
     </div>
-
-    <!-- Developer/Simulator Console -->
-    <div class="dev-controls">
-      <div class="dev-title">
-        <span><svg class="pixel-icon" viewBox="0 0 8 8" style="fill:#4b5563;">
-            <path
-              d="M3 0 H5 V1 H6 L7 2 V3 H8 V5 H7 V6 L6 7 H5 V8 H3 V7 L2 6 H1 V5 H0 V3 H1 V2 L2 1 H3 Z M3 3 H5 V5 H3 Z"
-              fill-rule="evenodd" />
-          </svg> 시뮬레이터 제어반</span>
-        <span style="font-size: 0.8rem; color: #ef4444;" id="sensor-badge"><svg class="pixel-icon" viewBox="0 0 8 8"
-            style="fill:#ef4444;">
-            <path d="M2 2 H6 V6 H2 Z" fill-rule="evenodd" />
-          </svg> 센서 비활성</span>
-      </div>
-
-      <!-- 실시간 가속도 시각화 게이지 -->
-      <div class="accel-visualizer" id="accel-visualizer-container" style="display: none; padding: 0 4px;">
-        <span style="white-space: nowrap;">동작 강도:</span>
-        <div class="accel-bar">
-          <div class="accel-fill" id="accel-fill-bar"></div>
-        </div>
-        <span id="accel-val" style="min-width: 35px; text-align: right;">0.0G</span>
-      </div>
 
       <div class="dev-btn-row">
         <button class="dev-btn" onclick="simulateWalk(150)"><svg class="pixel-icon" viewBox="0 0 8 8"
@@ -1986,20 +1969,28 @@
             style="fill:#4b5563;">
             <path d="M4 0 H5 V1 H4 Z M3 2 H6 L5 4 L7 6 H5 L4 5 L3 6 H1 V5 H3 Z" />
           </svg> +2,200걸음</button>
-        <button class="dev-btn" id="btn-pwa-guide" style="display: none;" onclick="showPwaGuide()"><svg
-            class="pixel-icon" viewBox="0 0 8 8" style="fill:#4b5563;">
-            <path d="M2 0 H6 V5 H2 Z M4 4 L6 2 H2 Z Z M2 7 H6 V8 H2 Z" fill-rule="evenodd" />
-          </svg> 앱 설치 가이드</button>
-        <button class="dev-btn" style="background-color: #e11d48; color: white;" onclick="resetGame()"><svg
-            class="pixel-icon" viewBox="0 0 8 8" style="fill:white;">
-            <path
-              d="M4 1 C5.7 1 7 2.3 7 4 H8 L6 6 L4 4 H5 C5 3.4 4.6 3 4 3 C3.4 3 3 3.4 3 4 C3 4.6 3.4 5 4 5 V6 C2.9 6 2 5.1 2 4 C2 2.9 2.9 2 4 2 Z"
-              fill-rule="evenodd" />
-          </svg> 리셋</button>
       </div>
-    </div>
 
     <!-- Log Terminal Deleted -->
+  </div>
+
+  <!-- Reset Confirmation Modal -->
+  <div class="pixel-modal-backdrop" id="reset-confirm-modal" style="display: none; z-index: 2000;" onclick="closeResetModalOutside(event)">
+    <div class="pixel-modal" style="max-width: 320px;">
+      <div class="pixel-modal-header" style="background-color: #ef4444;">
+        <span>RESET GAME</span>
+        <button class="pixel-modal-close" onclick="closeResetModal()">X</button>
+      </div>
+      <div class="pixel-modal-body" style="text-align: center; display: flex; flex-direction: column; gap: 15px;">
+        <div style="font-size: 0.85rem; line-height: 1.6; word-break: keep-all; margin-bottom: 5px;">
+          게임을 리셋하고 새로운 24시간 부화 타이머를 시작할까요? 모든 진행 상황이 초기화됩니다.
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: center; width: 100%;">
+          <button class="dev-btn" style="background-color: #ef4444; color: white; border-color: #b91c1c; flex: 1; padding: 10px 0; font-family: 'NeoDunggeunmo', sans-serif;" onclick="confirmResetGame()">YES</button>
+          <button class="dev-btn" style="flex: 1; padding: 10px 0; font-family: 'NeoDunggeunmo', sans-serif;" onclick="closeResetModal()">NO</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Retro Pixel Help Modal -->
@@ -7280,9 +7271,26 @@
     }
 
     function resetGame() {
-      const confirmed = window.confirm('게임을 리셋하고 새 24시간 부화 타이머를 시작할까요?');
-      if (!confirmed) return;
+      initAudio();
+      playBeep('a');
+      const modal = document.getElementById('reset-confirm-modal');
+      if (modal) modal.style.display = 'flex';
+    }
 
+    function closeResetModal() {
+      playBeep('c');
+      const modal = document.getElementById('reset-confirm-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function closeResetModalOutside(event) {
+      const modal = document.getElementById('reset-confirm-modal');
+      if (modal && event.target === modal) {
+        closeResetModal();
+      }
+    }
+
+    function confirmResetGame() {
       state = {
         dDay: 1,
         hatchStartedAt: Date.now(),
@@ -7316,6 +7324,7 @@
       save();
       addLog('새로운 24시간 부화 타이머가 시작되었습니다.', 'system');
       renderScreen();
+      closeResetModal();
     }
 
     // Simulator-only hatch shortcut: force immediate hatching for testing.
@@ -7455,14 +7464,21 @@
       toggleSensor();
     }
 
+    let lastNativeStepCount = 0;
+
     function toggleSensor() {
       initAudio();
       const badge = document.getElementById('sensor-badge');
       const btn = document.getElementById('btn-device-sensor');
       const visualizer = document.getElementById('accel-visualizer-container');
+      const isCapacitor = window.Capacitor !== undefined || window.cordova !== undefined;
 
       if (isSensorActive) {
-        window.removeEventListener('devicemotion', onDeviceMotion);
+        if (isCapacitor && window.plugins && window.plugins.pedometer) {
+          window.plugins.pedometer.stopPedometerUpdates();
+        } else {
+          window.removeEventListener('devicemotion', onDeviceMotion);
+        }
         isSensorActive = false;
         if (badge) {
           badge.innerHTML = '<svg class="pixel-icon" style="fill:currentColor; margin-right:4px;" viewBox="0 0 8 8" fill-rule="evenodd"><path d="M2 0 H6 L8 2 V6 L6 8 H2 L0 6 V2 Z M2 3 H6 V5 H2 Z"/></svg>센서 비활성';
@@ -7474,31 +7490,73 @@
         if (visualizer) {
           visualizer.style.display = 'none';
         }
-        addLog("스마트폰 가속도 센서 연동이 종료되었습니다.", "system");
+        addLog("스마트폰 센서 연동이 종료되었습니다.", "system");
         return;
       }
 
-      const startSensor = () => {
+      const startNativePedometer = () => {
+        lastNativeStepCount = 0;
+        window.plugins.pedometer.startPedometerUpdates((pedometerData) => {
+          const currentTotalSteps = pedometerData.numberOfSteps;
+          if (lastNativeStepCount === 0) {
+            lastNativeStepCount = currentTotalSteps;
+            return;
+          }
+          const diff = currentTotalSteps - lastNativeStepCount;
+          if (diff > 0) {
+            state.steps += diff;
+            state.totalSteps += diff;
+            lastNativeStepCount = currentTotalSteps;
+            const oldMilestone = Math.floor((state.totalSteps - diff) / 100);
+            const newMilestone = Math.floor(state.totalSteps / 100);
+            if (newMilestone > oldMilestone) {
+              addLog(`걷기 감지: ${newMilestone * 100}걸음 돌파!`, "normal");
+            }
+            renderScreen();
+            save();
+          }
+        }, (error) => {
+          console.error("Native Pedometer Error: ", error);
+          addLog("네이티브 센서 실행 실패. 가속도계로 대체합니다.", "system");
+          startWebSensor();
+        });
+        enableSensorUI(badge, btn, visualizer);
+      };
+
+      const startWebSensor = () => {
         window.addEventListener('devicemotion', onDeviceMotion, { passive: true });
         enableSensorUI(badge, btn, visualizer);
         if (state.settings.vibration && navigator.vibrate) navigator.vibrate([100, 50, 100]); // Haptic link feedback
       };
 
-      if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
-        DeviceMotionEvent.requestPermission()
-          .then(res => {
-            if (res === 'granted') {
-              startSensor();
-            } else {
-              addLog("센서 액세스 권한이 거절되었습니다. iPhone은 HTTPS 환경이 필수입니다.", "system");
-            }
-          })
-          .catch(e => {
-            console.error(e);
-            addLog("센서 권한 획득 오류. HTTPS 보안 연결 상태인지 확인하세요.", "system");
-          });
+      if (isCapacitor && window.plugins && window.plugins.pedometer) {
+        window.plugins.pedometer.isStepCountingAvailable((available) => {
+          if (available) {
+            startNativePedometer();
+          } else {
+            addLog("하드웨어 걸음 감지 장치가 없어 가속도 센서를 사용합니다.", "system");
+            startWebSensor();
+          }
+        }, () => {
+          startWebSensor();
+        });
       } else {
-        startSensor();
+        if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+          DeviceMotionEvent.requestPermission()
+            .then(res => {
+              if (res === 'granted') {
+                startWebSensor();
+              } else {
+                addLog("센서 액세스 권한이 거절되었습니다. iPhone은 HTTPS 환경이 필수입니다.", "system");
+              }
+            })
+            .catch(e => {
+              console.error(e);
+              addLog("센서 권한 획득 오류. HTTPS 보안 연결 상태인지 확인하세요.", "system");
+            });
+        } else {
+          startWebSensor();
+        }
       }
     }
 
